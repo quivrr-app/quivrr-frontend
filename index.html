@@ -91,7 +91,7 @@
         </h1>
       </div>
 
-      <div class="result-grid">
+      <div class="result-grid" id="resultGrid">
         <article class="result-card">
           <span class="stock-tag">Live catalogue</span>
 
@@ -124,6 +124,9 @@
     const constructionSelect = document.getElementById("constructionSelect");
     const sizeSelect = document.getElementById("sizeSelect");
     const brandTrack = document.getElementById("brandTrack");
+    const resultGrid = document.getElementById("resultGrid");
+    const searchButton = document.getElementById("searchButton");
+
     const selectedModel = document.getElementById("selectedModel");
     const selectedSpecs = document.getElementById("selectedSpecs");
     const selectedConstruction = document.getElementById("selectedConstruction");
@@ -134,6 +137,149 @@
       }
 
       return `${size.length} x ${size.width} x ${size.thickness} / ${size.volumeLitres}L`;
+    }
+
+    function formatPrice(value) {
+      if (!value) {
+        return "Price not listed";
+      }
+
+      return `$${Number(value).toLocaleString("en-AU")}`;
+    }
+
+    function createResultCard(result, tagText) {
+      const card = document.createElement("article");
+      card.className = "result-card";
+
+      const tag = document.createElement("span");
+      tag.className = "stock-tag";
+      tag.textContent = tagText;
+
+      const title = document.createElement("h2");
+      title.textContent =
+        result.title ||
+        `${result.brandName} ${result.modelName}`;
+
+      const specs = document.createElement("p");
+      specs.textContent = [
+        result.construction,
+        result.length,
+        result.width,
+        result.thickness,
+        result.volumeLitres ? `${result.volumeLitres}L` : null
+      ].filter(Boolean).join(" | ");
+
+      const price = document.createElement("strong");
+
+      if (result.resultType === "manufacturer") {
+        price.textContent = "Manufacturer catalogue";
+      } else {
+        price.textContent = formatPrice(result.priceAud);
+      }
+
+      const source = document.createElement("small");
+
+      if (result.resultType === "manufacturer") {
+        source.textContent = "JS Industries official catalogue";
+      } else {
+        source.textContent = `${result.retailerName} | ${result.stockStatus}`;
+      }
+
+      card.appendChild(tag);
+      card.appendChild(title);
+      card.appendChild(specs);
+      card.appendChild(price);
+      card.appendChild(source);
+
+      if (result.productUrl) {
+        const link = document.createElement("a");
+        link.href = result.productUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "View board";
+        link.className = "result-link";
+
+        card.appendChild(link);
+      }
+
+      return card;
+    }
+
+    function renderSearchResults(data) {
+      resultGrid.innerHTML = "";
+
+      if (data.manufacturer) {
+        resultGrid.appendChild(
+          createResultCard(
+            {
+              ...data.manufacturer,
+              resultType: "manufacturer"
+            },
+            "Manufacturer"
+          )
+        );
+      }
+
+      data.exactRetailerMatches.forEach(result => {
+        resultGrid.appendChild(
+          createResultCard(
+            result,
+            "Exact retailer match"
+          )
+        );
+      });
+
+      data.closeRetailerMatches.forEach(result => {
+        resultGrid.appendChild(
+          createResultCard(
+            result,
+            "Close retailer match"
+          )
+        );
+      });
+
+      if (
+        !data.manufacturer &&
+        data.exactRetailerMatches.length === 0 &&
+        data.closeRetailerMatches.length === 0
+      ) {
+        const emptyCard = document.createElement("article");
+        emptyCard.className = "result-card";
+
+        emptyCard.innerHTML = `
+          <span class="stock-tag">No results</span>
+          <h2>No matching inventory found</h2>
+          <p>Try another construction or size.</p>
+          <strong>—</strong>
+          <small>Search completed</small>
+        `;
+
+        resultGrid.appendChild(emptyCard);
+      }
+
+      document.querySelector(".results-preview").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    async function runSearch() {
+      const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+
+      if (!selectedSize || !selectedSize.value) {
+        return;
+      }
+
+      searchButton.textContent = "WAIT";
+
+      const response = await fetch(
+        `${API_BASE}/api/search?boardSizeId=${selectedSize.value}`
+      );
+
+      const data = await response.json();
+
+      renderSearchResults(data);
+
+      searchButton.textContent = "GO.";
     }
 
     async function loadBrands() {
@@ -295,6 +441,8 @@
     sizeSelect.addEventListener("change", () => {
       updatePreview();
     });
+
+    searchButton.addEventListener("click", runSearch);
 
     loadBrands();
   </script>

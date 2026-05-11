@@ -392,3 +392,17 @@ footer {
     font-size: 3rem;
   }
 }
+.result-link {
+  display: inline-flex;
+
+  margin-top: 1.5rem;
+
+  color: var(--slate);
+
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.result-link:hover {
+  opacity: 0.7;
+}
