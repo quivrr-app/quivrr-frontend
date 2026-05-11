@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Quivrr | Find Your Board</title>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>
+    Quivrr | Find Your Board
+  </title>
 
   <meta
     name="description"
     content="Search surfboard inventory across Australian retailers."
   />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  />
+
 </head>
 
 <body>
@@ -19,7 +30,11 @@
   <header class="site-header">
 
     <a class="brand" href="/">
-      <span class="brand-logo">quivrr</span>
+
+      <span class="brand-logo">
+        quivrr
+      </span>
+
     </a>
 
     <nav class="region-nav">
@@ -92,7 +107,10 @@
 
           </label>
 
-          <button type="button" id="searchButton">
+          <button
+            type="button"
+            id="searchButton"
+          >
             GO.
           </button>
 
@@ -104,9 +122,10 @@
 
     <section class="brand-strip">
 
-      <div class="brand-track" id="brandTrack">
-
-      </div>
+      <div
+        class="brand-track"
+        id="brandTrack"
+      ></div>
 
     </section>
 
@@ -114,10 +133,13 @@
 
       <div class="section-heading">
 
-        <p>Results preview</p>
+        <p>
+          Results preview
+        </p>
 
         <h1>
-          Compare stock, price and retailer location in one view.
+          Compare stock, price and retailer
+          location in one view.
         </h1>
 
       </div>
@@ -135,7 +157,8 @@
           </h2>
 
           <p id="selectedSpecs">
-            Construction and dimensions will appear here.
+            Construction and dimensions
+            will appear here.
           </p>
 
           <strong id="selectedConstruction">
@@ -157,8 +180,9 @@
   <footer>
 
     <p>
-      Quivrr is building the surfboard search engine,
-      starting with Australian inventory.
+      Quivrr is building the surfboard
+      search engine, starting with
+      Australian inventory.
     </p>
 
   </footer>
@@ -167,16 +191,29 @@
 
     const API_BASE = "http://127.0.0.1:8000";
 
-    const brandSelect = document.getElementById("brandSelect");
-    const modelSelect = document.getElementById("modelSelect");
-    const constructionSelect = document.getElementById("constructionSelect");
-    const sizeSelect = document.getElementById("sizeSelect");
+    const brandSelect =
+      document.getElementById("brandSelect");
 
-    const brandTrack = document.getElementById("brandTrack");
+    const modelSelect =
+      document.getElementById("modelSelect");
 
-    const selectedModel = document.getElementById("selectedModel");
-    const selectedSpecs = document.getElementById("selectedSpecs");
-    const selectedConstruction = document.getElementById("selectedConstruction");
+    const constructionSelect =
+      document.getElementById("constructionSelect");
+
+    const sizeSelect =
+      document.getElementById("sizeSelect");
+
+    const brandTrack =
+      document.getElementById("brandTrack");
+
+    const selectedModel =
+      document.getElementById("selectedModel");
+
+    const selectedSpecs =
+      document.getElementById("selectedSpecs");
+
+    const selectedConstruction =
+      document.getElementById("selectedConstruction");
 
     async function loadBrands() {
 
@@ -192,16 +229,19 @@
 
       brands.forEach(brand => {
 
-        const option = document.createElement("option");
+        const option =
+          document.createElement("option");
 
         option.value = brand.brandId;
         option.textContent = brand.brandName;
 
         brandSelect.appendChild(option);
 
-        const brandItem = document.createElement("span");
+        const brandItem =
+          document.createElement("span");
 
-        brandItem.textContent = brand.brandName;
+        brandItem.textContent =
+          brand.brandName;
 
         brandTrack.appendChild(brandItem);
 
@@ -209,9 +249,11 @@
 
       brands.forEach(brand => {
 
-        const brandItem = document.createElement("span");
+        const brandItem =
+          document.createElement("span");
 
-        brandItem.textContent = brand.brandName;
+        brandItem.textContent =
+          brand.brandName;
 
         brandTrack.appendChild(brandItem);
 
@@ -219,7 +261,9 @@
 
       if (brands.length > 0) {
 
-        await loadModels(brands[0].brandId);
+        await loadModels(
+          brands[0].brandId
+        );
 
       }
 
@@ -236,22 +280,44 @@
       modelSelect.innerHTML = "";
 
       constructionSelect.innerHTML = "";
+
       sizeSelect.innerHTML = "";
+
+      const uniqueModels = [];
+
+      const seen = new Set();
 
       models.forEach(model => {
 
-        const option = document.createElement("option");
+        if (!seen.has(model.modelName)) {
+
+          seen.add(model.modelName);
+
+          uniqueModels.push(model);
+
+        }
+
+      });
+
+      uniqueModels.forEach(model => {
+
+        const option =
+          document.createElement("option");
 
         option.value = model.modelId;
-        option.textContent = model.modelName;
+
+        option.textContent =
+          model.modelName;
 
         modelSelect.appendChild(option);
 
       });
 
-      if (models.length > 0) {
+      if (uniqueModels.length > 0) {
 
-        await loadConstructions(models[0].modelId);
+        await loadConstructions(
+          uniqueModels[0].modelId
+        );
 
       }
 
@@ -263,16 +329,23 @@
         `${API_BASE}/api/constructions/${modelId}`
       );
 
-      const constructions = await response.json();
+      const constructions =
+        await response.json();
 
       constructionSelect.innerHTML = "";
 
+      sizeSelect.innerHTML = "";
+
       constructions.forEach(item => {
 
-        const option = document.createElement("option");
+        const option =
+          document.createElement("option");
 
-        option.value = item.construction;
-        option.textContent = item.construction;
+        option.value =
+          item.construction;
+
+        option.textContent =
+          item.construction;
 
         constructionSelect.appendChild(option);
 
@@ -289,28 +362,39 @@
 
     }
 
-    async function loadSizes(modelId, construction) {
+    async function loadSizes(
+      modelId,
+      construction
+    ) {
 
       const response = await fetch(
         `${API_BASE}/api/sizes/${modelId}/${construction}`
       );
 
-      const sizes = await response.json();
+      const sizes =
+        await response.json();
 
       sizeSelect.innerHTML = "";
 
       sizes.forEach(size => {
 
-        const option = document.createElement("option");
+        const option =
+          document.createElement("option");
 
-        option.value = size.boardSizeId;
+        option.value =
+          size.boardSizeId;
 
         option.textContent =
           `${size.length} / ${size.volumeLitres}L`;
 
-        option.dataset.length = size.length;
-        option.dataset.volume = size.volumeLitres;
-        option.dataset.construction = size.construction;
+        option.dataset.length =
+          size.length;
+
+        option.dataset.volume =
+          size.volumeLitres;
+
+        option.dataset.construction =
+          size.construction;
 
         sizeSelect.appendChild(option);
 
@@ -356,7 +440,9 @@
       "change",
       async event => {
 
-        await loadModels(event.target.value);
+        await loadModels(
+          event.target.value
+        );
 
       }
     );
@@ -365,7 +451,9 @@
       "change",
       async event => {
 
-        await loadConstructions(event.target.value);
+        await loadConstructions(
+          event.target.value
+        );
 
       }
     );
