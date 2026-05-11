@@ -117,7 +117,7 @@
   </footer>
 
   <script>
-    const API_BASE = "http://127.0.0.1:8000";
+    const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
 
     const brandSelect = document.getElementById("brandSelect");
     const modelSelect = document.getElementById("modelSelect");
@@ -373,7 +373,7 @@
 
     async function loadSizes(modelId, construction) {
       const response = await fetch(
-        `${API_BASE}/api/sizes/${modelId}/${construction}`
+        `${API_BASE}/api/sizes/${modelId}/${encodeURIComponent(construction)}`
       );
 
       const sizes = await response.json();
