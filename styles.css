@@ -215,7 +215,7 @@ a {
 
   width: max-content;
 
-  animation: scrollBrands 40s linear infinite;
+  animation: scrollBrands 45s linear infinite;
 }
 
 .brand-track span {
@@ -272,7 +272,7 @@ a {
 
 .result-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
@@ -284,6 +284,8 @@ a {
   padding: 2rem;
 
   min-height: 280px;
+
+  max-width: 520px;
 }
 
 .stock-tag {
@@ -299,11 +301,6 @@ a {
   font-weight: 700;
 
   margin-bottom: 2rem;
-}
-
-.stock-tag.muted {
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--charcoal);
 }
 
 .result-card h2 {
@@ -356,10 +353,6 @@ footer {
 
   .search-bar button {
     grid-column: span 2;
-  }
-
-  .result-grid {
-    grid-template-columns: 1fr;
   }
 }
 
