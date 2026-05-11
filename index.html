@@ -3,105 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Quivrr | Find Your Board</title>
-  <meta name="description" content="Quivrr helps surfers find the exact surfboard they want across Australian surf retailers." />
+
+  <meta
+    name="description"
+    content="Search surfboard inventory across Australian retailers."
+  />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+
   <header class="site-header">
+
     <a class="brand" href="/">
       <span class="brand-logo">quivrr</span>
     </a>
 
-    <nav class="region-nav" aria-label="Region navigation">
+    <nav class="region-nav">
+
       <a href="/au" class="active">AU</a>
       <a href="/eu">EU</a>
       <a href="/us">US</a>
       <a href="/id">ID</a>
       <a href="/br">BR</a>
+
     </nav>
+
   </header>
 
   <main>
+
     <section class="hero">
+
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
-        <p class="hero-kicker">Find your board</p>
-        <p class="hero-subtitle">Estd 2026</p>
 
-        <form class="search-bar" aria-label="Surfboard search">
+        <p class="hero-kicker">
+          Find your board
+        </p>
+
+        <p class="hero-subtitle">
+          Estd 2026
+        </p>
+
+        <form class="search-bar">
+
           <label>
+
             <span>Brand</span>
-            <select>
-              <option>JS Industries</option>
+
+            <select id="brandSelect">
+              <option>Loading brands...</option>
             </select>
+
           </label>
 
           <label>
+
             <span>Model</span>
-            <select>
+
+            <select id="modelSelect">
               <option>Select model</option>
-              <option>Xero Gravity</option>
-              <option>Xero Fusion</option>
-              <option>Monsta Box</option>
-              <option>Sub Xero</option>
             </select>
+
           </label>
 
           <label>
+
             <span>Dimensions</span>
-            <select>
+
+            <select id="sizeSelect">
               <option>Select dimensions</option>
-              <option>5'8 / 18 3/4 / 2 5/16 / 26.3L</option>
-              <option>5'9 / 18 7/8 / 2 3/8 / 27.4L</option>
-              <option>5'10 / 19 / 2 3/8 / 28.4L</option>
             </select>
+
           </label>
 
           <label>
+
             <span>Construction</span>
-            <select>
+
+            <select id="constructionSelect">
               <option>Select construction</option>
-              <option>HYFI 3.0</option>
-              <option>PU</option>
-              <option>CarboTune</option>
             </select>
+
           </label>
 
-          <button type="button">GO.</button>
+          <button type="button" id="searchButton">
+            GO.
+          </button>
+
         </form>
+
       </div>
+
     </section>
 
-    <section class="brand-strip" aria-label="Supported surfboard brands">
+    <section class="brand-strip">
+
       <div class="brand-track">
-        <span>JS Industries</span>
-        <span>Pyzel</span>
-        <span>Lost</span>
-        <span>Channel Islands</span>
-        <span>Firewire</span>
-        <span>Haydenshapes</span>
-        <span>DHD</span>
-        <span>Sharp Eye</span>
-        <span>Album</span>
-        <span>Christenson</span>
-        <span>Aipa</span>
-        <span>Chilli</span>
-        <span>Rusty</span>
-        <span>Pukas</span>
-        <span>McTavish</span>
-        <span>CJ Nelson</span>
-        <span>Slater Designs</span>
-        <span>T Patterson</span>
-        <span>Chemistry</span>
-        <span>Bing</span>
-        <span>NSP</span>
-        <span>Walden</span>
-        <span>Love Machine</span>
-        <span>Mick Mackie</span>
-        <span>Dark Arts</span>
 
         <span>JS Industries</span>
         <span>Pyzel</span>
@@ -113,60 +116,270 @@
         <span>Sharp Eye</span>
         <span>Album</span>
         <span>Christenson</span>
-        <span>Aipa</span>
         <span>Chilli</span>
-        <span>Rusty</span>
-        <span>Pukas</span>
-        <span>McTavish</span>
-        <span>CJ Nelson</span>
-        <span>Slater Designs</span>
-        <span>T Patterson</span>
-        <span>Chemistry</span>
-        <span>Bing</span>
-        <span>NSP</span>
-        <span>Walden</span>
-        <span>Love Machine</span>
-        <span>Mick Mackie</span>
         <span>Dark Arts</span>
+        <span>Chemistry</span>
+        <span>McTavish</span>
+        <span>Rusty</span>
+        <span>NSP</span>
+        <span>Pukas</span>
+        <span>Slater Designs</span>
+        <span>Bing</span>
+        <span>Love Machine</span>
+
+        <span>JS Industries</span>
+        <span>Pyzel</span>
+        <span>Lost</span>
+        <span>Channel Islands</span>
+        <span>Firewire</span>
+        <span>Haydenshapes</span>
+        <span>DHD</span>
+        <span>Sharp Eye</span>
+        <span>Album</span>
+        <span>Christenson</span>
+        <span>Chilli</span>
+        <span>Dark Arts</span>
+        <span>Chemistry</span>
+        <span>McTavish</span>
+        <span>Rusty</span>
+        <span>NSP</span>
+        <span>Pukas</span>
+        <span>Slater Designs</span>
+        <span>Bing</span>
+        <span>Love Machine</span>
+
       </div>
+
     </section>
 
     <section class="results-preview">
+
       <div class="section-heading">
+
         <p>Results preview</p>
-        <h1>Compare stock, price and retailer location in one view.</h1>
+
+        <h1>
+          Compare stock, price and retailer location in one view.
+        </h1>
+
       </div>
 
       <div class="result-grid">
+
         <article class="result-card">
-          <span class="stock-tag">In stock</span>
+
+          <span class="stock-tag">
+            In stock
+          </span>
+
           <h2>JS Xero Gravity</h2>
-          <p>5'10 / 28.4L / HYFI 3.0</p>
-          <strong>$1,049</strong>
-          <small>Surfboard Empire · Gold Coast</small>
+
+          <p>
+            5'10 / 28.4L / HYFI 3.0
+          </p>
+
+          <strong>
+            $1,049
+          </strong>
+
+          <small>
+            Surfboard Empire · Gold Coast
+          </small>
+
         </article>
 
         <article class="result-card">
-          <span class="stock-tag">In stock</span>
+
+          <span class="stock-tag">
+            In stock
+          </span>
+
           <h2>JS Xero Fusion</h2>
-          <p>5'9 / 29L / PU</p>
-          <strong>$999</strong>
-          <small>Boardcave · Online</small>
+
+          <p>
+            5'9 / 29L / PU
+          </p>
+
+          <strong>
+            $999
+          </strong>
+
+          <small>
+            Boardcave · Online
+          </small>
+
         </article>
 
         <article class="result-card">
-          <span class="stock-tag muted">Closest match</span>
+
+          <span class="stock-tag muted">
+            Closest match
+          </span>
+
           <h2>JS Monsta Box</h2>
-          <p>5'9 / 28.3L / HYFI</p>
-          <strong>$1,099</strong>
-          <small>Natural Necessity · Gerringong</small>
+
+          <p>
+            5'9 / 28.3L / HYFI
+          </p>
+
+          <strong>
+            $1,099
+          </strong>
+
+          <small>
+            Natural Necessity · Gerringong
+          </small>
+
         </article>
+
       </div>
+
     </section>
+
   </main>
 
   <footer>
-    <p>Quivrr is building the surfboard search engine, starting with Australian inventory.</p>
+
+    <p>
+      Quivrr is building the surfboard search engine,
+      starting with Australian inventory.
+    </p>
+
   </footer>
+
+  <script>
+
+    const API_BASE = "http://127.0.0.1:8000";
+
+    const brandSelect = document.getElementById("brandSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const sizeSelect = document.getElementById("sizeSelect");
+    const constructionSelect = document.getElementById("constructionSelect");
+
+    async function loadBrands() {
+
+      const response = await fetch(
+        `${API_BASE}/api/brands`
+      );
+
+      const brands = await response.json();
+
+      brandSelect.innerHTML = "";
+
+      brands.forEach(brand => {
+
+        const option = document.createElement("option");
+
+        option.value = brand.brandId;
+        option.textContent = brand.brandName;
+
+        brandSelect.appendChild(option);
+
+      });
+
+      if (brands.length > 0) {
+
+        loadModels(brands[0].brandId);
+
+      }
+
+    }
+
+    async function loadModels(brandId) {
+
+      const response = await fetch(
+        `${API_BASE}/api/models/${brandId}`
+      );
+
+      const models = await response.json();
+
+      modelSelect.innerHTML = "";
+
+      models.forEach(model => {
+
+        const option = document.createElement("option");
+
+        option.value = model.modelId;
+        option.textContent = model.modelName;
+
+        modelSelect.appendChild(option);
+
+      });
+
+      if (models.length > 0) {
+
+        loadSizes(models[0].modelId);
+
+      }
+
+    }
+
+    async function loadSizes(modelId) {
+
+      const response = await fetch(
+        `${API_BASE}/api/sizes/${modelId}`
+      );
+
+      const sizes = await response.json();
+
+      sizeSelect.innerHTML = "";
+      constructionSelect.innerHTML = "";
+
+      const constructions = new Set();
+
+      sizes.forEach(size => {
+
+        const sizeOption = document.createElement("option");
+
+        sizeOption.value = size.boardSizeId;
+
+        sizeOption.textContent =
+          `${size.length} / ${size.volumeLitres}L`;
+
+        sizeSelect.appendChild(sizeOption);
+
+        if (size.construction) {
+
+          constructions.add(size.construction);
+
+        }
+
+      });
+
+      constructions.forEach(construction => {
+
+        const option = document.createElement("option");
+
+        option.value = construction;
+        option.textContent = construction;
+
+        constructionSelect.appendChild(option);
+
+      });
+
+    }
+
+    brandSelect.addEventListener(
+      "change",
+      event => {
+
+        loadModels(event.target.value);
+
+      }
+    );
+
+    modelSelect.addEventListener(
+      "change",
+      event => {
+
+        loadSizes(event.target.value);
+
+      }
+    );
+
+    loadBrands();
+
+  </script>
+
 </body>
 </html>
