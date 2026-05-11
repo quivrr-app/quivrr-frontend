@@ -3,64 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quivrr | Surfboard Search Engine</title>
-  <meta name="description" content="Quivrr helps surfers find the exact board they want across Australian surf retailers." />
+  <title>Quivrr | Find the board you want</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <header class="site-header">
-    <div class="brand">Quivrr</div>
-    <nav>
-      <a href="#search">Search</a>
-      <a href="#alerts">Alerts</a>
-      <a href="#retailers">Retailers</a>
+    <a class="brand" href="/">
+      <span class="brand-mark">Q</span>
+      <span>Quivrr</span>
+    </a>
+
+    <nav class="region-nav" aria-label="Region navigation">
+      <a href="/au" class="active">AU</a>
+      <a href="/eu">EU</a>
+      <a href="/us">US</a>
+      <a href="/id">ID</a>
+      <a href="/br">BR</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <p class="eyebrow">Australia launch</p>
-      <h1>Find the exact surfboard you are chasing.</h1>
-      <p class="hero-copy">
-        Quivrr searches surfboard inventory across Australian retailers, helping you compare stock,
-        dimensions, litres, fin setup, construction and price in one place.
-      </p>
-
-      <div class="search-card" id="search">
-        <label for="board-search">Start with a board, model or size</label>
-        <div class="search-row">
-          <input id="board-search" type="text" placeholder="Example: JS Xero Gravity 5'10 28.4L Futures" />
-          <button type="button">Search soon</button>
-        </div>
-        <p class="helper-text">Guided brand, model, construction and size search is coming first.</p>
+      <div class="hero-copy">
+        <p class="eyebrow">Australia MVP</p>
+        <h1>Find the exact surfboard sitting in stock right now.</h1>
+        <p class="hero-text">
+          Search Australian retailers by brand, model, construction and dimensions.
+          Starting with JS Industries.
+        </p>
       </div>
+
+      <section class="search-panel" aria-label="Surfboard search">
+        <div class="panel-header">
+          <p>Board Search</p>
+          <span>Live inventory preview</span>
+        </div>
+
+        <form class="search-form">
+          <label>
+            Brand
+            <select>
+              <option>JS Industries</option>
+            </select>
+          </label>
+
+          <label>
+            Model
+            <select>
+              <option>Select model</option>
+              <option>Xero Gravity</option>
+              <option>Xero Fusion</option>
+              <option>Monsta Box</option>
+              <option>Sub Xero</option>
+            </select>
+          </label>
+
+          <label>
+            Dimensions
+            <select>
+              <option>Select dimensions</option>
+              <option>5'8 / 18 3/4 / 2 5/16 / 26.3L</option>
+              <option>5'9 / 18 7/8 / 2 3/8 / 27.4L</option>
+              <option>5'10 / 19 / 2 3/8 / 28.4L</option>
+            </select>
+          </label>
+
+          <label>
+            Construction
+            <select>
+              <option>Select construction</option>
+              <option>HYFI 3.0</option>
+              <option>PU</option>
+              <option>CarboTune</option>
+            </select>
+          </label>
+
+          <button type="button">GO</button>
+        </form>
+      </section>
     </section>
 
-    <section class="feature-grid">
-      <article>
-        <h2>Search live inventory</h2>
-        <p>Find boards across surf shops without checking every store manually.</p>
-      </article>
+    <section class="results-preview">
+      <div>
+        <p class="eyebrow">Results preview</p>
+        <h2>Compare stock, price and retailer location in one view.</h2>
+      </div>
 
-      <article>
-        <h2>Compare landed cost</h2>
-        <p>See price, likely freight and total estimate before clicking through.</p>
-      </article>
+      <div class="result-grid">
+        <article class="result-card">
+          <span class="stock-tag">In stock</span>
+          <h3>JS Xero Gravity</h3>
+          <p>5'10 / 28.4L / HYFI 3.0</p>
+          <strong>$1,049</strong>
+          <small>Surfboard Empire · Gold Coast</small>
+        </article>
 
-      <article id="alerts">
-        <h2>Save alerts</h2>
-        <p>Get notified when the right model, size or price becomes available.</p>
-      </article>
+        <article class="result-card">
+          <span class="stock-tag">In stock</span>
+          <h3>JS Xero Fusion</h3>
+          <p>5'9 / 29L / PU</p>
+          <strong>$999</strong>
+          <small>Boardcave · Online</small>
+        </article>
 
-      <article id="retailers">
-        <h2>Support local retailers</h2>
-        <p>Quivrr sends surfers directly to the retailer to buy or contact the store.</p>
-      </article>
+        <article class="result-card">
+          <span class="stock-tag muted">Closest match</span>
+          <h3>JS Monsta Box</h3>
+          <p>5'9 / 28.3L / HYFI</p>
+          <strong>$1,099</strong>
+          <small>Natural Necessity · Gerringong</small>
+        </article>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>Quivrr.app is being built for surfers, shapers and surf retailers.</p>
+    <p>Quivrr is building the surfboard search engine, starting with Australian inventory.</p>
   </footer>
 </body>
 </html>
