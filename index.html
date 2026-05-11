@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quivrr | Find the board you want</title>
+  <title>Quivrr | Find Your Board</title>
+  <meta name="description" content="Quivrr helps surfers find the exact surfboard they want across Australian surf retailers." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <header class="site-header">
     <a class="brand" href="/">
-      <span class="brand-mark">Q</span>
-      <span>Quivrr</span>
+      <span class="brand-logo">quivrr</span>
     </a>
 
     <nav class="region-nav" aria-label="Region navigation">
@@ -25,31 +25,22 @@
 
   <main>
     <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Australia MVP</p>
-        <h1>Find the exact surfboard sitting in stock right now.</h1>
-        <p class="hero-text">
-          Search Australian retailers by brand, model, construction and dimensions.
-          Starting with JS Industries.
-        </p>
-      </div>
+      <div class="hero-overlay"></div>
 
-      <section class="search-panel" aria-label="Surfboard search">
-        <div class="panel-header">
-          <p>Board Search</p>
-          <span>Live inventory preview</span>
-        </div>
+      <div class="hero-content">
+        <p class="hero-kicker">Find your board</p>
+        <p class="hero-subtitle">Estd 2026</p>
 
-        <form class="search-form">
+        <form class="search-bar" aria-label="Surfboard search">
           <label>
-            Brand
+            <span>Brand</span>
             <select>
               <option>JS Industries</option>
             </select>
           </label>
 
           <label>
-            Model
+            <span>Model</span>
             <select>
               <option>Select model</option>
               <option>Xero Gravity</option>
@@ -60,7 +51,7 @@
           </label>
 
           <label>
-            Dimensions
+            <span>Dimensions</span>
             <select>
               <option>Select dimensions</option>
               <option>5'8 / 18 3/4 / 2 5/16 / 26.3L</option>
@@ -70,7 +61,7 @@
           </label>
 
           <label>
-            Construction
+            <span>Construction</span>
             <select>
               <option>Select construction</option>
               <option>HYFI 3.0</option>
@@ -79,21 +70,77 @@
             </select>
           </label>
 
-          <button type="button">GO</button>
+          <button type="button">GO.</button>
         </form>
-      </section>
+      </div>
+    </section>
+
+    <section class="brand-strip" aria-label="Supported surfboard brands">
+      <div class="brand-track">
+        <span>JS Industries</span>
+        <span>Pyzel</span>
+        <span>Lost</span>
+        <span>Channel Islands</span>
+        <span>Firewire</span>
+        <span>Haydenshapes</span>
+        <span>DHD</span>
+        <span>Sharp Eye</span>
+        <span>Album</span>
+        <span>Christenson</span>
+        <span>Aipa</span>
+        <span>Chilli</span>
+        <span>Rusty</span>
+        <span>Pukas</span>
+        <span>McTavish</span>
+        <span>CJ Nelson</span>
+        <span>Slater Designs</span>
+        <span>T Patterson</span>
+        <span>Chemistry</span>
+        <span>Bing</span>
+        <span>NSP</span>
+        <span>Walden</span>
+        <span>Love Machine</span>
+        <span>Mick Mackie</span>
+        <span>Dark Arts</span>
+
+        <span>JS Industries</span>
+        <span>Pyzel</span>
+        <span>Lost</span>
+        <span>Channel Islands</span>
+        <span>Firewire</span>
+        <span>Haydenshapes</span>
+        <span>DHD</span>
+        <span>Sharp Eye</span>
+        <span>Album</span>
+        <span>Christenson</span>
+        <span>Aipa</span>
+        <span>Chilli</span>
+        <span>Rusty</span>
+        <span>Pukas</span>
+        <span>McTavish</span>
+        <span>CJ Nelson</span>
+        <span>Slater Designs</span>
+        <span>T Patterson</span>
+        <span>Chemistry</span>
+        <span>Bing</span>
+        <span>NSP</span>
+        <span>Walden</span>
+        <span>Love Machine</span>
+        <span>Mick Mackie</span>
+        <span>Dark Arts</span>
+      </div>
     </section>
 
     <section class="results-preview">
-      <div>
-        <p class="eyebrow">Results preview</p>
-        <h2>Compare stock, price and retailer location in one view.</h2>
+      <div class="section-heading">
+        <p>Results preview</p>
+        <h1>Compare stock, price and retailer location in one view.</h1>
       </div>
 
       <div class="result-grid">
         <article class="result-card">
           <span class="stock-tag">In stock</span>
-          <h3>JS Xero Gravity</h3>
+          <h2>JS Xero Gravity</h2>
           <p>5'10 / 28.4L / HYFI 3.0</p>
           <strong>$1,049</strong>
           <small>Surfboard Empire · Gold Coast</small>
@@ -101,7 +148,7 @@
 
         <article class="result-card">
           <span class="stock-tag">In stock</span>
-          <h3>JS Xero Fusion</h3>
+          <h2>JS Xero Fusion</h2>
           <p>5'9 / 29L / PU</p>
           <strong>$999</strong>
           <small>Boardcave · Online</small>
@@ -109,7 +156,7 @@
 
         <article class="result-card">
           <span class="stock-tag muted">Closest match</span>
-          <h3>JS Monsta Box</h3>
+          <h2>JS Monsta Box</h2>
           <p>5'9 / 28.3L / HYFI</p>
           <strong>$1,099</strong>
           <small>Natural Necessity · Gerringong</small>
