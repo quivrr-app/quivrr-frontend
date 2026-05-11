@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
-
   <meta charset="UTF-8" />
 
   <meta
@@ -9,479 +8,295 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>
-    Quivrr | Find Your Board
-  </title>
+  <title>Quivrr | Find Your Board</title>
 
   <meta
     name="description"
     content="Search surfboard inventory across Australian retailers."
   />
 
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  />
-
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-
   <header class="site-header">
-
     <a class="brand" href="/">
-
-      <span class="brand-logo">
-        quivrr
-      </span>
-
+      <span class="brand-logo">quivrr</span>
     </a>
 
     <nav class="region-nav">
-
       <a href="/au" class="active">AU</a>
       <a href="/eu">EU</a>
       <a href="/us">US</a>
       <a href="/id">ID</a>
       <a href="/br">BR</a>
-
     </nav>
-
   </header>
 
   <main>
-
     <section class="hero">
-
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
-
-        <p class="hero-kicker">
-          Find your board
-        </p>
-
-        <p class="hero-subtitle">
-          Estd 2026
-        </p>
+        <p class="hero-kicker">Find your board</p>
+        <p class="hero-subtitle">Estd 2026</p>
 
         <form class="search-bar">
-
           <label>
-
             <span>Brand</span>
-
             <select id="brandSelect">
               <option>Loading brands...</option>
             </select>
-
           </label>
 
           <label>
-
             <span>Model</span>
-
             <select id="modelSelect">
               <option>Select model</option>
             </select>
-
           </label>
 
           <label>
-
             <span>Construction</span>
-
             <select id="constructionSelect">
               <option>Select construction</option>
             </select>
-
           </label>
 
-          <label>
-
+          <label class="dimensions-field">
             <span>Dimensions</span>
-
             <select id="sizeSelect">
               <option>Select dimensions</option>
             </select>
-
           </label>
 
-          <button
-            type="button"
-            id="searchButton"
-          >
+          <button type="button" id="searchButton">
             GO.
           </button>
-
         </form>
-
       </div>
-
     </section>
 
     <section class="brand-strip">
-
-      <div
-        class="brand-track"
-        id="brandTrack"
-      ></div>
-
+      <div class="brand-track" id="brandTrack"></div>
     </section>
 
     <section class="results-preview">
-
       <div class="section-heading">
-
-        <p>
-          Results preview
-        </p>
+        <p>Results preview</p>
 
         <h1>
           Compare stock, price and retailer
           location in one view.
         </h1>
-
       </div>
 
       <div class="result-grid">
-
         <article class="result-card">
+          <span class="stock-tag">Live catalogue</span>
 
-          <span class="stock-tag">
-            Live catalogue
-          </span>
-
-          <h2 id="selectedModel">
-            Select a board
-          </h2>
+          <h2 id="selectedModel">Select a board</h2>
 
           <p id="selectedSpecs">
-            Construction and dimensions
-            will appear here.
+            Construction and dimensions will appear here.
           </p>
 
-          <strong id="selectedConstruction">
-            —
-          </strong>
+          <strong id="selectedConstruction">—</strong>
 
-          <small>
-            Live SQL catalogue data
-          </small>
-
+          <small>Live SQL catalogue data</small>
         </article>
-
       </div>
-
     </section>
-
   </main>
 
   <footer>
-
     <p>
-      Quivrr is building the surfboard
-      search engine, starting with
-      Australian inventory.
+      Quivrr is building the surfboard search engine,
+      starting with Australian inventory.
     </p>
-
   </footer>
 
   <script>
-
     const API_BASE = "http://127.0.0.1:8000";
 
-    const brandSelect =
-      document.getElementById("brandSelect");
+    const brandSelect = document.getElementById("brandSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const constructionSelect = document.getElementById("constructionSelect");
+    const sizeSelect = document.getElementById("sizeSelect");
+    const brandTrack = document.getElementById("brandTrack");
+    const selectedModel = document.getElementById("selectedModel");
+    const selectedSpecs = document.getElementById("selectedSpecs");
+    const selectedConstruction = document.getElementById("selectedConstruction");
 
-    const modelSelect =
-      document.getElementById("modelSelect");
+    function formatSizeLabel(size) {
+      if (size.label) {
+        return size.label;
+      }
 
-    const constructionSelect =
-      document.getElementById("constructionSelect");
-
-    const sizeSelect =
-      document.getElementById("sizeSelect");
-
-    const brandTrack =
-      document.getElementById("brandTrack");
-
-    const selectedModel =
-      document.getElementById("selectedModel");
-
-    const selectedSpecs =
-      document.getElementById("selectedSpecs");
-
-    const selectedConstruction =
-      document.getElementById("selectedConstruction");
+      return `${size.length} x ${size.width} x ${size.thickness} / ${size.volumeLitres}L`;
+    }
 
     async function loadBrands() {
-
-      const response = await fetch(
-        `${API_BASE}/api/brands`
-      );
-
+      const response = await fetch(`${API_BASE}/api/brands`);
       const brands = await response.json();
 
       brandSelect.innerHTML = "";
-
       brandTrack.innerHTML = "";
 
       brands.forEach(brand => {
-
-        const option =
-          document.createElement("option");
+        const option = document.createElement("option");
 
         option.value = brand.brandId;
         option.textContent = brand.brandName;
 
         brandSelect.appendChild(option);
 
-        const brandItem =
-          document.createElement("span");
-
-        brandItem.textContent =
-          brand.brandName;
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
 
         brandTrack.appendChild(brandItem);
-
       });
 
       brands.forEach(brand => {
-
-        const brandItem =
-          document.createElement("span");
-
-        brandItem.textContent =
-          brand.brandName;
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
 
         brandTrack.appendChild(brandItem);
-
       });
 
       if (brands.length > 0) {
-
-        await loadModels(
-          brands[0].brandId
-        );
-
+        await loadModels(brands[0].brandId);
       }
-
     }
 
     async function loadModels(brandId) {
-
-      const response = await fetch(
-        `${API_BASE}/api/models/${brandId}`
-      );
-
+      const response = await fetch(`${API_BASE}/api/models/${brandId}`);
       const models = await response.json();
 
       modelSelect.innerHTML = "";
-
       constructionSelect.innerHTML = "";
-
       sizeSelect.innerHTML = "";
 
       const uniqueModels = [];
-
       const seen = new Set();
 
       models.forEach(model => {
-
         if (!seen.has(model.modelName)) {
-
           seen.add(model.modelName);
-
           uniqueModels.push(model);
-
         }
-
       });
 
       uniqueModels.forEach(model => {
-
-        const option =
-          document.createElement("option");
+        const option = document.createElement("option");
 
         option.value = model.modelId;
-
-        option.textContent =
-          model.modelName;
+        option.textContent = model.modelName;
 
         modelSelect.appendChild(option);
-
       });
 
       if (uniqueModels.length > 0) {
-
-        await loadConstructions(
-          uniqueModels[0].modelId
-        );
-
+        await loadConstructions(uniqueModels[0].modelId);
       }
-
     }
 
     async function loadConstructions(modelId) {
-
-      const response = await fetch(
-        `${API_BASE}/api/constructions/${modelId}`
-      );
-
-      const constructions =
-        await response.json();
+      const response = await fetch(`${API_BASE}/api/constructions/${modelId}`);
+      const constructions = await response.json();
 
       constructionSelect.innerHTML = "";
-
       sizeSelect.innerHTML = "";
 
       constructions.forEach(item => {
+        const option = document.createElement("option");
 
-        const option =
-          document.createElement("option");
-
-        option.value =
-          item.construction;
-
-        option.textContent =
-          item.construction;
+        option.value = item.construction;
+        option.textContent = item.construction;
 
         constructionSelect.appendChild(option);
-
       });
 
       if (constructions.length > 0) {
-
         await loadSizes(
           modelId,
           constructions[0].construction
         );
-
       }
-
     }
 
-    async function loadSizes(
-      modelId,
-      construction
-    ) {
-
+    async function loadSizes(modelId, construction) {
       const response = await fetch(
         `${API_BASE}/api/sizes/${modelId}/${construction}`
       );
 
-      const sizes =
-        await response.json();
+      const sizes = await response.json();
 
       sizeSelect.innerHTML = "";
 
       sizes.forEach(size => {
+        const option = document.createElement("option");
+        const label = formatSizeLabel(size);
 
-        const option =
-          document.createElement("option");
+        option.value = size.boardSizeId;
+        option.textContent = label;
 
-        option.value =
-          size.boardSizeId;
-
-        option.textContent =
-          `${size.length} / ${size.volumeLitres}L`;
-
-        option.dataset.length =
-          size.length;
-
-        option.dataset.volume =
-          size.volumeLitres;
-
-        option.dataset.construction =
-          size.construction;
+        option.dataset.label = label;
+        option.dataset.length = size.length;
+        option.dataset.width = size.width;
+        option.dataset.thickness = size.thickness;
+        option.dataset.volume = size.volumeLitres;
+        option.dataset.construction = size.construction;
 
         sizeSelect.appendChild(option);
-
       });
 
       updatePreview();
-
     }
 
     function updatePreview() {
-
       const selectedModelText =
-        modelSelect.options[
-          modelSelect.selectedIndex
-        ]?.text || "Select a board";
+        modelSelect.options[modelSelect.selectedIndex]?.text ||
+        "Select a board";
 
       const selectedSize =
-        sizeSelect.options[
-          sizeSelect.selectedIndex
-        ];
+        sizeSelect.options[sizeSelect.selectedIndex];
 
       const selectedConstructionText =
-        constructionSelect.options[
-          constructionSelect.selectedIndex
-        ]?.text || "—";
+        constructionSelect.options[constructionSelect.selectedIndex]?.text ||
+        "—";
 
-      selectedModel.textContent =
-        selectedModelText;
+      selectedModel.textContent = selectedModelText;
 
       if (selectedSize) {
-
         selectedSpecs.textContent =
-          `${selectedSize.dataset.length} / ${selectedSize.dataset.volume}L`;
-
+          selectedSize.dataset.label;
       }
 
       selectedConstruction.textContent =
         selectedConstructionText;
-
     }
 
-    brandSelect.addEventListener(
-      "change",
-      async event => {
+    brandSelect.addEventListener("change", async event => {
+      await loadModels(event.target.value);
+    });
 
-        await loadModels(
-          event.target.value
-        );
+    modelSelect.addEventListener("change", async event => {
+      await loadConstructions(event.target.value);
+    });
 
-      }
-    );
+    constructionSelect.addEventListener("change", async () => {
+      await loadSizes(
+        modelSelect.value,
+        constructionSelect.value
+      );
+    });
 
-    modelSelect.addEventListener(
-      "change",
-      async event => {
-
-        await loadConstructions(
-          event.target.value
-        );
-
-      }
-    );
-
-    constructionSelect.addEventListener(
-      "change",
-      async () => {
-
-        await loadSizes(
-          modelSelect.value,
-          constructionSelect.value
-        );
-
-      }
-    );
-
-    sizeSelect.addEventListener(
-      "change",
-      () => {
-
-        updatePreview();
-
-      }
-    );
+    sizeSelect.addEventListener("change", () => {
+      updatePreview();
+    });
 
     loadBrands();
-
   </script>
-
 </body>
 </html>

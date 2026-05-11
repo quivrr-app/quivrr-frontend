@@ -103,7 +103,7 @@ a {
   z-index: 2;
 
   width: 100%;
-  max-width: 1400px;
+  max-width: 1500px;
 
   text-align: center;
 }
@@ -132,7 +132,7 @@ a {
   margin-top: 5rem;
 
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr 1.2fr 1.1fr 2.2fr 0.8fr;
 
   gap: 1rem;
 
@@ -167,12 +167,16 @@ a {
 
   color: var(--black);
 
-  font-size: 1.1rem;
+  font-size: 1.02rem;
   font-weight: 600;
 
   outline: none;
 
   cursor: pointer;
+}
+
+.dimensions-field select {
+  font-size: 0.95rem;
 }
 
 .search-bar button {
@@ -285,7 +289,7 @@ a {
 
   min-height: 280px;
 
-  max-width: 520px;
+  max-width: 560px;
 }
 
 .stock-tag {
@@ -351,6 +355,10 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
+  .dimensions-field {
+    grid-column: span 2;
+  }
+
   .search-bar button {
     grid-column: span 2;
   }
@@ -371,6 +379,7 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .dimensions-field,
   .search-bar button {
     grid-column: auto;
   }
