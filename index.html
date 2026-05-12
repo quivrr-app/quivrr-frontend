@@ -147,9 +147,60 @@
       return `$${Number(value).toLocaleString("en-AU")}`;
     }
 
+    function addImage(card, imageUrl, className, altText) {
+      if (!imageUrl) {
+        return;
+      }
+
+      const image = document.createElement("img");
+      image.src = imageUrl;
+      image.alt = altText;
+      image.className = className;
+      image.loading = "lazy";
+
+      image.onerror = () => {
+        image.remove();
+      };
+
+      if (className === "retailer-logo") {
+        image.style.maxWidth = "90px";
+        image.style.maxHeight = "34px";
+        image.style.objectFit = "contain";
+        image.style.display = "block";
+        image.style.marginBottom = "12px";
+      }
+
+      if (className === "result-image") {
+        image.style.width = "100%";
+        image.style.maxHeight = "220px";
+        image.style.objectFit = "contain";
+        image.style.display = "block";
+        image.style.marginBottom = "16px";
+        image.style.background = "#ffffff";
+      }
+
+      card.appendChild(image);
+    }
+
     function createResultCard(result, tagText) {
       const card = document.createElement("article");
       card.className = "result-card";
+
+      if (result.resultType !== "manufacturer") {
+        addImage(
+          card,
+          result.retailerLogoUrl,
+          "retailer-logo",
+          `${result.retailerName || "Retailer"} logo`
+        );
+      }
+
+      addImage(
+        card,
+        result.imageUrl,
+        "result-image",
+        result.title || result.modelName || "Surfboard"
+      );
 
       const tag = document.createElement("span");
       tag.className = "stock-tag";
