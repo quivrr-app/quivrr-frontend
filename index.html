@@ -147,7 +147,50 @@
       return `$${Number(value).toLocaleString("en-AU")}`;
     }
 
-    function addImage(card, imageUrl, className, altText) {
+    function createRetailerHeader(result) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "retailer-header";
+      wrapper.style.display = "flex";
+      wrapper.style.alignItems = "center";
+      wrapper.style.justifyContent = "space-between";
+      wrapper.style.gap = "12px";
+      wrapper.style.marginBottom = "14px";
+      wrapper.style.padding = "10px";
+      wrapper.style.borderRadius = "12px";
+      wrapper.style.background = "rgba(255, 255, 255, 0.92)";
+
+      const name = document.createElement("span");
+      name.textContent = result.retailerName || "Retailer";
+      name.style.color = "#061315";
+      name.style.fontSize = "0.78rem";
+      name.style.fontWeight = "700";
+      name.style.letterSpacing = "0.02em";
+
+      if (result.retailerLogoUrl) {
+        const logo = document.createElement("img");
+        logo.src = result.retailerLogoUrl;
+        logo.alt = `${result.retailerName || "Retailer"} logo`;
+        logo.loading = "lazy";
+        logo.className = "retailer-logo";
+        logo.style.maxWidth = "110px";
+        logo.style.maxHeight = "38px";
+        logo.style.objectFit = "contain";
+        logo.style.display = "block";
+
+        logo.onerror = () => {
+          logo.remove();
+          wrapper.appendChild(name);
+        };
+
+        wrapper.appendChild(logo);
+      } else {
+        wrapper.appendChild(name);
+      }
+
+      return wrapper;
+    }
+
+    function addBoardImage(card, imageUrl, altText) {
       if (!imageUrl) {
         return;
       }
@@ -155,29 +198,19 @@
       const image = document.createElement("img");
       image.src = imageUrl;
       image.alt = altText;
-      image.className = className;
+      image.className = "result-image";
       image.loading = "lazy";
+      image.style.width = "100%";
+      image.style.maxHeight = "220px";
+      image.style.objectFit = "contain";
+      image.style.display = "block";
+      image.style.marginBottom = "16px";
+      image.style.borderRadius = "14px";
+      image.style.background = "#ffffff";
 
       image.onerror = () => {
         image.remove();
       };
-
-      if (className === "retailer-logo") {
-        image.style.maxWidth = "90px";
-        image.style.maxHeight = "34px";
-        image.style.objectFit = "contain";
-        image.style.display = "block";
-        image.style.marginBottom = "12px";
-      }
-
-      if (className === "result-image") {
-        image.style.width = "100%";
-        image.style.maxHeight = "220px";
-        image.style.objectFit = "contain";
-        image.style.display = "block";
-        image.style.marginBottom = "16px";
-        image.style.background = "#ffffff";
-      }
 
       card.appendChild(image);
     }
@@ -187,18 +220,12 @@
       card.className = "result-card";
 
       if (result.resultType !== "manufacturer") {
-        addImage(
-          card,
-          result.retailerLogoUrl,
-          "retailer-logo",
-          `${result.retailerName || "Retailer"} logo`
-        );
+        card.appendChild(createRetailerHeader(result));
       }
 
-      addImage(
+      addBoardImage(
         card,
         result.imageUrl,
-        "result-image",
         result.title || result.modelName || "Surfboard"
       );
 
