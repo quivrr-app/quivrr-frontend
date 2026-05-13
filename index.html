@@ -77,11 +77,7 @@
       </div>
     </section>
 
-    <section class="brand-strip">
-      <div class="brand-track" id="brandTrack"></div>
-    </section>
-
-    <section class="results-preview">
+    <section class="results-preview" id="resultsPreview">
       <div class="section-heading">
         <p>Results preview</p>
 
@@ -91,21 +87,65 @@
         </h1>
       </div>
 
-      <div class="result-grid" id="resultGrid">
-        <article class="result-card">
-          <span class="stock-tag">Live catalogue</span>
+      <section class="manufacturer-section">
+        <div class="result-section-heading">
+          <span>Official board</span>
+          <h2>Manufacturer catalogue</h2>
+        </div>
 
-          <h2 id="selectedModel">Select a board</h2>
+        <div class="manufacturer-grid" id="manufacturerGrid">
+          <article class="result-card manufacturer-card">
+            <span class="stock-tag">Live catalogue</span>
 
-          <p id="selectedSpecs">
-            Construction and dimensions will appear here.
-          </p>
+            <h2 id="selectedModel">Select a board</h2>
 
-          <strong id="selectedConstruction">—</strong>
+            <p id="selectedSpecs">
+              Construction and dimensions will appear here.
+            </p>
 
-          <small>Live SQL catalogue data</small>
-        </article>
+            <strong id="selectedConstruction">—</strong>
+
+            <small>Live SQL catalogue data</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="exact-section">
+        <div class="result-section-heading">
+          <span>Retailer stock</span>
+          <h2>Exact matches</h2>
+        </div>
+
+        <div class="result-grid exact-grid" id="exactResultGrid"></div>
+
+        <button
+          type="button"
+          class="show-more-button"
+          id="showMoreExactButton"
+          hidden
+        >
+          Show more exact matches
+        </button>
+
+        <div
+          class="result-grid exact-grid expanded-grid"
+          id="extraExactResultGrid"
+          hidden
+        ></div>
+      </section>
+    </section>
+
+    <section class="brand-strip">
+      <div class="brand-track" id="brandTrack"></div>
+    </section>
+
+    <section class="close-results-section">
+      <div class="result-section-heading">
+        <span>Similar boards</span>
+        <h2>Close matches</h2>
       </div>
+
+      <div class="result-grid close-grid" id="closeResultGrid"></div>
     </section>
   </main>
 
@@ -124,8 +164,13 @@
     const constructionSelect = document.getElementById("constructionSelect");
     const sizeSelect = document.getElementById("sizeSelect");
     const brandTrack = document.getElementById("brandTrack");
-    const resultGrid = document.getElementById("resultGrid");
     const searchButton = document.getElementById("searchButton");
+
+    const manufacturerGrid = document.getElementById("manufacturerGrid");
+    const exactResultGrid = document.getElementById("exactResultGrid");
+    const extraExactResultGrid = document.getElementById("extraExactResultGrid");
+    const closeResultGrid = document.getElementById("closeResultGrid");
+    const showMoreExactButton = document.getElementById("showMoreExactButton");
 
     const selectedModel = document.getElementById("selectedModel");
     const selectedSpecs = document.getElementById("selectedSpecs");
@@ -150,21 +195,10 @@
     function createRetailerHeader(result) {
       const wrapper = document.createElement("div");
       wrapper.className = "retailer-header";
-      wrapper.style.display = "flex";
-      wrapper.style.alignItems = "center";
-      wrapper.style.justifyContent = "space-between";
-      wrapper.style.gap = "12px";
-      wrapper.style.marginBottom = "14px";
-      wrapper.style.padding = "10px";
-      wrapper.style.borderRadius = "12px";
-      wrapper.style.background = "rgba(255, 255, 255, 0.92)";
 
       const name = document.createElement("span");
       name.textContent = result.retailerName || "Retailer";
-      name.style.color = "#061315";
-      name.style.fontSize = "0.78rem";
-      name.style.fontWeight = "700";
-      name.style.letterSpacing = "0.02em";
+      name.className = "retailer-name";
 
       if (result.retailerLogoUrl) {
         const logo = document.createElement("img");
@@ -172,10 +206,6 @@
         logo.alt = `${result.retailerName || "Retailer"} logo`;
         logo.loading = "lazy";
         logo.className = "retailer-logo";
-        logo.style.maxWidth = "110px";
-        logo.style.maxHeight = "38px";
-        logo.style.objectFit = "contain";
-        logo.style.display = "block";
 
         logo.onerror = () => {
           logo.remove();
@@ -200,13 +230,6 @@
       image.alt = altText;
       image.className = "result-image";
       image.loading = "lazy";
-      image.style.width = "100%";
-      image.style.maxHeight = "220px";
-      image.style.objectFit = "contain";
-      image.style.display = "block";
-      image.style.marginBottom = "16px";
-      image.style.borderRadius = "14px";
-      image.style.background = "#ffffff";
 
       image.onerror = () => {
         image.remove();
@@ -218,6 +241,10 @@
     function createResultCard(result, tagText) {
       const card = document.createElement("article");
       card.className = "result-card";
+
+      if (result.resultType === "manufacturer") {
+        card.classList.add("manufacturer-card");
+      }
 
       if (result.resultType !== "manufacturer") {
         card.appendChild(createRetailerHeader(result));
@@ -258,7 +285,7 @@
       const source = document.createElement("small");
 
       if (result.resultType === "manufacturer") {
-        source.textContent = "JS Industries official catalogue";
+        source.textContent = "Official catalogue reference";
       } else {
         source.textContent = `${result.retailerName} | ${result.stockStatus}`;
       }
@@ -283,11 +310,33 @@
       return card;
     }
 
+    function renderEmptyCard(grid, title, message) {
+      const emptyCard = document.createElement("article");
+      emptyCard.className = "result-card";
+
+      emptyCard.innerHTML = `
+        <span class="stock-tag">No results</span>
+        <h2>${title}</h2>
+        <p>${message}</p>
+        <strong>—</strong>
+        <small>Search completed</small>
+      `;
+
+      grid.appendChild(emptyCard);
+    }
+
     function renderSearchResults(data) {
-      resultGrid.innerHTML = "";
+      manufacturerGrid.innerHTML = "";
+      exactResultGrid.innerHTML = "";
+      extraExactResultGrid.innerHTML = "";
+      closeResultGrid.innerHTML = "";
+
+      extraExactResultGrid.hidden = true;
+      showMoreExactButton.hidden = true;
+      showMoreExactButton.textContent = "Show more exact matches";
 
       if (data.manufacturer) {
-        resultGrid.appendChild(
+        manufacturerGrid.appendChild(
           createResultCard(
             {
               ...data.manufacturer,
@@ -296,46 +345,70 @@
             "Manufacturer"
           )
         );
+      } else {
+        renderEmptyCard(
+          manufacturerGrid,
+          "No official board found",
+          "Try another model or size."
+        );
       }
 
-      data.exactRetailerMatches.forEach(result => {
-        resultGrid.appendChild(
-          createResultCard(
-            result,
-            "Exact retailer match"
-          )
+      const exactMatches = data.exactRetailerMatches || [];
+      const firstExactMatches = exactMatches.slice(0, 4);
+      const extraExactMatches = exactMatches.slice(4);
+
+      if (firstExactMatches.length > 0) {
+        firstExactMatches.forEach(result => {
+          exactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          exactResultGrid,
+          "No exact retailer matches",
+          "Try another construction or size."
         );
-      });
-
-      data.closeRetailerMatches.forEach(result => {
-        resultGrid.appendChild(
-          createResultCard(
-            result,
-            "Close retailer match"
-          )
-        );
-      });
-
-      if (
-        !data.manufacturer &&
-        data.exactRetailerMatches.length === 0 &&
-        data.closeRetailerMatches.length === 0
-      ) {
-        const emptyCard = document.createElement("article");
-        emptyCard.className = "result-card";
-
-        emptyCard.innerHTML = `
-          <span class="stock-tag">No results</span>
-          <h2>No matching inventory found</h2>
-          <p>Try another construction or size.</p>
-          <strong>—</strong>
-          <small>Search completed</small>
-        `;
-
-        resultGrid.appendChild(emptyCard);
       }
 
-      document.querySelector(".results-preview").scrollIntoView({
+      if (extraExactMatches.length > 0) {
+        extraExactMatches.forEach(result => {
+          extraExactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+
+        showMoreExactButton.hidden = false;
+        showMoreExactButton.textContent =
+          `Show ${extraExactMatches.length} more exact matches`;
+      }
+
+      const closeMatches = data.closeRetailerMatches || [];
+
+      if (closeMatches.length > 0) {
+        closeMatches.forEach(result => {
+          closeResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Close retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          closeResultGrid,
+          "No close matches",
+          "Try another size or model."
+        );
+      }
+
+      document.querySelector("#resultsPreview").scrollIntoView({
         behavior: "smooth"
       });
     }
@@ -518,6 +591,15 @@
 
     sizeSelect.addEventListener("change", () => {
       updatePreview();
+    });
+
+    showMoreExactButton.addEventListener("click", () => {
+      const isHidden = extraExactResultGrid.hidden;
+
+      extraExactResultGrid.hidden = !isHidden;
+      showMoreExactButton.textContent = isHidden
+        ? "Show fewer exact matches"
+        : `Show ${extraExactResultGrid.children.length} more exact matches`;
     });
 
     searchButton.addEventListener("click", runSearch);
