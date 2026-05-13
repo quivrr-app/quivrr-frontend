@@ -78,13 +78,13 @@ a {
 
 .hero {
   position: relative;
-  min-height: 88vh;
+  min-height: 72vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 8rem 2rem 5rem;
+  padding: 7rem 2rem 3rem;
 
   background:
     linear-gradient(var(--overlay), var(--overlay)),
@@ -106,6 +106,8 @@ a {
   max-width: 1500px;
 
   text-align: center;
+
+  transform: translateY(-3.5rem);
 }
 
 .hero-kicker {
@@ -129,7 +131,7 @@ a {
 }
 
 .search-bar {
-  margin-top: 5rem;
+  margin-top: 3rem;
 
   display: grid;
   grid-template-columns: 1fr 1.2fr 1.1fr 2.2fr 0.8fr;
@@ -247,7 +249,7 @@ a {
 .results-preview {
   background: #f7f7f7;
 
-  padding: 7rem 4rem;
+  padding: 5rem 4rem 7rem;
 }
 
 .section-heading p {
@@ -337,6 +339,21 @@ a {
   font-family: "Courier Prime", monospace;
 }
 
+.result-link {
+  display: inline-flex;
+
+  margin-top: 1.5rem;
+
+  color: var(--slate);
+
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.result-link:hover {
+  opacity: 0.7;
+}
+
 footer {
   background: var(--white);
 
@@ -375,8 +392,18 @@ footer {
     font-size: 3rem;
   }
 
+  .hero {
+    min-height: 82vh;
+    padding: 9rem 1.5rem 3rem;
+  }
+
+  .hero-content {
+    transform: none;
+  }
+
   .search-bar {
     grid-template-columns: 1fr;
+    margin-top: 2.5rem;
   }
 
   .dimensions-field,
@@ -391,18 +418,4 @@ footer {
   .section-heading h1 {
     font-size: 3rem;
   }
-}
-.result-link {
-  display: inline-flex;
-
-  margin-top: 1.5rem;
-
-  color: var(--slate);
-
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
-.result-link:hover {
-  opacity: 0.7;
 }
