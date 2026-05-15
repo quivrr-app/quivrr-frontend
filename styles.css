@@ -78,13 +78,13 @@ a {
 
 .hero {
   position: relative;
-  min-height: 72vh;
+  min-height: 78vh;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 7rem 2rem 3rem;
+  padding: 7rem 2rem 10rem;
 
   background:
     linear-gradient(var(--overlay), var(--overlay)),
@@ -103,18 +103,18 @@ a {
   z-index: 2;
 
   width: 100%;
-  max-width: 1500px;
+  max-width: 1700px;
 
   text-align: center;
 
-  transform: translateY(-3.5rem);
+  transform: translateY(-7rem);
 }
 
 .hero-kicker {
   color: var(--white);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
-  font-size: 1.2rem;
+  letter-spacing: 0.3em;
+  font-size: 1.35rem;
   font-weight: 800;
 
   margin: 0;
@@ -131,10 +131,10 @@ a {
 }
 
 .search-bar {
-  margin-top: 3rem;
+  margin-top: 3.2rem;
 
   display: grid;
-  grid-template-columns: 1fr 1.2fr 1.1fr 2.2fr 0.8fr;
+  grid-template-columns: 1.1fr 1.35fr 1.25fr 2.45fr 0.9fr;
 
   gap: 1rem;
 
@@ -146,19 +146,19 @@ a {
   flex-direction: column;
   align-items: flex-start;
 
-  background: rgba(243, 243, 244, 0.92);
+  background: rgba(243, 243, 244, 0.94);
 
-  padding: 1rem 1.2rem;
+  padding: 1.25rem 1.35rem;
 
-  min-height: 92px;
+  min-height: 108px;
 }
 
 .search-bar span {
   font-family: "Courier Prime", monospace;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--charcoal);
 
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.7rem;
 }
 
 .search-bar select {
@@ -169,8 +169,8 @@ a {
 
   color: var(--black);
 
-  font-size: 1.02rem;
-  font-weight: 600;
+  font-size: 1.18rem;
+  font-weight: 700;
 
   outline: none;
 
@@ -178,7 +178,7 @@ a {
 }
 
 .dimensions-field select {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
 
 .search-bar button {
@@ -187,10 +187,10 @@ a {
   background: var(--slate);
   color: var(--white);
 
-  min-height: 92px;
+  min-height: 108px;
 
-  font-size: 2rem;
-  font-weight: 800;
+  font-size: 2.2rem;
+  font-weight: 900;
   letter-spacing: 0.04em;
 
   cursor: pointer;
@@ -200,6 +200,60 @@ a {
 
 .search-bar button:hover {
   opacity: 0.9;
+}
+
+.retailer-logo-strip {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.2rem;
+  z-index: 3;
+
+  width: 100%;
+  overflow: hidden;
+
+  padding: 1.6rem 0;
+
+  background: rgba(243, 243, 244, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+
+  backdrop-filter: blur(2px);
+}
+
+.retailer-logo-track {
+  display: flex;
+  align-items: center;
+  gap: 2.8rem;
+
+  width: max-content;
+
+  animation: scrollRetailerLogos 42s linear infinite;
+}
+
+.retailer-logo-track img {
+  display: block;
+
+  width: auto;
+  height: 86px;
+  max-width: 260px;
+
+  object-fit: contain;
+
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.55rem 0.8rem;
+
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+@keyframes scrollRetailerLogos {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .results-preview {
@@ -481,6 +535,10 @@ footer {
 }
 
 @media (max-width: 1200px) {
+  .hero-content {
+    transform: translateY(-5rem);
+  }
+
   .search-bar {
     grid-template-columns: 1fr 1fr;
   }
@@ -511,12 +569,12 @@ footer {
   }
 
   .hero {
-    min-height: 82vh;
-    padding: 9rem 1.5rem 3rem;
+    min-height: 92vh;
+    padding: 9rem 1.5rem 10rem;
   }
 
   .hero-content {
-    transform: none;
+    transform: translateY(-2.5rem);
   }
 
   .search-bar {
@@ -527,6 +585,20 @@ footer {
   .dimensions-field,
   .search-bar button {
     grid-column: auto;
+  }
+
+  .retailer-logo-strip {
+    bottom: 1.2rem;
+    padding: 1rem 0;
+  }
+
+  .retailer-logo-track {
+    gap: 1.6rem;
+  }
+
+  .retailer-logo-track img {
+    height: 58px;
+    max-width: 180px;
   }
 
   .results-preview,
