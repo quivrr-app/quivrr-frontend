@@ -927,9 +927,9 @@ footer {
 .hero.australia-hero::after {
   inset: 2rem 2rem 5.5rem 2rem;
   background-image: url("/Media/maps/australia.svg");
-  background-position: center 44%;
-  background-size: min(820px, 54vw) auto;
-  opacity: 0.22;
+  background-position: center center;
+  background-size: min(1500px, 92vw) auto;
+  opacity: 0.16;
   filter:
     drop-shadow(0 0 14px rgba(118, 228, 208, 0.28))
     drop-shadow(0 0 34px rgba(118, 228, 208, 0.14));
@@ -938,7 +938,7 @@ footer {
 .coming-soon-page.region-page::before {
   background-position: center 45%;
   background-size: min(760px, 58vw) auto;
-  opacity: 0.22;
+  opacity: 0.16;
 }
 
 .region-australia::before {
@@ -949,7 +949,7 @@ footer {
   .hero.australia-hero::after {
     inset: 7rem -4rem 8rem -4rem;
     background-size: 92vw auto;
-    background-position: center 44%;
+    background-position: center center;
     opacity: 0.18;
   }
 
@@ -958,4 +958,5 @@ footer {
     opacity: 0.18;
   }
 }
+
 
