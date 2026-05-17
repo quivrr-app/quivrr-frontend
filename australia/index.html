@@ -201,6 +201,15 @@
   <script>
     const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
 
+    const EXCLUDED_BRANDS = new Set([
+      "Aloha",
+      "Mayhem",
+      "Mick Fanning Softboards",
+      "NSP",
+      "Softlite",
+      "Town and Country",
+      "Torq"
+    ]);
     const brandSelect = document.getElementById("brandSelect");
     const modelSelect = document.getElementById("modelSelect");
     const constructionSelect = document.getElementById("constructionSelect");
@@ -477,7 +486,11 @@
 
     async function loadBrands() {
       const response = await fetch(`${API_BASE}/api/brands`);
-      const brands = await response.json();
+      const allBrands = await response.json();
+
+      const brands = allBrands.filter(brand => {
+        return !EXCLUDED_BRANDS.has(brand.brandName);
+      });
 
       brandSelect.innerHTML = "";
       brandTrack.innerHTML = "";
@@ -650,6 +663,7 @@
   </script>
 </body>
 </html>
+
 
 
 
