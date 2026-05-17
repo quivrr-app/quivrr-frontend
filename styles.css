@@ -960,3 +960,15 @@ footer {
 }
 
 
+
+/* Large Australia map background override */
+.hero.australia-hero::after {
+  inset: -10rem -8rem 3rem -6rem;
+  background-image: url("/Media/maps/australia.svg");
+  background-position: center 38%;
+  background-size: 132vw auto;
+  opacity: 0.18;
+  filter:
+    drop-shadow(0 0 16px rgba(118, 228, 208, 0.34))
+    drop-shadow(0 0 42px rgba(118, 228, 208, 0.16));
+}
