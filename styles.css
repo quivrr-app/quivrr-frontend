@@ -972,3 +972,26 @@ footer {
     drop-shadow(0 0 16px rgba(118, 228, 208, 0.34))
     drop-shadow(0 0 42px rgba(118, 228, 208, 0.16));
 }
+
+/* Final regional map hero placement */
+.hero.app-home-hero::after {
+  inset: -2rem 2rem 4rem 2rem;
+  background-image: url("/Media/maps/world-regions.svg");
+  background-position: center 48%;
+  background-size: min(1500px, 88vw) auto;
+  opacity: 0.18;
+  filter:
+    drop-shadow(0 0 18px rgba(118, 228, 208, 0.28))
+    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
+}
+
+.hero.australia-hero::after {
+  inset: -8rem -7rem 2rem -6rem;
+  background-image: url("/Media/maps/australia.svg");
+  background-position: center 39%;
+  background-size: 118vw auto;
+  opacity: 0.13;
+  filter:
+    drop-shadow(0 0 18px rgba(118, 228, 208, 0.30))
+    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
+}
