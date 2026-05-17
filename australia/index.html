@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
+
+  <title>Quivrr | Find Your Board</title>
+
+  <meta
+    name="description"
+    content="Search surfboard inventory across Australian retailers."
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">
+      <span class="brand-logo">quivrr</span>
+    </a>
+
+    <nav class="region-nav">
+      <a href="/au" class="active">AU</a>
+      <a href="/eu">EU</a>
+      <a href="/us">US</a>
+      <a href="/id">ID</a>
+      <a href="/br">BR</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <p class="hero-kicker">Find your board</p>
+        <p class="hero-subtitle">Estd 2026</p>
+
+        <form class="search-bar">
+          <label>
+            <span>Brand</span>
+            <select id="brandSelect">
+              <option>Loading brands...</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Model</span>
+            <select id="modelSelect">
+              <option>Select model</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Construction</span>
+            <select id="constructionSelect">
+              <option>Select construction</option>
+            </select>
+          </label>
+
+          <label class="dimensions-field">
+            <span>Dimensions</span>
+            <select id="sizeSelect">
+              <option>Select dimensions</option>
+            </select>
+          </label>
+
+          <button type="button" id="searchButton">
+            GO.
+          </button>
+        </form>
+      </div>
+
+      <section class="retailer-logo-strip" aria-label="Surfboard brands">
+        <div class="retailer-logo-track">
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/darkarts.png" alt="Dark Arts" />
+          <img src="/Media/brand_logos/DMS.png" alt="DMS" />
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/darkarts.png" alt="Dark Arts" />
+          <img src="/Media/brand_logos/DMS.png" alt="DMS" />
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+        </div>
+      </section>
+    </section>
+
+    <section class="results-preview" id="resultsPreview">
+      <div class="section-heading">
+        <p>Results preview</p>
+
+        <h1>
+          Compare stock, price and retailer
+          location in one view.
+        </h1>
+      </div>
+
+      <section class="manufacturer-section">
+        <div class="result-section-heading">
+          <span>Official board</span>
+          <h2>Manufacturer catalogue</h2>
+        </div>
+
+        <div class="manufacturer-grid" id="manufacturerGrid">
+          <article class="result-card manufacturer-card">
+            <span class="stock-tag">Live catalogue</span>
+
+            <h2 id="selectedModel">Select a board</h2>
+
+            <p id="selectedSpecs">
+              Construction and dimensions will appear here.
+            </p>
+
+            <strong id="selectedConstruction">—</strong>
+
+            <small>Live SQL catalogue data</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="exact-section">
+        <div class="result-section-heading">
+          <span>Retailer stock</span>
+          <h2>Exact matches</h2>
+        </div>
+
+        <div class="result-grid exact-grid" id="exactResultGrid"></div>
+
+        <button
+          type="button"
+          class="show-more-button"
+          id="showMoreExactButton"
+          hidden
+        >
+          Show more exact matches
+        </button>
+
+        <div
+          class="result-grid exact-grid expanded-grid"
+          id="extraExactResultGrid"
+          hidden
+        ></div>
+      </section>
+    </section>
+
+    <section class="brand-strip">
+      <div class="brand-track" id="brandTrack"></div>
+    </section>
+
+    <section class="close-results-section">
+      <div class="result-section-heading">
+        <span>Similar boards</span>
+        <h2>Close matches</h2>
+      </div>
+
+      <div class="result-grid close-grid" id="closeResultGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Quivrr is building the surfboard search engine,
+      starting with Australian inventory.
+    </p>
+  </footer>
+
+  <script>
+    const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
+
+    const brandSelect = document.getElementById("brandSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const constructionSelect = document.getElementById("constructionSelect");
+    const sizeSelect = document.getElementById("sizeSelect");
+    const brandTrack = document.getElementById("brandTrack");
+    const searchButton = document.getElementById("searchButton");
+
+    const manufacturerGrid = document.getElementById("manufacturerGrid");
+    const exactResultGrid = document.getElementById("exactResultGrid");
+    const extraExactResultGrid = document.getElementById("extraExactResultGrid");
+    const closeResultGrid = document.getElementById("closeResultGrid");
+    const showMoreExactButton = document.getElementById("showMoreExactButton");
+
+    const selectedModel = document.getElementById("selectedModel");
+    const selectedSpecs = document.getElementById("selectedSpecs");
+    const selectedConstruction = document.getElementById("selectedConstruction");
+
+    function formatSizeLabel(size) {
+      if (size.label) {
+        return size.label;
+      }
+
+      return `${size.length} x ${size.width} x ${size.thickness} / ${size.volumeLitres}L`;
+    }
+
+    function formatPrice(value) {
+      if (!value) {
+        return "Price not listed";
+      }
+
+      return `$${Number(value).toLocaleString("en-AU")}`;
+    }
+
+    function createRetailerHeader(result) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "retailer-header";
+
+      const name = document.createElement("span");
+      name.textContent = result.retailerName || "Retailer";
+      name.className = "retailer-name";
+
+      if (result.retailerLogoUrl) {
+        const logo = document.createElement("img");
+        logo.src = result.retailerLogoUrl;
+        logo.alt = `${result.retailerName || "Retailer"} logo`;
+        logo.loading = "lazy";
+        logo.className = "retailer-logo";
+
+        logo.onerror = () => {
+          logo.remove();
+          wrapper.appendChild(name);
+        };
+
+        wrapper.appendChild(logo);
+      } else {
+        wrapper.appendChild(name);
+      }
+
+      return wrapper;
+    }
+
+    function addBoardImage(card, imageUrl, altText) {
+      if (!imageUrl) {
+        return;
+      }
+
+      const image = document.createElement("img");
+      image.src = imageUrl;
+      image.alt = altText;
+      image.className = "result-image";
+      image.loading = "lazy";
+
+      image.onerror = () => {
+        image.remove();
+      };
+
+      card.appendChild(image);
+    }
+
+    function createResultCard(result, tagText) {
+      const card = document.createElement("article");
+      card.className = "result-card";
+
+      if (result.resultType === "manufacturer") {
+        card.classList.add("manufacturer-card");
+      }
+
+      if (result.resultType !== "manufacturer") {
+        card.appendChild(createRetailerHeader(result));
+      }
+
+      addBoardImage(
+        card,
+        result.imageUrl,
+        result.title || result.modelName || "Surfboard"
+      );
+
+      const tag = document.createElement("span");
+      tag.className = "stock-tag";
+      tag.textContent = tagText;
+
+      const title = document.createElement("h2");
+      title.textContent =
+        result.title ||
+        `${result.brandName} ${result.modelName}`;
+
+      const specs = document.createElement("p");
+      specs.textContent = [
+        result.construction,
+        result.length,
+        result.width,
+        result.thickness,
+        result.volumeLitres ? `${result.volumeLitres}L` : null
+      ].filter(Boolean).join(" | ");
+
+      const price = document.createElement("strong");
+
+      if (result.resultType === "manufacturer") {
+        price.textContent = "Manufacturer catalogue";
+      } else {
+        price.textContent = formatPrice(result.priceAud);
+      }
+
+      const source = document.createElement("small");
+
+      if (result.resultType === "manufacturer") {
+        source.textContent = "Official catalogue reference";
+      } else {
+        source.textContent = `${result.retailerName} | ${result.stockStatus}`;
+      }
+
+      card.appendChild(tag);
+      card.appendChild(title);
+      card.appendChild(specs);
+      card.appendChild(price);
+      card.appendChild(source);
+
+      if (result.productUrl) {
+        const link = document.createElement("a");
+        link.href = result.productUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "View board";
+        link.className = "result-link";
+
+        card.appendChild(link);
+      }
+
+      return card;
+    }
+
+    function renderEmptyCard(grid, title, message) {
+      const emptyCard = document.createElement("article");
+      emptyCard.className = "result-card";
+
+      emptyCard.innerHTML = `
+        <span class="stock-tag">No results</span>
+        <h2>${title}</h2>
+        <p>${message}</p>
+        <strong>—</strong>
+        <small>Search completed</small>
+      `;
+
+      grid.appendChild(emptyCard);
+    }
+
+    function renderSearchResults(data) {
+      manufacturerGrid.innerHTML = "";
+      exactResultGrid.innerHTML = "";
+      extraExactResultGrid.innerHTML = "";
+      closeResultGrid.innerHTML = "";
+
+      extraExactResultGrid.hidden = true;
+      showMoreExactButton.hidden = true;
+      showMoreExactButton.textContent = "Show more exact matches";
+
+      if (data.manufacturer) {
+        manufacturerGrid.appendChild(
+          createResultCard(
+            {
+              ...data.manufacturer,
+              resultType: "manufacturer"
+            },
+            "Manufacturer"
+          )
+        );
+      } else {
+        renderEmptyCard(
+          manufacturerGrid,
+          "No official board found",
+          "Try another model or size."
+        );
+      }
+
+      const exactMatches = data.exactRetailerMatches || [];
+      const firstExactMatches = exactMatches.slice(0, 4);
+      const extraExactMatches = exactMatches.slice(4);
+
+      if (firstExactMatches.length > 0) {
+        firstExactMatches.forEach(result => {
+          exactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          exactResultGrid,
+          "No exact retailer matches",
+          "Try another construction or size."
+        );
+      }
+
+      if (extraExactMatches.length > 0) {
+        extraExactMatches.forEach(result => {
+          extraExactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+
+        showMoreExactButton.hidden = false;
+        showMoreExactButton.textContent =
+          `Show ${extraExactMatches.length} more exact matches`;
+      }
+
+      const closeMatches = data.closeRetailerMatches || [];
+
+      if (closeMatches.length > 0) {
+        closeMatches.forEach(result => {
+          closeResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Close retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          closeResultGrid,
+          "No close matches",
+          "Try another size or model."
+        );
+      }
+
+      document.querySelector("#resultsPreview").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    async function runSearch() {
+      const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+
+      if (!selectedSize || !selectedSize.value) {
+        return;
+      }
+
+      searchButton.textContent = "WAIT";
+
+      const response = await fetch(
+        `${API_BASE}/api/search?boardSizeId=${selectedSize.value}`
+      );
+
+      const data = await response.json();
+
+      renderSearchResults(data);
+
+      searchButton.textContent = "GO.";
+    }
+
+    async function loadBrands() {
+      const response = await fetch(`${API_BASE}/api/brands`);
+      const brands = await response.json();
+
+      brandSelect.innerHTML = "";
+      brandTrack.innerHTML = "";
+
+      brands.forEach(brand => {
+        const option = document.createElement("option");
+
+        option.value = brand.brandId;
+        option.textContent = brand.brandName;
+
+        brandSelect.appendChild(option);
+
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
+
+        brandTrack.appendChild(brandItem);
+      });
+
+      brands.forEach(brand => {
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
+
+        brandTrack.appendChild(brandItem);
+      });
+
+      if (brands.length > 0) {
+        await loadModels(brands[0].brandId);
+      }
+    }
+
+    async function loadModels(brandId) {
+      const response = await fetch(`${API_BASE}/api/models/${brandId}`);
+      const models = await response.json();
+
+      modelSelect.innerHTML = "";
+      constructionSelect.innerHTML = "";
+      sizeSelect.innerHTML = "";
+
+      const uniqueModels = [];
+      const seen = new Set();
+
+      models.forEach(model => {
+        if (!seen.has(model.modelName)) {
+          seen.add(model.modelName);
+          uniqueModels.push(model);
+        }
+      });
+
+      uniqueModels.forEach(model => {
+        const option = document.createElement("option");
+
+        option.value = model.modelId;
+        option.textContent = model.modelName;
+
+        modelSelect.appendChild(option);
+      });
+
+      if (uniqueModels.length > 0) {
+        await loadConstructions(uniqueModels[0].modelId);
+      }
+    }
+
+    async function loadConstructions(modelId) {
+      const response = await fetch(`${API_BASE}/api/constructions/${modelId}`);
+      const constructions = await response.json();
+
+      constructionSelect.innerHTML = "";
+      sizeSelect.innerHTML = "";
+
+      constructions.forEach(item => {
+        const option = document.createElement("option");
+
+        option.value = item.construction;
+        option.textContent = item.construction;
+
+        constructionSelect.appendChild(option);
+      });
+
+      if (constructions.length > 0) {
+        await loadSizes(
+          modelId,
+          constructions[0].construction
+        );
+      }
+    }
+
+    async function loadSizes(modelId, construction) {
+      const response = await fetch(
+        `${API_BASE}/api/sizes/${modelId}/${encodeURIComponent(construction)}`
+      );
+
+      const sizes = await response.json();
+
+      sizeSelect.innerHTML = "";
+
+      sizes.forEach(size => {
+        const option = document.createElement("option");
+        const label = formatSizeLabel(size);
+
+        option.value = size.boardSizeId;
+        option.textContent = label;
+
+        option.dataset.label = label;
+        option.dataset.length = size.length;
+        option.dataset.width = size.width;
+        option.dataset.thickness = size.thickness;
+        option.dataset.volume = size.volumeLitres;
+        option.dataset.construction = size.construction;
+
+        sizeSelect.appendChild(option);
+      });
+
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const selectedModelText =
+        modelSelect.options[modelSelect.selectedIndex]?.text ||
+        "Select a board";
+
+      const selectedSize =
+        sizeSelect.options[sizeSelect.selectedIndex];
+
+      const selectedConstructionText =
+        constructionSelect.options[constructionSelect.selectedIndex]?.text ||
+        "—";
+
+      selectedModel.textContent = selectedModelText;
+
+      if (selectedSize) {
+        selectedSpecs.textContent =
+          selectedSize.dataset.label;
+      }
+
+      selectedConstruction.textContent =
+        selectedConstructionText;
+    }
+
+    brandSelect.addEventListener("change", async event => {
+      await loadModels(event.target.value);
+    });
+
+    modelSelect.addEventListener("change", async event => {
+      await loadConstructions(event.target.value);
+    });
+
+    constructionSelect.addEventListener("change", async () => {
+      await loadSizes(
+        modelSelect.value,
+        constructionSelect.value
+      );
+    });
+
+    sizeSelect.addEventListener("change", () => {
+      updatePreview();
+    });
+
+    showMoreExactButton.addEventListener("click", () => {
+      const isHidden = extraExactResultGrid.hidden;
+
+      extraExactResultGrid.hidden = !isHidden;
+      showMoreExactButton.textContent = isHidden
+        ? "Show fewer exact matches"
+        : `Show ${extraExactResultGrid.children.length} more exact matches`;
+    });
+
+    searchButton.addEventListener("click", runSearch);
+
+    loadBrands();
+  </script>
+</body>
+</html>
+
