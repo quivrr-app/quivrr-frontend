@@ -757,12 +757,12 @@ footer {
 }
 
 .hero.app-home-hero::after {
-  background-image: url("/media/maps/world-regions.svg");
+  background-image: url("/Media/maps/world-regions.svg");
 }
 
 .hero.australia-hero::after {
   inset: 4rem 4rem 7rem 4rem;
-  background-image: url("/media/maps/australia.svg");
+  background-image: url("/Media/maps/australia.svg");
   background-position: right 13% center;
   background-size: min(760px, 58vw) auto;
   opacity: 0.42;
@@ -851,55 +851,55 @@ footer {
 }
 
 .region-asia-pacific::before {
-  background-image: url("/media/maps/asia-pacific.svg");
+  background-image: url("/Media/maps/asia-pacific.svg");
 }
 
 .region-brazil::before {
-  background-image: url("/media/maps/brazil.svg");
+  background-image: url("/Media/maps/brazil.svg");
 }
 
 .region-canada::before {
-  background-image: url("/media/maps/canada.svg");
+  background-image: url("/Media/maps/canada.svg");
 }
 
 .region-europe::before {
-  background-image: url("/media/maps/europe.svg");
+  background-image: url("/Media/maps/europe.svg");
 }
 
 .region-global::before {
-  background-image: url("/media/maps/world-regions.svg");
+  background-image: url("/Media/maps/world-regions.svg");
 }
 
 .region-indonesia::before {
-  background-image: url("/media/maps/indonesia.svg");
+  background-image: url("/Media/maps/indonesia.svg");
 }
 
 .region-japan::before {
-  background-image: url("/media/maps/japan.svg");
+  background-image: url("/Media/maps/japan.svg");
 }
 
 .region-latin-america::before {
-  background-image: url("/media/maps/latin-america.svg");
+  background-image: url("/Media/maps/latin-america.svg");
 }
 
 .region-middle-east-north-africa::before {
-  background-image: url("/media/maps/mena.svg");
+  background-image: url("/Media/maps/mena.svg");
 }
 
 .region-pacific-islands::before {
-  background-image: url("/media/maps/pacific-islands.svg");
+  background-image: url("/Media/maps/pacific-islands.svg");
 }
 
 .region-southern-africa::before {
-  background-image: url("/media/maps/southern-africa.svg");
+  background-image: url("/Media/maps/southern-africa.svg");
 }
 
 .region-united-kingdom::before {
-  background-image: url("/media/maps/united-kingdom.svg");
+  background-image: url("/Media/maps/united-kingdom.svg");
 }
 
 .region-united-states::before {
-  background-image: url("/media/maps/united-states.svg");
+  background-image: url("/Media/maps/united-states.svg");
 }
 
 @media (max-width: 768px) {
@@ -926,7 +926,7 @@ footer {
 /* Australia regional hero map refinement */
 .hero.australia-hero::after {
   inset: 2rem 2rem 5.5rem 2rem;
-  background-image: url("/media/maps/australia.svg");
+  background-image: url("/Media/maps/australia.svg");
   background-position: center 44%;
   background-size: min(820px, 54vw) auto;
   opacity: 0.22;
@@ -942,7 +942,7 @@ footer {
 }
 
 .region-australia::before {
-  background-image: url("/media/maps/australia.svg");
+  background-image: url("/Media/maps/australia.svg");
 }
 
 @media (max-width: 768px) {
@@ -958,3 +958,4 @@ footer {
     opacity: 0.18;
   }
 }
+
