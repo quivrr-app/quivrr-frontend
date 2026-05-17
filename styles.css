@@ -922,3 +922,39 @@ footer {
   }
 }
 
+
+/* Australia regional hero map refinement */
+.hero.australia-hero::after {
+  inset: 2rem 2rem 5.5rem 2rem;
+  background-image: url("/media/maps/australia.svg");
+  background-position: center 44%;
+  background-size: min(820px, 54vw) auto;
+  opacity: 0.22;
+  filter:
+    drop-shadow(0 0 14px rgba(118, 228, 208, 0.28))
+    drop-shadow(0 0 34px rgba(118, 228, 208, 0.14));
+}
+/* Region coming soon map placement refinement */
+.coming-soon-page.region-page::before {
+  background-position: center 45%;
+  background-size: min(760px, 58vw) auto;
+  opacity: 0.22;
+}
+
+.region-australia::before {
+  background-image: url("/media/maps/australia.svg");
+}
+
+@media (max-width: 768px) {
+  .hero.australia-hero::after {
+    inset: 7rem -4rem 8rem -4rem;
+    background-size: 92vw auto;
+    background-position: center 44%;
+    opacity: 0.18;
+  }
+
+  .coming-soon-page.region-page::before {
+    background-size: 96vw auto;
+    opacity: 0.18;
+  }
+}
