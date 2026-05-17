@@ -1019,3 +1019,15 @@ footer {
     drop-shadow(0 0 18px rgba(118, 228, 208, 0.28))
     drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
 }
+
+/* Working Australia hero map background */
+.hero.australia-hero::after {
+  inset: -7rem 0 2rem 0;
+  background-image: url("/Media/maps/australia-hero.svg");
+  background-position: center 42%;
+  background-size: min(1500px, 90vw) auto;
+  opacity: 0.20;
+  filter:
+    drop-shadow(0 0 18px rgba(118, 228, 208, 0.32))
+    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
+}
