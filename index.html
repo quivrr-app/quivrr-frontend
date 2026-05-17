@@ -145,7 +145,7 @@
               Construction and dimensions will appear here.
             </p>
 
-            <strong id="selectedConstruction">â€”</strong>
+            <strong id="selectedConstruction">None</strong>
 
             <small>Live SQL catalogue data</small>
           </article>
@@ -360,7 +360,7 @@
         <span class="stock-tag">No results</span>
         <h2>${title}</h2>
         <p>${message}</p>
-        <strong>â€”</strong>
+        <strong>None</strong>
         <small>Search completed</small>
       `;
 
@@ -603,7 +603,7 @@
 
       const selectedConstructionText =
         constructionSelect.options[constructionSelect.selectedIndex]?.text ||
-        "â€”";
+        "None";
 
       selectedModel.textContent = selectedModelText;
 
@@ -650,5 +650,6 @@
   </script>
 </body>
 </html>
+
 
 
