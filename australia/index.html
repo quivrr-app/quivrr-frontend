@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="UTF-8" />
@@ -15,7 +15,7 @@
     content="Search surfboard inventory across Australian retailers."
   />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 
 <body>
@@ -34,7 +34,7 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero app-map-hero australia-hero">
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
@@ -145,7 +145,7 @@
               Construction and dimensions will appear here.
             </p>
 
-            <strong id="selectedConstruction">—</strong>
+            <strong id="selectedConstruction">â€”</strong>
 
             <small>Live SQL catalogue data</small>
           </article>
@@ -360,7 +360,7 @@
         <span class="stock-tag">No results</span>
         <h2>${title}</h2>
         <p>${message}</p>
-        <strong>—</strong>
+        <strong>â€”</strong>
         <small>Search completed</small>
       `;
 
@@ -603,7 +603,7 @@
 
       const selectedConstructionText =
         constructionSelect.options[constructionSelect.selectedIndex]?.text ||
-        "—";
+        "â€”";
 
       selectedModel.textContent = selectedModelText;
 
@@ -650,4 +650,5 @@
   </script>
 </body>
 </html>
+
 

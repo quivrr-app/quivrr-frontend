@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" role="img" aria-label="Quivrr world regions map">
+<defs><filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="1200" height="650" fill="#444444"/>
+<g opacity=".28" fill="#D7D5D5">
+<ellipse cx="210" cy="220" rx="115" ry="75"/><ellipse cx="285" cy="315" rx="75" ry="130"/><ellipse cx="520" cy="210" rx="95" ry="70"/><ellipse cx="575" cy="300" rx="110" ry="125"/><ellipse cx="760" cy="260" rx="150" ry="85"/><ellipse cx="880" cy="390" rx="85" ry="70"/><ellipse cx="990" cy="455" rx="110" ry="62"/><ellipse cx="555" cy="475" rx="80" ry="55"/>
+</g>
+<g opacity=".22" stroke="#F3F3F4" stroke-width="1" fill="none"><path d="M40 360 C220 300 380 380 530 315 S820 250 1160 335"/><path d="M60 475 C260 420 405 505 620 455 S870 410 1130 470"/></g>
+<g filter="url(#glow)"><ellipse cx="960" cy="455" rx="120" ry="70" fill="#6C7B83" opacity=".32"/><ellipse cx="535" cy="235" rx="125" ry="80" fill="#6C7B83" opacity=".28"/></g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" preserveAspectRatio="xMidYMid meet">
+  <style>
+  .region-shape path { fill: rgba(243,243,244,0.12); stroke: rgba(243,243,244,0.38); stroke-width: 1.55; vector-effect: non-scaling-stroke; }
+  .region-shape text { fill: rgba(243,243,244,0.96); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 700; paint-order: stroke; stroke: rgba(30,30,30,0.78); stroke-width: 4px; }
+  .region-label-small { font-size: 13px; }
+  .live path { fill: rgba(118,228,208,0.32); stroke: rgba(118,228,208,0.92); }
+</style>
+  <g class="region-shape" data-region="United Kingdom">
+    <path d="M688.0 154.5L688.5 152.1L685.9 149.4L681.2 148.7L680.2 147.5L681.6 145.6L680.4 144.5L678.3 146.5L678.0 142.4L676.1 140.2L677.5 135.9L680.5 132.5L683.6 132.8L688.3 132.4L684.2 137.0L692.4 136.4L691.4 139.9L687.9 143.7L691.9 143.9L695.7 149.4L698.3 150.0L701.8 156.5L706.5 157.3L706.1 160.0L704.1 161.3L705.6 163.4L702.1 165.7L696.9 165.6L690.3 166.8L688.5 165.9L685.9 167.9L682.3 167.4L679.6 169.1L677.5 168.2L683.2 163.8L686.7 162.9L680.6 162.2L679.5 160.5L683.6 159.2L681.4 156.9L682.2 154.1L688.0 154.5Z M673.0 151.7L670.6 151.7L671.4 149.5L670.6 147.2L673.8 147.0L678.0 149.7L675.9 152.6L673.0 151.7Z" />
+    
+    
+  </g>
+</svg>

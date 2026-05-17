@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" preserveAspectRatio="xMidYMid meet">
+  <style>
+  .region-shape path { fill: rgba(243,243,244,0.12); stroke: rgba(243,243,244,0.38); stroke-width: 1.55; vector-effect: non-scaling-stroke; }
+  .region-shape text { fill: rgba(243,243,244,0.96); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 700; paint-order: stroke; stroke: rgba(30,30,30,0.78); stroke-width: 4px; }
+  .region-label-small { font-size: 13px; }
+  .live path { fill: rgba(118,228,208,0.32); stroke: rgba(118,228,208,0.92); }
+</style>
+  <g class="region-shape" data-region="Japan">
+    <path d="M1216.9 236.2L1219.1 236.7L1220.7 234.9L1223.6 235.8L1224.1 237.3L1221.9 239.8L1220.3 238.5L1218.3 239.4L1217.3 241.9L1214.7 240.7L1214.8 238.7L1216.9 236.2Z M1248.2 223.2L1246.8 226.5L1247.5 228.7L1245.4 231.6L1240.5 233.6L1233.6 233.9L1228.1 238.7L1225.5 237.1L1225.3 233.9L1218.5 234.9L1213.9 236.8L1209.4 236.9L1213.3 240.0L1210.7 247.2L1208.2 249.0L1206.3 247.3L1207.3 243.5L1204.8 242.3L1203.3 239.4L1206.9 238.1L1209.0 235.5L1212.9 233.3L1215.7 230.4L1223.5 229.1L1227.6 230.0L1231.7 222.5L1234.3 224.5L1242.2 218.6L1244.7 213.5L1244.0 208.7L1245.6 206.1L1249.8 205.3L1251.9 211.1L1251.8 214.6L1248.2 218.8L1248.2 223.2Z M1266.0 197.3L1260.2 198.5L1256.8 202.7L1250.7 199.8L1248.6 204.4L1244.3 204.5L1243.7 200.3L1245.7 197.0L1249.8 196.8L1250.9 191.0L1252.1 187.7L1256.7 192.1L1259.7 193.5L1262.4 194.4L1265.1 192.6L1266.0 197.3Z" />
+    
+    
+  </g>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Southern Africa region overlay">
+  <style>
+    .region-shape path,
+    .region-shape polygon,
+    .region-shape polyline,
+    .region-shape circle,
+    .region-shape ellipse,
+    .region-shape rect {
+      fill: rgba(243,243,244,0.12);
+      stroke: rgba(243,243,244,0.38);
+      stroke-width: 1.55;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .region-shape.live path,
+    .region-shape.live polygon,
+    .region-shape.live polyline,
+    .region-shape.live circle,
+    .region-shape.live ellipse,
+    .region-shape.live rect {
+      fill: rgba(118,228,208,0.32);
+      stroke: rgba(118,228,208,0.92);
+      stroke-width: 2;
+    }
+
+    .region-label {
+      fill: rgba(243,243,244,0.96);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 19px;
+      font-weight: 800;
+      paint-order: stroke;
+      stroke: rgba(18,18,18,0.82);
+      stroke-width: 4px;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+
+    .region-code {
+      font-family: "Courier New", monospace;
+      font-size: 17px;
+      font-weight: 800;
+    }
+  </style>
+
+  <g class="region-shape" id="region-southern-africa" data-region="Southern Africa">
+    <path d="M828.0 490.7L826.2 499.5L825.2 501.4L821.8 504.1L816.9 511.5L809.7 518.4L806.8 520.3L802.7 521.9L800.8 522.1L800.3 523.3L797.9 522.7L796.0 523.5L791.8 522.7L789.4 523.2L787.8 523.0L783.8 524.6L780.5 525.3L778.1 526.9L776.3 527.0L774.6 525.5L773.3 525.4L771.7 523.5L771.5 524.1L771.0 523.0L771.0 520.5L769.7 517.7L771.0 516.9L770.9 513.7L763.6 500.7L760.7 497.5L759.2 494.4L756.0 480.7L755.9 475.7L755.4 473.4L751.9 468.1L749.0 460.4L745.9 456.3L745.6 453.1L749.8 451.5L752.4 451.7L754.7 453.6L771.0 453.1L773.7 455.1L783.1 455.7L793.5 453.0L796.0 453.3L798.2 454.9L805.2 455.7L810.7 449.5L812.1 449.2L812.6 447.7L814.8 446.1L817.7 445.5L817.4 442.5L829.2 439.0L831.4 441.0L832.5 440.6L834.0 441.7L834.2 443.4L833.4 445.4L833.7 448.3L836.2 450.9L837.4 448.0L839.1 447.1L838.8 441.7L837.2 438.6L835.8 437.3L834.4 437.3L833.3 431.8L834.4 428.6L837.3 428.3L842.0 429.5L843.0 429.0L845.7 428.8L847.1 427.6L849.4 427.6L853.7 426.0L856.8 423.6L857.4 425.5L857.9 440.0L858.6 442.0L857.4 445.0L855.9 448.0L853.4 450.6L845.5 454.3L841.1 458.8L839.6 459.6L836.9 462.6L835.3 463.5L835.0 466.5L836.8 469.7L837.6 473.5L838.3 473.3L838.2 477.4L837.6 479.4L838.5 480.1L837.9 481.9L836.3 483.4L828.4 487.1L826.7 488.6L827.0 490.4L828.0 490.7Z" />
+    <text class="region-label region-code" x="802" y="482">/za</text>
+    <text class="region-label" x="802" y="506">Southern Africa</text>
+  </g>
+</svg>
