@@ -358,7 +358,9 @@
           badge.textContent =
             available ? "AVAILABLE" : "SOLD OUT";
 
-          badge.style.display = "inline-block";
+          badge.style.display = "inline-flex";
+          badge.style.width = "fit-content";
+          badge.style.maxWidth = "220px";
           badge.style.margin = "0 0 1.1rem 0";
           badge.style.padding = "0.55rem 1.05rem";
           badge.style.border = "4px solid";
