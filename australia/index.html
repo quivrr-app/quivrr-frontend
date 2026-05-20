@@ -338,6 +338,26 @@
       const source = document.createElement("small");
 
       if (result.resultType === "manufacturer") {
+
+        const availability = result.manufacturerAvailability;
+
+        if (availability) {
+
+          const badge = document.createElement("div");
+
+          const available =
+            availability.isAvailable === true;
+
+          badge.className =
+            "manufacturer-availability-badge " +
+            (available ? "available" : "sold-out");
+
+          badge.textContent =
+            available ? "AVAILABLE" : "SOLD OUT";
+
+          card.appendChild(badge);
+        }
+
         source.textContent = "Official catalogue reference";
       } else {
         source.textContent = `${result.retailerName} | ${result.stockStatus}`;
