@@ -1043,3 +1043,151 @@ footer {
     drop-shadow(0 0 18px rgba(118, 228, 208, 0.30))
     drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
 }
+
+
+/* =========================================================
+   QUIVRR PRODUCT CARD VISUAL UPLIFT
+   ========================================================= */
+
+.result-card {
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(circle at top right, rgba(126, 255, 236, 0.10), transparent 38%),
+    linear-gradient(145deg, #ffffff 0%, #f5f8f8 45%, #edf6f4 100%);
+
+  border: 1px solid rgba(90, 255, 228, 0.16);
+
+  border-radius: 18px;
+
+  padding: 1.6rem;
+
+  min-height: 280px;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.result-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(117, 255, 232, 0.38);
+
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.12),
+    0 0 24px rgba(111, 255, 228, 0.14);
+}
+
+.retailer-header {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.96) 0%,
+      rgba(17, 41, 41, 0.98) 52%,
+      rgba(71, 114, 106, 0.95) 100%
+    );
+
+  border: 1px solid rgba(119, 255, 235, 0.14);
+
+  border-radius: 16px;
+
+  padding: 0.9rem 1rem;
+
+  margin-bottom: 1.2rem;
+}
+
+.result-card .match-tag,
+.result-card .exact-match-tag,
+.result-card .inventory-tag,
+.result-card .stock-tag,
+.result-card .match-label {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.45rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0d1416 0%,
+      #173132 45%,
+      #4f8179 100%
+    );
+
+  color: #d9fff7;
+
+  border: 1px solid rgba(114, 255, 227, 0.22);
+
+  border-radius: 999px;
+
+  padding: 0.55rem 0.95rem;
+
+  font-size: 0.72rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.result-card .view-board,
+.result-card .view-board-link,
+.result-card a[href*="board"] {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 48px;
+
+  padding: 0.85rem 1.4rem;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #071214 0%,
+      #143536 50%,
+      #5baea0 100%
+    );
+
+  border: 1px solid rgba(124, 255, 233, 0.16);
+
+  color: #ecfffb !important;
+
+  font-weight: 800;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.result-card .view-board:hover,
+.result-card .view-board-link:hover,
+.result-card a[href*="board"]:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(128, 255, 233, 0.45);
+
+  color: #ffffff !important;
+
+  box-shadow:
+    0 0 18px rgba(116, 255, 231, 0.38),
+    0 0 42px rgba(116, 255, 231, 0.18);
+}
+
