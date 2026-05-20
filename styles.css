@@ -1588,3 +1588,31 @@ footer {
   transform: translateY(-1rem) !important;
 }
 
+
+/* Root global hero title sizing */
+.hero.app-map-hero.app-home-hero .hero-kicker {
+  color: #F3F3F4 !important;
+
+  font-size: clamp(3rem, 5.6vw, 6.2rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.04em !important;
+  text-transform: none !important;
+
+  opacity: 1 !important;
+}
+
+.hero.app-map-hero.app-home-hero .hero-subtitle {
+  color: #D7D5D5 !important;
+
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+
+  opacity: 1 !important;
+}
+
+.hero.app-map-hero.app-home-hero .hero-content {
+  transform: translateY(-2rem) !important;
+}
+
