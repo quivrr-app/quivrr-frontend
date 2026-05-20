@@ -1489,44 +1489,41 @@ footer {
 
 
 /* QUIVRR FINAL AUSTRALIA MAP OVERRIDE */
-.hero.app-map-hero.australia-hero::after,
-.hero.australia-hero::after {
+.hero.app-map-hero.australia-hero::after {
   content: "" !important;
   position: absolute !important;
 
-  inset: -18rem -26rem -10rem -26rem !important;
+  inset: 0 !important;
 
   background-image: url("/Media/maps/australia.svg") !important;
   background-repeat: no-repeat !important;
-  background-position: center center !important;
-  background-size: min(3200px, 185vw) auto !important;
+  background-position: right 3% center !important;
+  background-size: min(1250px, 72vw) auto !important;
 
-  opacity: 0.30 !important;
+  opacity: 0.42 !important;
 
   filter:
-    drop-shadow(0 0 28px rgba(118, 228, 208, 0.38))
-    drop-shadow(0 0 90px rgba(118, 228, 208, 0.22)) !important;
+    drop-shadow(0 0 18px rgba(118, 228, 208, 0.55))
+    drop-shadow(0 0 46px rgba(118, 228, 208, 0.22)) !important;
 
   pointer-events: none !important;
-  z-index: 1 !important;
+  z-index: 2 !important;
 }
 
 .hero.app-map-hero.australia-hero .hero-overlay {
-  z-index: 2 !important;
+  z-index: 1 !important;
 }
 
 .hero.app-map-hero.australia-hero .hero-content,
 .hero.app-map-hero.australia-hero .retailer-logo-strip {
   position: relative !important;
-  z-index: 4 !important;
+  z-index: 5 !important;
 }
 
 @media (max-width: 768px) {
-  .hero.app-map-hero.australia-hero::after,
-  .hero.australia-hero::after {
-    inset: -8rem -12rem -6rem -12rem !important;
-    background-size: 210vw auto !important;
-    background-position: center center !important;
-    opacity: 0.22 !important;
+  .hero.app-map-hero.australia-hero::after {
+    background-position: right -35% center !important;
+    background-size: 105vw auto !important;
+    opacity: 0.30 !important;
   }
 }
