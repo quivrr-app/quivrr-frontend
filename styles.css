@@ -967,18 +967,6 @@ footer {
 
 
 
-/* Large Australia map background override */
-.hero.australia-hero::after {
-  inset: -10rem -8rem 3rem -6rem;
-  background-image: url("/Media/maps/australia.svg");
-  background-position: center 38%;
-  background-size: 132vw auto;
-  opacity: 0.18;
-  filter:
-    drop-shadow(0 0 16px rgba(118, 228, 208, 0.34))
-    drop-shadow(0 0 42px rgba(118, 228, 208, 0.16));
-}
-
 /* Final regional map hero placement */
 .hero.app-home-hero::after {
   inset: -2rem 2rem 4rem 2rem;
@@ -1001,55 +989,6 @@ footer {
     drop-shadow(0 0 18px rgba(118, 228, 208, 0.30))
     drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
 }
-
-/* Centre Australia map behind hero search */
-.hero.australia-hero::after {
-  inset: -9rem 0 2rem 0;
-  background-image: url("/Media/maps/australia.svg");
-  background-position: center 39%;
-  background-size: min(1500px, 88vw) auto;
-  opacity: 0.16;
-  filter:
-    drop-shadow(0 0 18px rgba(118, 228, 208, 0.32))
-    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
-}
-
-/* Final Australia cropped regional hero map */
-.hero.australia-hero::after {
-  inset: -5rem 0 4rem 0;
-  background-image: url("/Media/maps/australia-hero.svg");
-  background-position: center 44%;
-  background-size: min(1500px, 88vw) auto;
-  opacity: 0.18;
-  filter:
-    drop-shadow(0 0 18px rgba(118, 228, 208, 0.28))
-    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
-}
-
-/* Working Australia hero map background */
-.hero.australia-hero::after {
-  inset: -7rem 0 2rem 0;
-  background-image: url("/Media/maps/australia-hero.svg");
-  background-position: center 42%;
-  background-size: min(1500px, 90vw) auto;
-  opacity: 0.20;
-  filter:
-    drop-shadow(0 0 18px rgba(118, 228, 208, 0.32))
-    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
-}
-
-/* Australia hero map final placement */
-.hero.australia-hero::after {
-  inset: -12rem 0 1rem 0;
-  background-image: url("/Media/maps/australia.svg");
-  background-position: center 38%;
-  background-size: min(2200px, 130vw) auto;
-  opacity: 0.18;
-  filter:
-    drop-shadow(0 0 18px rgba(118, 228, 208, 0.30))
-    drop-shadow(0 0 46px rgba(118, 228, 208, 0.14));
-}
-
 
 /* =========================================================
    QUIVRR SEARCH RESULT CARD STYLING
@@ -1518,3 +1457,76 @@ footer {
   }
 }
 
+
+/* Australia map hero final large centred placement */
+.hero.australia-hero::after {
+  inset: -8rem -12rem -2rem -12rem !important;
+
+  background-image: url("/Media/maps/australia.svg") !important;
+
+  background-position: center center !important;
+
+  background-size: min(2600px, 145vw) auto !important;
+
+  opacity: 0.24 !important;
+
+  filter:
+    drop-shadow(0 0 24px rgba(118, 228, 208, 0.34))
+    drop-shadow(0 0 70px rgba(118, 228, 208, 0.18)) !important;
+}
+
+@media (max-width: 768px) {
+  .hero.australia-hero::after {
+    inset: -2rem -6rem -2rem -6rem !important;
+
+    background-size: 165vw auto !important;
+
+    background-position: center center !important;
+
+    opacity: 0.18 !important;
+  }
+}
+
+
+/* QUIVRR FINAL AUSTRALIA MAP OVERRIDE */
+.hero.app-map-hero.australia-hero::after,
+.hero.australia-hero::after {
+  content: "" !important;
+  position: absolute !important;
+
+  inset: -18rem -26rem -10rem -26rem !important;
+
+  background-image: url("/Media/maps/australia.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: min(3200px, 185vw) auto !important;
+
+  opacity: 0.30 !important;
+
+  filter:
+    drop-shadow(0 0 28px rgba(118, 228, 208, 0.38))
+    drop-shadow(0 0 90px rgba(118, 228, 208, 0.22)) !important;
+
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.hero.app-map-hero.australia-hero .hero-overlay {
+  z-index: 2 !important;
+}
+
+.hero.app-map-hero.australia-hero .hero-content,
+.hero.app-map-hero.australia-hero .retailer-logo-strip {
+  position: relative !important;
+  z-index: 4 !important;
+}
+
+@media (max-width: 768px) {
+  .hero.app-map-hero.australia-hero::after,
+  .hero.australia-hero::after {
+    inset: -8rem -12rem -6rem -12rem !important;
+    background-size: 210vw auto !important;
+    background-position: center center !important;
+    opacity: 0.22 !important;
+  }
+}
