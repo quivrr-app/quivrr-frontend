@@ -1391,3 +1391,48 @@ footer {
     width: 100%;
   }
 }
+/* Australia hero title readability fix */
+.hero.australia-hero .hero-title {
+  text-align: left;
+  margin-bottom: 1.5rem;
+  color: #F3F3F4;
+}
+
+.hero.australia-hero .hero-title::before {
+  content: "Australia";
+  display: block;
+  margin-bottom: 0.7rem;
+
+  color: #F3F3F4;
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.hero.australia-hero .hero-title p {
+  color: #F3F3F4;
+  opacity: 0.96;
+
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+
+  margin-bottom: 0.75rem;
+}
+
+.hero.australia-hero .hero-title span {
+  color: #D7D5D5;
+  opacity: 0.95;
+
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+@media (max-width: 768px) {
+  .hero.australia-hero .hero-title {
+    text-align: center;
+  }
+}
