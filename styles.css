@@ -1330,134 +1330,6 @@ footer {
     width: 100%;
   }
 }
-/* Australia hero title readability fix */
-.hero.australia-hero .hero-title {
-  text-align: left;
-  margin-bottom: 1.5rem;
-  color: #F3F3F4;
-}
-
-.hero.australia-hero .hero-title::before {
-  content: "Australia";
-  display: block;
-  margin-bottom: 0.7rem;
-
-  color: #F3F3F4;
-  font-size: clamp(2.4rem, 4vw, 4.2rem);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
-
-.hero.australia-hero .hero-title p {
-  color: #F3F3F4;
-  opacity: 0.96;
-
-  font-size: 1.45rem;
-  font-weight: 900;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-
-  margin-bottom: 0.75rem;
-}
-
-.hero.australia-hero .hero-title span {
-  color: #D7D5D5;
-  opacity: 0.95;
-
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-}
-
-@media (max-width: 768px) {
-  .hero.australia-hero .hero-title {
-    text-align: center;
-  }
-}
-
-/* Visible region search titles */
-.hero .hero-content {
-  align-items: flex-start !important;
-}
-
-.hero .hero-content .hero-region-title {
-  display: block !important;
-  visibility: visible !important;
-
-  margin: 0 0 0.7rem 0 !important;
-
-  color: #F3F3F4 !important;
-
-  font-family: Arial, Helvetica, sans-serif !important;
-  font-size: clamp(4.8rem, 8vw, 8rem) !important;
-  font-weight: 900 !important;
-  line-height: 0.86 !important;
-  letter-spacing: -0.08em !important;
-
-  text-align: left !important;
-  text-transform: none !important;
-
-  opacity: 1 !important;
-  z-index: 10 !important;
-  position: relative !important;
-
-  text-shadow: 0 12px 34px rgba(0, 0, 0, 0.38) !important;
-}
-
-.hero .hero-content .hero-kicker {
-  display: block !important;
-  visibility: visible !important;
-
-  margin: 0 0 0.45rem 0 !important;
-
-  color: #F3F3F4 !important;
-
-  font-size: clamp(1.65rem, 2.4vw, 2.4rem) !important;
-  font-weight: 900 !important;
-  line-height: 1.05 !important;
-  letter-spacing: 0.20em !important;
-  text-transform: uppercase !important;
-
-  opacity: 1 !important;
-  z-index: 10 !important;
-  position: relative !important;
-
-  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.36) !important;
-}
-
-.hero .hero-content .hero-subtitle {
-  display: block !important;
-  visibility: visible !important;
-
-  margin: 0 0 2.3rem 0 !important;
-
-  color: #D7D5D5 !important;
-
-  font-family: "Courier Prime", monospace !important;
-  font-size: 1.15rem !important;
-  font-weight: 700 !important;
-  line-height: 1.2 !important;
-  letter-spacing: 0.22em !important;
-
-  opacity: 1 !important;
-  z-index: 10 !important;
-  position: relative !important;
-}
-
-@media (max-width: 768px) {
-  .hero .hero-content .hero-region-title {
-    font-size: clamp(3.4rem, 14vw, 5.2rem) !important;
-    text-align: center !important;
-  }
-
-  .hero .hero-content .hero-kicker,
-  .hero .hero-content .hero-subtitle {
-    text-align: center !important;
-  }
-}
-
-
 /* Australia map hero final large centred placement */
 .hero.australia-hero::after {
   inset: -8rem -12rem -2rem -12rem !important;
@@ -1488,42 +1360,34 @@ footer {
 }
 
 
-/* QUIVRR FINAL AUSTRALIA MAP OVERRIDE */
-.hero.app-map-hero.australia-hero::after {
-  content: "" !important;
-  position: absolute !important;
-
-  inset: 0 !important;
-
-  background-image: url("/Media/maps/australia.svg") !important;
-  background-repeat: no-repeat !important;
-  background-position: right 3% center !important;
-  background-size: min(1250px, 72vw) auto !important;
-
-  opacity: 0.42 !important;
-
-  filter:
-    drop-shadow(0 0 18px rgba(118, 228, 208, 0.55))
-    drop-shadow(0 0 46px rgba(118, 228, 208, 0.22)) !important;
-
-  pointer-events: none !important;
-  z-index: 2 !important;
-}
-
-.hero.app-map-hero.australia-hero .hero-overlay {
-  z-index: 1 !important;
-}
-
-.hero.app-map-hero.australia-hero .hero-content,
+/* Emergency restore for Australia hero layout */
 .hero.app-map-hero.australia-hero .retailer-logo-strip {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 2.2rem !important;
+  z-index: 4 !important;
+}
+
+.hero.app-map-hero.australia-hero .hero-content {
   position: relative !important;
   z-index: 5 !important;
+  transform: translateY(-7rem) !important;
 }
 
-@media (max-width: 768px) {
-  .hero.app-map-hero.australia-hero::after {
-    background-position: right -35% center !important;
-    background-size: 105vw auto !important;
-    opacity: 0.30 !important;
-  }
+.hero.app-map-hero.australia-hero .hero-kicker {
+  color: #F3F3F4 !important;
+  opacity: 1 !important;
+}
+
+.hero.app-map-hero.australia-hero .hero-subtitle {
+  color: #D7D5D5 !important;
+  opacity: 1 !important;
+}
+
+.hero.app-map-hero.australia-hero::after {
+  background-image: url("/Media/maps/australia.svg") !important;
+  background-position: right 8% center !important;
+  background-size: min(950px, 58vw) auto !important;
+  opacity: 0.26 !important;
 }
