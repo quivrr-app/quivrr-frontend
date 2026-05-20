@@ -1360,34 +1360,84 @@ footer {
 }
 
 
-/* Emergency restore for Australia hero layout */
-.hero.app-map-hero.australia-hero .retailer-logo-strip {
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 2.2rem !important;
-  z-index: 4 !important;
+/* Australia hero visual refinement */
+.hero.app-map-hero.australia-hero {
+  overflow: hidden;
 }
 
-.hero.app-map-hero.australia-hero .hero-content {
-  position: relative !important;
-  z-index: 5 !important;
-  transform: translateY(-7rem) !important;
+.hero.app-map-hero.australia-hero::after {
+  content: "";
+  position: absolute;
+
+  inset: 0;
+
+  background-image: url("/Media/maps/australia.svg");
+  background-repeat: no-repeat;
+  background-position: right 8% center;
+  background-size: min(1200px, 68vw) auto;
+
+  opacity: 0.22;
+
+  filter:
+    drop-shadow(0 0 20px rgba(84, 224, 196, 0.32))
+    drop-shadow(0 0 48px rgba(84, 224, 196, 0.16));
+
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero.app-map-hero.australia-hero .hero-overlay {
+  z-index: 0;
+}
+
+.hero.app-map-hero.australia-hero .hero-content,
+.hero.app-map-hero.australia-hero .retailer-logo-strip {
+  position: relative;
+  z-index: 5;
+}
+
+.hero.app-map-hero.australia-hero .hero-region-title {
+  margin-bottom: 0.6rem;
+
+  color: #F3F3F4;
+
+  font-size: clamp(4rem, 7vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .hero.app-map-hero.australia-hero .hero-kicker {
   color: #F3F3F4 !important;
+
+  font-size: clamp(1.25rem, 2vw, 1.9rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.22em !important;
+
   opacity: 1 !important;
 }
 
 .hero.app-map-hero.australia-hero .hero-subtitle {
   color: #D7D5D5 !important;
+
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.18em !important;
+
   opacity: 1 !important;
 }
 
-.hero.app-map-hero.australia-hero::after {
-  background-image: url("/Media/maps/australia.svg") !important;
-  background-position: right 8% center !important;
-  background-size: min(950px, 58vw) auto !important;
-  opacity: 0.26 !important;
+@media (max-width: 768px) {
+  .hero.app-map-hero.australia-hero::after {
+    background-position: center center;
+    background-size: 135vw auto;
+    opacity: 0.16;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-region-title {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
 }
+
