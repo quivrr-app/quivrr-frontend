@@ -1497,3 +1497,46 @@ footer {
     font-size: clamp(3rem, 12vw, 4.8rem);
   }
 }
+
+/* Fixed visible hero title block */
+.hero-title-fixed {
+  display: block !important;
+  text-align: left !important;
+  margin: 0 0 2rem 0 !important;
+  color: #F3F3F4 !important;
+}
+
+.hero-title-fixed .hero-region-label {
+  color: #F3F3F4 !important;
+  font-size: clamp(3.5rem, 6vw, 6.5rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.06em !important;
+  line-height: 0.9 !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.hero-title-fixed p {
+  color: #F3F3F4 !important;
+  opacity: 1 !important;
+  font-size: clamp(1.35rem, 2vw, 2rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.55rem 0 !important;
+}
+
+.hero-title-fixed span {
+  display: block !important;
+  color: #D7D5D5 !important;
+  opacity: 1 !important;
+  font-family: "Courier Prime", monospace !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+}
+
+@media (max-width: 768px) {
+  .hero-title-fixed {
+    text-align: center !important;
+  }
+}
