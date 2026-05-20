@@ -1569,3 +1569,22 @@ footer {
   }
 }
 
+
+/* Australia title refinement */
+.hero.app-map-hero.australia-hero .hero-region-title {
+  margin: 0.4rem 0 1.2rem 0 !important;
+
+  font-size: clamp(2.1rem, 3vw, 3.4rem) !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.04em !important;
+
+  opacity: 0.94 !important;
+
+  max-width: 320px !important;
+}
+
+.hero.app-map-hero.australia-hero .hero-content {
+  transform: translateY(-1rem) !important;
+}
+
