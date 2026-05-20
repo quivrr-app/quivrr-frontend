@@ -341,12 +341,15 @@
 
         const availability = result.manufacturerAvailability;
 
-        if (availability) {
+        const isJsManufacturer =
+          result.brandName === "JS Industries";
+
+        if (availability || isJsManufacturer) {
 
           const badge = document.createElement("div");
 
           const available =
-            availability.isAvailable === true;
+            availability && availability.isAvailable === true;
 
           badge.className =
             "manufacturer-availability-badge " +
