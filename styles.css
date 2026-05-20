@@ -1436,107 +1436,85 @@ footer {
     text-align: center;
   }
 }
-/* Australia search hero title */
-.hero.app-map-hero.australia-hero .hero-content {
-  transform: translateY(-4rem);
+
+/* Visible region search titles */
+.hero .hero-content {
+  align-items: flex-start !important;
 }
 
-.hero.app-map-hero.australia-hero .hero-title {
+.hero .hero-content .hero-region-title {
   display: block !important;
-  text-align: left !important;
-  margin: 0 0 2.2rem 0 !important;
+  visibility: visible !important;
+
+  margin: 0 0 0.7rem 0 !important;
+
   color: #F3F3F4 !important;
-}
 
-.hero.app-map-hero.australia-hero .hero-title::before {
-  content: "Australia";
-  display: block;
-  margin-bottom: 0.7rem;
-
-  color: #F3F3F4;
-  font-size: clamp(3.8rem, 7vw, 7rem);
-  font-weight: 900;
-  letter-spacing: -0.07em;
-  line-height: 0.9;
-}
-
-.hero.app-map-hero.australia-hero .hero-title p {
-  display: block !important;
-  color: #F3F3F4 !important;
-  opacity: 1 !important;
-
-  font-size: clamp(1.4rem, 2vw, 2rem) !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: clamp(4.8rem, 8vw, 8rem) !important;
   font-weight: 900 !important;
-  letter-spacing: 0.24em !important;
+  line-height: 0.86 !important;
+  letter-spacing: -0.08em !important;
+
+  text-align: left !important;
+  text-transform: none !important;
+
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative !important;
+
+  text-shadow: 0 12px 34px rgba(0, 0, 0, 0.38) !important;
+}
+
+.hero .hero-content .hero-kicker {
+  display: block !important;
+  visibility: visible !important;
+
+  margin: 0 0 0.45rem 0 !important;
+
+  color: #F3F3F4 !important;
+
+  font-size: clamp(1.65rem, 2.4vw, 2.4rem) !important;
+  font-weight: 900 !important;
+  line-height: 1.05 !important;
+  letter-spacing: 0.20em !important;
   text-transform: uppercase !important;
 
-  margin: 0 0 0.6rem 0 !important;
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative !important;
+
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.36) !important;
 }
 
-.hero.app-map-hero.australia-hero .hero-title span {
+.hero .hero-content .hero-subtitle {
   display: block !important;
+  visibility: visible !important;
+
+  margin: 0 0 2.3rem 0 !important;
+
   color: #D7D5D5 !important;
-  opacity: 1 !important;
 
-  font-family: "Courier Prime", monospace;
-  font-size: 1rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.22em !important;
-}
-
-@media (max-width: 768px) {
-  .hero.app-map-hero.australia-hero .hero-content {
-    transform: translateY(-2rem);
-  }
-
-  .hero.app-map-hero.australia-hero .hero-title {
-    text-align: center !important;
-  }
-
-  .hero.app-map-hero.australia-hero .hero-title::before {
-    font-size: clamp(3rem, 12vw, 4.8rem);
-  }
-}
-
-/* Fixed visible hero title block */
-.hero-title-fixed {
-  display: block !important;
-  text-align: left !important;
-  margin: 0 0 2rem 0 !important;
-  color: #F3F3F4 !important;
-}
-
-.hero-title-fixed .hero-region-label {
-  color: #F3F3F4 !important;
-  font-size: clamp(3.5rem, 6vw, 6.5rem) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.06em !important;
-  line-height: 0.9 !important;
-  margin-bottom: 0.8rem !important;
-}
-
-.hero-title-fixed p {
-  color: #F3F3F4 !important;
-  opacity: 1 !important;
-  font-size: clamp(1.35rem, 2vw, 2rem) !important;
-  font-weight: 900 !important;
-  letter-spacing: 0.22em !important;
-  text-transform: uppercase !important;
-  margin: 0 0 0.55rem 0 !important;
-}
-
-.hero-title-fixed span {
-  display: block !important;
-  color: #D7D5D5 !important;
-  opacity: 1 !important;
   font-family: "Courier Prime", monospace !important;
-  font-size: 1rem !important;
+  font-size: 1.15rem !important;
   font-weight: 700 !important;
+  line-height: 1.2 !important;
   letter-spacing: 0.22em !important;
+
+  opacity: 1 !important;
+  z-index: 10 !important;
+  position: relative !important;
 }
 
 @media (max-width: 768px) {
-  .hero-title-fixed {
+  .hero .hero-content .hero-region-title {
+    font-size: clamp(3.4rem, 14vw, 5.2rem) !important;
+    text-align: center !important;
+  }
+
+  .hero .hero-content .hero-kicker,
+  .hero .hero-content .hero-subtitle {
     text-align: center !important;
   }
 }
+
