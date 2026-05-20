@@ -358,6 +358,20 @@
           badge.textContent =
             available ? "AVAILABLE" : "SOLD OUT";
 
+          badge.style.display = "inline-block";
+          badge.style.margin = "0 0 1.1rem 0";
+          badge.style.padding = "0.55rem 1.05rem";
+          badge.style.border = "4px solid";
+          badge.style.fontSize = "0.95rem";
+          badge.style.fontWeight = "900";
+          badge.style.letterSpacing = "0.16em";
+          badge.style.textTransform = "uppercase";
+          badge.style.transform = "rotate(-7deg)";
+          badge.style.background = "rgba(255,255,255,0.94)";
+          badge.style.boxShadow = "0 10px 24px rgba(0,0,0,0.16)";
+          badge.style.color = available ? "#15803d" : "#b91c1c";
+          badge.style.borderColor = available ? "#15803d" : "#b91c1c";
+
           card.appendChild(badge);
         }
 
