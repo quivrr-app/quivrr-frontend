@@ -295,17 +295,28 @@
       const card = document.createElement("article");
       card.className = "result-card";
 
-      if (result.resultType === "manufacturer") {
+      const isOfficialManufacturer =
+        result.resultType === "manufacturer";
+
+      const isDirectManufacturer =
+        result.resultType === "manufacturerDirect" ||
+        result.resultType === "manufacturerAlternateConstruction";
+
+      if (isOfficialManufacturer || isDirectManufacturer) {
         card.classList.add("manufacturer-card");
       }
 
-      if (result.resultType !== "manufacturer") {
+      if (isDirectManufacturer) {
+        card.classList.add("manufacturer-direct-card");
+      }
+
+      if (!isOfficialManufacturer && !isDirectManufacturer) {
         card.appendChild(createRetailerHeader(result));
       }
 
       addBoardImage(
         card,
-        result.imageUrl,
+        result.imageUrl || result.productImageUrl,
         result.title || result.modelName || "Surfboard"
       );
 
@@ -329,23 +340,23 @@
 
       const price = document.createElement("strong");
 
-      if (result.resultType === "manufacturer") {
+      if (isOfficialManufacturer) {
         price.textContent = "Manufacturer catalogue";
+      } else if (isDirectManufacturer) {
+        price.textContent = formatPrice(result.priceAmount);
       } else {
         price.textContent = formatPrice(result.priceAud);
       }
 
       const source = document.createElement("small");
 
-      if (result.resultType === "manufacturer") {
+      if (isOfficialManufacturer || isDirectManufacturer) {
+        const availability =
+          isOfficialManufacturer
+            ? result.manufacturerAvailability
+            : result;
 
-        const availability = result.manufacturerAvailability;
-
-        const isJsManufacturer =
-          result.brandName === "JS Industries";
-
-        if (availability || isJsManufacturer) {
-
+        if (availability || result.brandName === "JS Industries") {
           const badge = document.createElement("div");
 
           const available =
@@ -358,26 +369,12 @@
           badge.textContent =
             available ? "AVAILABLE" : "SOLD OUT";
 
-          badge.style.display = "inline-flex";
-          badge.style.width = "fit-content";
-          badge.style.maxWidth = "220px";
-          badge.style.margin = "0 0 1.1rem 0";
-          badge.style.padding = "0.55rem 1.05rem";
-          badge.style.border = "4px solid";
-          badge.style.fontSize = "0.95rem";
-          badge.style.fontWeight = "900";
-          badge.style.letterSpacing = "0.16em";
-          badge.style.textTransform = "uppercase";
-          badge.style.transform = "rotate(-7deg)";
-          badge.style.background = "rgba(255,255,255,0.94)";
-          badge.style.boxShadow = "0 10px 24px rgba(0,0,0,0.16)";
-          badge.style.color = available ? "#15803d" : "#b91c1c";
-          badge.style.borderColor = available ? "#15803d" : "#b91c1c";
-
           card.appendChild(badge);
         }
 
-        source.textContent = "Official catalogue reference";
+        source.textContent = isDirectManufacturer
+          ? "Manufacturer direct board"
+          : "Official catalogue reference";
       } else {
         source.textContent = `${result.retailerName} | ${result.stockStatus}`;
       }
@@ -437,6 +434,28 @@
             "Manufacturer"
           )
         );
+
+        const shouldRenderMultipleManufacturerBoards =
+          data.manufacturer.brandName === "Album";
+
+        if (shouldRenderMultipleManufacturerBoards) {
+          const directManufacturerMatches =
+            data.directManufacturerMatches ||
+            data.manufacturer.directManufacturerMatches ||
+            [];
+
+          directManufacturerMatches.forEach(result => {
+            manufacturerGrid.appendChild(
+              createResultCard(
+                {
+                  ...result,
+                  resultType: "manufacturerDirect"
+                },
+                "Available from manufacturer"
+              )
+            );
+          });
+        }
       } else {
         renderEmptyCard(
           manufacturerGrid,
