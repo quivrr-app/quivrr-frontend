@@ -423,36 +423,38 @@
       showMoreExactButton.textContent = "Show more exact matches";
 
       if (data.manufacturer) {
-        manufacturerGrid.appendChild(
-          createResultCard(
-            {
-              ...data.manufacturer,
-              resultType: "manufacturer"
-            },
-            "Manufacturer"
-          )
-        );
+        const directManufacturerMatches =
+          data.directManufacturerMatches ||
+          data.manufacturer.directManufacturerMatches ||
+          [];
 
-        const shouldRenderMultipleManufacturerBoards =
-          data.manufacturer.brandName === "Album";
+        const hasAvailableDirectManufacturerStock =
+          directManufacturerMatches.some(result => result.isAvailable === true);
 
-        if (shouldRenderMultipleManufacturerBoards) {
-          const directManufacturerMatches =
-            data.directManufacturerMatches ||
-            data.manufacturer.directManufacturerMatches ||
-            [];
-
-          directManufacturerMatches.forEach(result => {
-            manufacturerGrid.appendChild(
-              createResultCard(
-                {
-                  ...result,
-                  resultType: "manufacturerDirect"
-                },
-                "Available from manufacturer"
-              )
-            );
-          });
+        if (hasAvailableDirectManufacturerStock) {
+          directManufacturerMatches
+            .filter(result => result.isAvailable === true)
+            .forEach(result => {
+              manufacturerGrid.appendChild(
+                createResultCard(
+                  {
+                    ...result,
+                    resultType: "manufacturerDirect"
+                  },
+                  "Available from manufacturer"
+                )
+              );
+            });
+        } else {
+          manufacturerGrid.appendChild(
+            createResultCard(
+              {
+                ...data.manufacturer,
+                resultType: "manufacturer"
+              },
+              "Manufacturer"
+            )
+          );
         }
       } else {
         renderEmptyCard(
