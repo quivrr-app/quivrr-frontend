@@ -412,6 +412,52 @@
       grid.appendChild(emptyCard);
     }
 
+
+    function groupManufacturerDirectMatches(matches) {
+      const grouped = new Map();
+
+      matches.forEach(match => {
+        const key = [
+          match.brandName,
+          match.modelName,
+          match.length,
+          match.width,
+          match.thickness,
+          match.volumeLitres,
+          match.construction,
+          match.priceAmount
+        ].join("|");
+
+        if (!grouped.has(key)) {
+          grouped.set(key, {
+            ...match,
+            finSetups: [],
+            productUrls: []
+          });
+        }
+
+        const group = grouped.get(key);
+
+        if (match.finSetup && !group.finSetups.includes(match.finSetup)) {
+          group.finSetups.push(match.finSetup);
+        }
+
+        if (match.productUrl && !group.productUrls.includes(match.productUrl)) {
+          group.productUrls.push(match.productUrl);
+        }
+      });
+
+      return Array.from(grouped.values()).map(group => {
+        return {
+          ...group,
+          finSetup: group.finSetups.length > 0
+            ? group.finSetups.join(" / ")
+            : group.finSetup,
+          productUrl: group.productUrls[0] || group.productUrl
+        };
+      });
+    }
+
     function renderSearchResults(data) {
       manufacturerGrid.innerHTML = "";
       exactResultGrid.innerHTML = "";
@@ -432,19 +478,19 @@
           directManufacturerMatches.some(result => result.isAvailable === true);
 
         if (hasAvailableDirectManufacturerStock) {
-          directManufacturerMatches
-            .filter(result => result.isAvailable === true)
-            .forEach(result => {
-              manufacturerGrid.appendChild(
-                createResultCard(
-                  {
-                    ...result,
-                    resultType: "manufacturerDirect"
-                  },
-                  "Available from manufacturer"
-                )
-              );
-            });
+          groupManufacturerDirectMatches(
+            directManufacturerMatches.filter(result => result.isAvailable === true)
+          ).forEach(result => {
+            manufacturerGrid.appendChild(
+              createResultCard(
+                {
+                  ...result,
+                  resultType: "manufacturerDirect"
+                },
+                "Available from manufacturer"
+              )
+            );
+          });
         } else {
           manufacturerGrid.appendChild(
             createResultCard(
