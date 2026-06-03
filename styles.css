@@ -1903,10 +1903,10 @@ footer {
 .global-return-card {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.72rem;
 
-  min-height: 58px;
-  padding: 0.8rem 1.05rem;
+  min-height: 42px;
+  padding: 0.48rem 0.82rem;
 
   color: #F3F3F4;
 
@@ -1947,8 +1947,8 @@ footer {
 .global-return-icon {
   position: relative;
 
-  width: 34px;
-  height: 34px;
+  width: 24px;
+  height: 24px;
 
   border: 3px solid rgba(118, 228, 208, 0.92);
   border-radius: 999px;
@@ -1972,13 +1972,13 @@ footer {
 }
 
 .global-return-icon::before {
-  width: 18px;
-  height: 32px;
+  width: 12px;
+  height: 22px;
 }
 
 .global-return-icon::after {
-  width: 32px;
-  height: 14px;
+  width: 22px;
+  height: 10px;
 }
 
 .global-return-copy {
@@ -1991,7 +1991,7 @@ footer {
   color: rgba(255, 255, 255, 0.66);
 
   font-family: "Courier Prime", monospace;
-  font-size: 0.66rem;
+  font-size: 0.52rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -2000,7 +2000,7 @@ footer {
 .global-return-copy strong {
   color: #F3F3F4;
 
-  font-size: 0.92rem;
+  font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -2041,4 +2041,40 @@ footer {
   .global-return-copy small {
     font-size: 0.58rem;
   }
+}
+
+
+/* Tight top right placement for global return */
+@media (min-width: 1000px) {
+
+  .global-return-card {
+    position: absolute;
+    top: 2.2rem;
+    right: 3rem;
+
+    transform: scale(0.84);
+
+    transform-origin: top right;
+
+    z-index: 40;
+  }
+
+  .global-return-card:hover,
+  .global-return-card:focus-visible {
+    transform: scale(0.88) translateY(-1px);
+  }
+}
+
+/* Australia glow uplift */
+.hero.app-map-hero.australia-hero::after {
+  opacity: 0.72 !important;
+
+  filter:
+    brightness(1.45)
+    contrast(1.42)
+    saturate(1.2)
+    drop-shadow(0 0 8px rgba(118, 228, 208, 0.92))
+    drop-shadow(0 0 24px rgba(118, 228, 208, 0.72))
+    drop-shadow(0 0 54px rgba(118, 228, 208, 0.46))
+    drop-shadow(0 0 92px rgba(118, 228, 208, 0.24)) !important;
 }
