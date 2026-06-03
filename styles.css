@@ -1661,7 +1661,7 @@ footer {
 /* Australia logo placement */
 .brand-logo-image {
   display: block;
-  width: 320px;
+  width: 150px;
   max-width: 100%;
   height: auto;
   object-fit: contain;
@@ -1669,13 +1669,13 @@ footer {
 
 .hero.app-map-hero.australia-hero .hero-world-logo {
   position: absolute;
-  top: 5.8rem;
+  top: 5.2rem !important;
   left: 50%;
   z-index: 3;
-  width: min(420px, 34vw);
+  width: min(560px, 42vw) !important;
   height: auto;
   transform: translateX(-50%);
-  opacity: 0.88;
+  opacity: 0.92 !important;
   filter:
     drop-shadow(0 0 18px rgba(118, 228, 208, 0.26))
     drop-shadow(0 0 42px rgba(0, 0, 0, 0.38));
@@ -1718,7 +1718,7 @@ footer {
   }
 
   .hero.app-map-hero.australia-hero .brand-logo-image {
-    width: 300px !important;
+    width: 145px !important;
   }
 
   .hero.app-map-hero.australia-hero .hero-world-logo {
