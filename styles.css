@@ -1741,3 +1741,16 @@ footer {
     bottom: 1.4rem !important;
   }
 }
+
+
+
+/* Australia hero kicker compact two line layout */
+.hero.app-map-hero.australia-hero .hero-kicker {
+  font-family: "Courier Prime", monospace !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.22em !important;
+  max-width: 520px !important;
+  text-transform: uppercase !important;
+}
