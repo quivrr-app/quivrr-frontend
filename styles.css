@@ -1705,14 +1705,14 @@ footer {
 @media (min-width: 1400px) {
 
   .hero.app-map-hero.australia-hero {
-    min-height: 720px !important;
-    padding: 6rem 4rem 9rem !important;
+    min-height: 650px !important;
+    padding: 4rem 4rem 7rem !important;
   }
 
   .hero.app-map-hero.australia-hero .hero-content {
-    width: min(1580px, 100%) !important;
-    max-width: 1450px !important;
-    transform: translateY(-2.2rem) scale(0.64) !important;
+    width: min(1900px, 100%) !important;
+    max-width: 1900px !important;
+    transform: translateY(-3.4rem) scale(0.52) !important;
     transform-origin: top left !important;
     padding-top: 6.5rem !important;
   }
