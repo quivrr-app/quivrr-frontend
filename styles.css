@@ -2083,6 +2083,7 @@ footer {
 
 /* HOW QUIVRR WORKS title colour refinement */
 .how-it-works-grid h2 {
-  color: #2f8f83 !important;
-  text-shadow: 0 0 14px rgba(47, 143, 131, 0.14);
+  color: #2f7f75 !important;
+  text-shadow: 0 0 10px rgba(47, 127, 117, 0.10);
 }
+
