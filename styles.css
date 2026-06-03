@@ -1661,14 +1661,15 @@ footer {
 /* Australia logo placement */
 .brand-logo-image {
   display: block;
-  width: 230px;
+  width: 320px;
+  max-width: 100%;
   height: auto;
   object-fit: contain;
 }
 
 .hero.app-map-hero.australia-hero .hero-world-logo {
   position: absolute;
-  top: 7rem;
+  top: 5.8rem;
   left: 50%;
   z-index: 3;
   width: min(420px, 34vw);
@@ -1691,4 +1692,9 @@ footer {
     width: min(260px, 58vw);
     opacity: 0.72;
   }
+}
+
+
+.hero.app-map-hero.australia-hero .hero-content {
+  padding-top: 8rem;
 }
