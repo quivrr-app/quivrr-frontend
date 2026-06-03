@@ -1657,3 +1657,38 @@ footer {
   color: #b91c1c;
   border-color: #b91c1c;
 }
+
+/* Australia logo placement */
+.brand-logo-image {
+  display: block;
+  width: 230px;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero.app-map-hero.australia-hero .hero-world-logo {
+  position: absolute;
+  top: 7rem;
+  left: 50%;
+  z-index: 3;
+  width: min(420px, 34vw);
+  height: auto;
+  transform: translateX(-50%);
+  opacity: 0.88;
+  filter:
+    drop-shadow(0 0 18px rgba(118, 228, 208, 0.26))
+    drop-shadow(0 0 42px rgba(0, 0, 0, 0.38));
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .brand-logo-image {
+    width: 170px;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-world-logo {
+    top: 7.2rem;
+    width: min(260px, 58vw);
+    opacity: 0.72;
+  }
+}
