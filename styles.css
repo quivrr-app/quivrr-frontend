@@ -2078,3 +2078,11 @@ footer {
     drop-shadow(0 0 54px rgba(118, 228, 208, 0.46))
     drop-shadow(0 0 92px rgba(118, 228, 208, 0.24)) !important;
 }
+
+
+
+/* HOW QUIVRR WORKS title colour refinement */
+.how-it-works-grid h2 {
+  color: #45dcca !important;
+  text-shadow: 0 0 18px rgba(118, 228, 208, 0.18);
+}
