@@ -1849,3 +1849,50 @@ footer {
     border-bottom: none;
   }
 }
+
+
+
+/* Final Australia native desktop scale */
+@media (min-width: 1000px) {
+  .hero.app-map-hero.australia-hero {
+    min-height: 690px !important;
+    padding: 3.5rem 4rem 7rem !important;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-content {
+    position: relative !important;
+    left: 50% !important;
+    width: min(1900px, calc(100vw - 3rem)) !important;
+    max-width: 1900px !important;
+    padding-top: 6.2rem !important;
+    transform: translateX(-50%) translateY(-3.2rem) scale(0.72) !important;
+    transform-origin: top center !important;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-world-logo {
+    width: min(390px, 28vw) !important;
+    top: 4.2rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    opacity: 0.84 !important;
+  }
+
+  .hero.app-map-hero.australia-hero .brand-logo-image {
+    width: 140px !important;
+  }
+
+  .hero.app-map-hero.australia-hero .search-bar {
+    width: 100% !important;
+    max-width: 1500px !important;
+    margin-top: 2.1rem !important;
+  }
+
+  .hero.app-map-hero.australia-hero .search-bar label,
+  .hero.app-map-hero.australia-hero .search-bar button {
+    min-height: 94px !important;
+  }
+
+  .hero.app-map-hero.australia-hero .retailer-logo-strip {
+    bottom: 1.1rem !important;
+  }
+}
