@@ -1856,7 +1856,7 @@ footer {
 @media (min-width: 1000px) {
   .hero.app-map-hero.australia-hero {
     min-height: 620px !important;
-    padding: 2.8rem 4rem 5.8rem !important;
+    padding: 4.8rem 4rem 4.6rem !important;
   }
 
   .hero.app-map-hero.australia-hero .hero-content {
@@ -1864,8 +1864,8 @@ footer {
     left: 50% !important;
     width: min(1900px, calc(100vw - 3rem)) !important;
     max-width: 1900px !important;
-    padding-top: 5.2rem !important;
-    transform: translateX(-50%) translateY(-3.8rem) scale(0.66) !important;
+    padding-top: 7.4rem !important;
+    transform: translateX(-50%) translateY(-1.2rem) scale(0.66) !important;
     transform-origin: top center !important;
   }
 
@@ -1893,6 +1893,6 @@ footer {
   }
 
   .hero.app-map-hero.australia-hero .retailer-logo-strip {
-    bottom: 1.1rem !important;
+    bottom: 0.4rem !important;
   }
 }
