@@ -1422,9 +1422,9 @@ footer {
 .hero.app-map-hero.australia-hero .hero-subtitle {
   color: #D7D5D5 !important;
 
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
   font-weight: 700 !important;
-  letter-spacing: 0.18em !important;
+  letter-spacing: 0.28rem !important;
 
   opacity: 1 !important;
 }
