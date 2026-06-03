@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#101414"/>
+  <text
+    x="31"
+    y="45"
+    text-anchor="middle"
+    font-family="Jayahgiri Sans, Jaya Giri Sans, Arial, Helvetica, sans-serif"
+    font-size="46"
+    font-weight="900"
+    fill="#2f7f75"
+  >q</text>
+  <circle cx="51" cy="47" r="4.2" fill="#2f7f75"/>
+</svg>
