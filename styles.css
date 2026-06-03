@@ -1855,8 +1855,8 @@ footer {
 /* Final Australia native desktop scale */
 @media (min-width: 1000px) {
   .hero.app-map-hero.australia-hero {
-    min-height: 690px !important;
-    padding: 3.5rem 4rem 7rem !important;
+    min-height: 620px !important;
+    padding: 2.8rem 4rem 5.8rem !important;
   }
 
   .hero.app-map-hero.australia-hero .hero-content {
@@ -1864,8 +1864,8 @@ footer {
     left: 50% !important;
     width: min(1900px, calc(100vw - 3rem)) !important;
     max-width: 1900px !important;
-    padding-top: 6.2rem !important;
-    transform: translateX(-50%) translateY(-3.2rem) scale(0.72) !important;
+    padding-top: 5.2rem !important;
+    transform: translateX(-50%) translateY(-3.8rem) scale(0.66) !important;
     transform-origin: top center !important;
   }
 
@@ -1884,7 +1884,7 @@ footer {
   .hero.app-map-hero.australia-hero .search-bar {
     width: 100% !important;
     max-width: 1500px !important;
-    margin-top: 2.1rem !important;
+    margin-top: 1.4rem !important;
   }
 
   .hero.app-map-hero.australia-hero .search-bar label,
