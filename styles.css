@@ -1710,9 +1710,9 @@ footer {
   }
 
   .hero.app-map-hero.australia-hero .hero-content {
-    width: min(1450px, 100%) !important;
+    width: min(1580px, 100%) !important;
     max-width: 1450px !important;
-    transform: translateY(-2.2rem) scale(0.72) !important;
+    transform: translateY(-2.2rem) scale(0.64) !important;
     transform-origin: top left !important;
     padding-top: 6.5rem !important;
   }
@@ -1753,4 +1753,99 @@ footer {
   letter-spacing: 0.22em !important;
   max-width: 520px !important;
   text-transform: uppercase !important;
+}
+
+
+
+/* Australia compact how it works panel */
+.results-preview {
+  padding: 2.2rem 4rem 3rem !important;
+}
+
+.australia-how-it-works {
+  max-width: 100% !important;
+  margin-bottom: 2.2rem !important;
+}
+
+.australia-how-it-works > p {
+  margin: 0 0 1.1rem 0 !important;
+  color: #6C7B83 !important;
+  font-family: "Courier Prime", monospace !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.24em !important;
+  text-transform: uppercase !important;
+}
+
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(46, 46, 46, 0.10);
+  border-bottom: 1px solid rgba(46, 46, 46, 0.10);
+  background: #F3F3F4;
+}
+
+.how-it-works-grid article {
+  min-height: 190px;
+  padding: 1.35rem 1.5rem;
+  border-right: 1px solid rgba(46, 46, 46, 0.10);
+}
+
+.how-it-works-grid article:last-child {
+  border-right: none;
+}
+
+.how-it-works-grid span {
+  display: block;
+  margin-bottom: 1.2rem;
+  color: #6C7B83;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.how-it-works-grid h2 {
+  margin: 0 0 0.75rem 0;
+  color: #2E2E2E;
+  font-size: clamp(1.35rem, 1.8vw, 2rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.how-it-works-grid p {
+  margin: 0;
+  color: #444444;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .how-it-works-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .how-it-works-grid article {
+    min-height: 170px;
+  }
+}
+
+@media (max-width: 560px) {
+  .results-preview {
+    padding: 2rem 1.5rem 2.5rem !important;
+  }
+
+  .how-it-works-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-it-works-grid article {
+    min-height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(46, 46, 46, 0.10);
+  }
+
+  .how-it-works-grid article:last-child {
+    border-bottom: none;
+  }
 }
