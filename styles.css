@@ -1698,3 +1698,40 @@ footer {
 .hero.app-map-hero.australia-hero .hero-content {
   padding-top: 8rem;
 }
+
+
+
+/* Desktop scale normalization for Australia hero */
+@media (min-width: 1400px) {
+
+  .hero.app-map-hero.australia-hero {
+    min-height: 760px;
+    padding-top: 2rem;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-content {
+    max-width: 1180px;
+    transform: scale(0.84);
+    transform-origin: top left;
+    padding-top: 5rem;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-world-logo {
+    width: min(340px, 24vw);
+    top: 4.2rem;
+    opacity: 0.82;
+  }
+
+  .hero.app-map-hero.australia-hero .search-bar {
+    margin-top: 1.5rem;
+  }
+
+  .hero.app-map-hero.australia-hero h1 {
+    font-size: 4.8rem;
+  }
+
+  .hero.app-map-hero.australia-hero .hero-subtitle {
+    font-size: 1.9rem;
+    letter-spacing: 0.42rem;
+  }
+}
