@@ -443,16 +443,27 @@
       const grouped = new Map();
 
       matches.forEach(match => {
-        const key = [
-          match.brandName,
-          match.modelName,
-          match.length,
-          match.width,
-          match.thickness,
-          match.volumeLitres,
-          match.construction,
-          match.priceAmount
-        ].join("|");
+        const isAlbum = match.brandName === "Album";
+
+        const key = isAlbum
+          ? [
+              match.brandName,
+              match.modelName,
+              match.length,
+              match.productUrl,
+              match.productImageUrl,
+              match.manufacturerInventoryId
+            ].join("|")
+          : [
+              match.brandName,
+              match.modelName,
+              match.length,
+              match.width,
+              match.thickness,
+              match.volumeLitres,
+              match.construction,
+              match.priceAmount
+            ].join("|");
 
         if (!grouped.has(key)) {
           grouped.set(key, {
