@@ -2179,3 +2179,28 @@ footer {
     0 12px 22px rgba(46, 46, 46, 0.18) !important;
 }
 
+
+/* Manufacturer result card width alignment */
+.manufacturer-grid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 420px)) !important;
+  justify-content: start !important;
+}
+
+.manufacturer-direct-card {
+  max-width: 420px !important;
+}
+
+.manufacturer-direct-card .result-image {
+  max-height: 230px !important;
+}
+
+@media (max-width: 768px) {
+  .manufacturer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .manufacturer-direct-card {
+    max-width: none !important;
+  }
+}
+
