@@ -2204,3 +2204,46 @@ footer {
   }
 }
 
+
+/* Retailer action row ratio refinement */
+.result-action-row {
+  display: grid !important;
+  grid-template-columns: minmax(145px, auto) minmax(92px, 1fr) !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  margin-top: auto !important;
+}
+
+.result-action-row .result-link {
+  min-width: 145px !important;
+  width: auto !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  margin-top: 0 !important;
+}
+
+.retailer-action-logo {
+  justify-self: end !important;
+  width: 100% !important;
+  max-width: 132px !important;
+  height: 46px !important;
+  max-height: 46px !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  .result-action-row {
+    grid-template-columns: minmax(145px, auto) minmax(82px, 1fr) !important;
+  }
+
+  .result-action-row .result-link {
+    width: auto !important;
+    min-width: 145px !important;
+  }
+
+  .retailer-action-logo {
+    max-width: 118px !important;
+    height: 42px !important;
+  }
+}
+
