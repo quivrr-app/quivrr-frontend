@@ -438,8 +438,7 @@
           ? "Manufacturer direct board"
           : "Official catalogue reference";
       } else {
-        source.classList.add("retailer-source-line");
-        appendRetailerSource(source, result);
+        source.textContent = `${result.retailerName} | ${result.stockStatus}`;
       }
 
       card.appendChild(tag);
@@ -449,6 +448,9 @@
       card.appendChild(source);
 
       if (result.productUrl) {
+        const actionRow = document.createElement("div");
+        actionRow.className = "result-action-row";
+
         const link = document.createElement("a");
         link.href = result.productUrl;
         link.target = "_blank";
@@ -456,7 +458,27 @@
         link.textContent = "View board";
         link.className = "result-link";
 
-        card.appendChild(link);
+        actionRow.appendChild(link);
+
+        if (!isOfficialManufacturer && !isDirectManufacturer) {
+          const approvedLogoPath = getApprovedRetailerLogoPath(result);
+
+          if (approvedLogoPath) {
+            const logo = document.createElement("img");
+            logo.src = approvedLogoPath;
+            logo.alt = `${result.retailerName || "Retailer"} logo`;
+            logo.loading = "lazy";
+            logo.className = "retailer-action-logo";
+
+            logo.onerror = () => {
+              logo.remove();
+            };
+
+            actionRow.appendChild(logo);
+          }
+        }
+
+        card.appendChild(actionRow);
       }
 
       return card;
