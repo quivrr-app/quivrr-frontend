@@ -2134,8 +2134,8 @@ footer {
 
 /* Quivrr action button green alignment */
 :root {
-  --available-green: #15803d;
-  --available-green-hover: #116832;
+  --available-green: #2f7f75;
+  --available-green-hover: #245f58;
 }
 
 .result-link,
