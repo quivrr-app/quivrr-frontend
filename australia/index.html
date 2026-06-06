@@ -305,28 +305,34 @@
       name.textContent = result.retailerName || "Retailer";
       name.className = "retailer-name";
 
-      const approvedLogoPath = getApprovedRetailerLogoPath(result);
-
-      if (approvedLogoPath) {
-        const logo = document.createElement("img");
-        logo.src = approvedLogoPath;
-        logo.alt = `${result.retailerName || "Retailer"} logo`;
-        logo.loading = "lazy";
-        logo.className = "retailer-logo";
-
-        logo.onerror = () => {
-          logo.remove();
-          if (!wrapper.contains(name)) {
-            wrapper.appendChild(name);
-          }
-        };
-
-        wrapper.appendChild(logo);
-      } else {
-        wrapper.appendChild(name);
-      }
+      wrapper.appendChild(name);
 
       return wrapper;
+    }
+
+    function appendRetailerSource(source, result) {
+      const sourceText = document.createElement("span");
+      sourceText.textContent = `${result.retailerName} | ${result.stockStatus}`;
+
+      source.appendChild(sourceText);
+
+      const approvedLogoPath = getApprovedRetailerLogoPath(result);
+
+      if (!approvedLogoPath) {
+        return;
+      }
+
+      const logo = document.createElement("img");
+      logo.src = approvedLogoPath;
+      logo.alt = `${result.retailerName || "Retailer"} logo`;
+      logo.loading = "lazy";
+      logo.className = "retailer-source-logo";
+
+      logo.onerror = () => {
+        logo.remove();
+      };
+
+      source.appendChild(logo);
     }
 
     function addBoardImage(card, imageUrl, altText) {
@@ -432,7 +438,8 @@
           ? "Manufacturer direct board"
           : "Official catalogue reference";
       } else {
-        source.textContent = `${result.retailerName} | ${result.stockStatus}`;
+        source.classList.add("retailer-source-line");
+        appendRetailerSource(source, result);
       }
 
       card.appendChild(tag);
