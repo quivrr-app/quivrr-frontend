@@ -2131,3 +2131,51 @@ footer {
   padding: 0.32rem 0.55rem;
   border: 1px solid rgba(215, 213, 213, 0.7);
 }
+
+/* Quivrr action button green alignment */
+:root {
+  --available-green: #15803d;
+  --available-green-hover: #116832;
+}
+
+.result-link,
+.result-card a[href*="http"],
+.result-card a[href*="board"],
+.result-card .view-board,
+.result-card .view-board-link,
+.close-results-section .result-link,
+.close-grid .result-link,
+.close-results-section .result-card a[href*="http"],
+.close-grid .result-card a[href*="http"],
+.close-results-section .result-card a[href*="board"],
+.close-grid .result-card a[href*="board"],
+.close-results-section .result-card .view-board,
+.close-grid .result-card .view-board-link,
+.manufacturer-direct-card .result-link {
+  background: var(--available-green) !important;
+  color: #F3F3F4 !important;
+  border-color: rgba(21, 128, 61, 0.55) !important;
+}
+
+.result-link:hover,
+.result-card a[href*="http"]:hover,
+.result-card a[href*="board"]:hover,
+.result-card .view-board:hover,
+.result-card .view-board-link:hover,
+.close-results-section .result-link:hover,
+.close-grid .result-link:hover,
+.close-results-section .result-card a[href*="http"]:hover,
+.close-grid .result-card a[href*="http"]:hover,
+.close-results-section .result-card a[href*="board"]:hover,
+.close-grid .result-card a[href*="board"]:hover,
+.close-results-section .result-card .view-board:hover,
+.close-grid .result-card .view-board-link:hover,
+.manufacturer-direct-card .result-link:hover {
+  background: var(--available-green-hover) !important;
+  color: #ffffff !important;
+  border-color: rgba(21, 128, 61, 0.80) !important;
+  box-shadow:
+    0 0 0 3px rgba(21, 128, 61, 0.16),
+    0 12px 22px rgba(46, 46, 46, 0.18) !important;
+}
+
