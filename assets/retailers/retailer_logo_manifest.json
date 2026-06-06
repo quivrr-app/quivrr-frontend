@@ -1,0 +1,18 @@
+{
+  "downloaded": {
+    "beachin_surf": "beachin_surf.png",
+    "long_reef_surf_co": "long_reef_surf_co.svg",
+    "onboard_store": "onboard_store.png",
+    "sideways_surf": "sideways_surf.png",
+    "strapper_surf_torquay": "strapper_surf_torquay.png",
+    "surf_fx": "surf_fx.png"
+  },
+  "failed": {
+    "extreme_boardriders": "HTTP Error 403: Forbidden",
+    "noosa_longboards": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)>",
+    "powerhouse_surf": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)>",
+    "star_surf_and_skate": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)>",
+    "the_surfboard_warehouse": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)>",
+    "wicks_surf": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1028)>"
+  }
+}
