@@ -2247,3 +2247,46 @@ footer {
   }
 }
 
+
+/* Indonesia regional search hero */
+.hero.app-map-hero.indonesia-hero {
+  overflow: hidden;
+}
+
+.hero.app-map-hero.indonesia-hero::after {
+  content: "";
+  position: absolute;
+  inset: -2rem -8rem -2rem -8rem;
+  background-image: url("/Media/maps/indonesia.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: min(1900px, 118vw) auto;
+  opacity: 0.64;
+  filter:
+    brightness(1.35)
+    contrast(1.32)
+    saturate(1.18)
+    drop-shadow(0 0 8px rgba(118, 228, 208, 0.82))
+    drop-shadow(0 0 28px rgba(118, 228, 208, 0.58))
+    drop-shadow(0 0 62px rgba(118, 228, 208, 0.28));
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero.app-map-hero.indonesia-hero .hero-overlay {
+  z-index: 0;
+}
+
+.hero.app-map-hero.indonesia-hero .hero-content,
+.hero.app-map-hero.indonesia-hero .retailer-logo-strip {
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .hero.app-map-hero.indonesia-hero::after {
+    inset: 2rem -6rem 2rem -6rem;
+    background-size: 150vw auto;
+    opacity: 0.34;
+  }
+}
