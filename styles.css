@@ -2247,31 +2247,45 @@ footer {
   }
 }
 
-/* Indonesia regional page map layer. Keeps the Australia hero layout, replaces only the regional map art. */
+
+/* Indonesia regional hero map placement */
 .hero.app-map-hero.australia-hero.indonesia-hero::after {
   content: "" !important;
   position: absolute !important;
-  right: 2.5vw !important;
-  top: 34% !important;
-  width: min(900px, 55vw) !important;
-  height: min(430px, 30vw) !important;
+  inset: -7rem -5rem 2rem -3rem !important;
+
   background-image: url("/Media/maps/indonesia.svg") !important;
   background-repeat: no-repeat !important;
-  background-position: center center !important;
-  background-size: contain !important;
-  opacity: 0.78 !important;
+  background-position: right 8% center !important;
+  background-size: min(1500px, 92vw) auto !important;
+
+  opacity: 0.72 !important;
+
   filter:
-    brightness(1.55)
-    contrast(1.38)
-    drop-shadow(0 0 12px rgba(118, 228, 208, 0.76))
-    drop-shadow(0 0 44px rgba(118, 228, 208, 0.42));
+    brightness(1.45)
+    contrast(1.42)
+    saturate(1.2)
+    drop-shadow(0 0 8px rgba(118, 228, 208, 0.92))
+    drop-shadow(0 0 24px rgba(118, 228, 208, 0.72))
+    drop-shadow(0 0 54px rgba(118, 228, 208, 0.46))
+    drop-shadow(0 0 92px rgba(118, 228, 208, 0.24)) !important;
+
   pointer-events: none !important;
-  z-index: 2 !important;
+  z-index: 1 !important;
 }
 
 .hero.app-map-hero.australia-hero.indonesia-hero .hero-content {
-  position: relative;
-  z-index: 5;
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+@media (max-width: 768px) {
+  .hero.app-map-hero.australia-hero.indonesia-hero::after {
+    inset: -3rem -7rem 2rem -7rem !important;
+    background-size: 155vw auto !important;
+    background-position: center 52% !important;
+    opacity: 0.34 !important;
+  }
 }
 
 @media (max-width: 768px) {
