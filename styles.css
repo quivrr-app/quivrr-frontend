@@ -2247,100 +2247,45 @@ footer {
   }
 }
 
-
-/* Indonesia regional search hero */
-.hero.app-map-hero.indonesia-hero {
-  overflow: hidden;
+/* Indonesia regional page map layer. Keeps the Australia hero layout, replaces only the regional map art. */
+.hero.app-map-hero.australia-hero.indonesia-hero::after {
+  background-image: none !important;
+  opacity: 0 !important;
 }
 
-.hero.app-map-hero.indonesia-hero::after {
+.hero.app-map-hero.australia-hero.indonesia-hero::before {
   content: "";
   position: absolute;
-  inset: -2rem -8rem -2rem -8rem;
+  right: 2.5vw;
+  top: 39%;
+  width: min(760px, 48vw);
+  height: min(360px, 24vw);
   background-image: url("/Media/maps/indonesia.svg");
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: min(1900px, 118vw) auto;
-  opacity: 0.64;
+  background-size: contain;
+  opacity: 0.62;
   filter:
     brightness(1.35)
-    contrast(1.32)
-    saturate(1.18)
-    drop-shadow(0 0 8px rgba(118, 228, 208, 0.82))
-    drop-shadow(0 0 28px rgba(118, 228, 208, 0.58))
-    drop-shadow(0 0 62px rgba(118, 228, 208, 0.28));
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hero.app-map-hero.indonesia-hero .hero-overlay {
-  z-index: 0;
-}
-
-.hero.app-map-hero.indonesia-hero .hero-content,
-.hero.app-map-hero.indonesia-hero .retailer-logo-strip {
-  position: relative;
-  z-index: 5;
-}
-
-@media (max-width: 768px) {
-  .hero.app-map-hero.indonesia-hero::after {
-    inset: 2rem -6rem 2rem -6rem;
-    background-size: 150vw auto;
-    opacity: 0.34;
-  }
-}
-
-
-/* Indonesia page uses the Australia hero layout but overrides the regional map */
-.hero.app-map-hero.australia-hero.indonesia-hero::after {
-  background-image: url("/Media/maps/indonesia.svg");
-  background-position: right 7vw center;
-  background-size: min(440px, 28vw) auto;
-}
-
-@media (max-width: 768px) {
-  .hero.app-map-hero.australia-hero.indonesia-hero::after {
-    background-position: center bottom 3rem;
-    background-size: 70vw auto;
-  }
-}
-
-/* Indonesia regional map override */
-.hero.app-map-hero.indonesia-hero::after {
-  background-image: none !important;
-}
-
-.hero-indonesia-map {
-  position: absolute;
-  right: 7vw;
-  top: 50%;
-  transform: translateY(-38%);
-  width: min(460px, 30vw);
-  height: auto;
-  opacity: 0.58;
-  filter:
-    brightness(1.35)
-    contrast(1.25)
-    drop-shadow(0 0 14px rgba(118, 228, 208, 0.48));
+    contrast(1.28)
+    drop-shadow(0 0 10px rgba(118, 228, 208, 0.58))
+    drop-shadow(0 0 34px rgba(118, 228, 208, 0.30));
   pointer-events: none;
   z-index: 2;
 }
 
-.hero.app-map-hero.indonesia-hero .hero-world-logo,
-.hero.app-map-hero.indonesia-hero .hero-content,
-.hero.app-map-hero.indonesia-hero .retailer-logo-strip {
+.hero.app-map-hero.australia-hero.indonesia-hero .hero-content {
   position: relative;
   z-index: 5;
 }
 
 @media (max-width: 768px) {
-  .hero-indonesia-map {
-    right: 5vw;
-    top: auto;
-    bottom: 8rem;
-    transform: none;
-    width: 72vw;
-    opacity: 0.34;
+  .hero.app-map-hero.australia-hero.indonesia-hero::before {
+    right: -6vw;
+    top: 45%;
+    width: 92vw;
+    height: 40vw;
+    opacity: 0.36;
   }
 }
+
