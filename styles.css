@@ -2305,3 +2305,42 @@ footer {
     background-size: 70vw auto;
   }
 }
+
+/* Indonesia regional map override */
+.hero.app-map-hero.indonesia-hero::after {
+  background-image: none !important;
+}
+
+.hero-indonesia-map {
+  position: absolute;
+  right: 7vw;
+  top: 50%;
+  transform: translateY(-38%);
+  width: min(460px, 30vw);
+  height: auto;
+  opacity: 0.58;
+  filter:
+    brightness(1.35)
+    contrast(1.25)
+    drop-shadow(0 0 14px rgba(118, 228, 208, 0.48));
+  pointer-events: none;
+  z-index: 2;
+}
+
+.hero.app-map-hero.indonesia-hero .hero-world-logo,
+.hero.app-map-hero.indonesia-hero .hero-content,
+.hero.app-map-hero.indonesia-hero .retailer-logo-strip {
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .hero-indonesia-map {
+    right: 5vw;
+    top: auto;
+    bottom: 8rem;
+    transform: none;
+    width: 72vw;
+    opacity: 0.34;
+  }
+}
