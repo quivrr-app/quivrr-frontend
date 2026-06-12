@@ -2249,29 +2249,24 @@ footer {
 
 /* Indonesia regional page map layer. Keeps the Australia hero layout, replaces only the regional map art. */
 .hero.app-map-hero.australia-hero.indonesia-hero::after {
-  background-image: none !important;
-  opacity: 0 !important;
-}
-
-.hero.app-map-hero.australia-hero.indonesia-hero::before {
-  content: "";
-  position: absolute;
-  right: 2.5vw;
-  top: 39%;
-  width: min(760px, 48vw);
-  height: min(360px, 24vw);
-  background-image: url("/Media/maps/indonesia.svg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  opacity: 0.62;
+  content: "" !important;
+  position: absolute !important;
+  right: 2.5vw !important;
+  top: 34% !important;
+  width: min(900px, 55vw) !important;
+  height: min(430px, 30vw) !important;
+  background-image: url("/Media/maps/indonesia.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  background-size: contain !important;
+  opacity: 0.78 !important;
   filter:
-    brightness(1.35)
-    contrast(1.28)
-    drop-shadow(0 0 10px rgba(118, 228, 208, 0.58))
-    drop-shadow(0 0 34px rgba(118, 228, 208, 0.30));
-  pointer-events: none;
-  z-index: 2;
+    brightness(1.55)
+    contrast(1.38)
+    drop-shadow(0 0 12px rgba(118, 228, 208, 0.76))
+    drop-shadow(0 0 44px rgba(118, 228, 208, 0.42));
+  pointer-events: none !important;
+  z-index: 2 !important;
 }
 
 .hero.app-map-hero.australia-hero.indonesia-hero .hero-content {
@@ -2280,12 +2275,12 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .hero.app-map-hero.australia-hero.indonesia-hero::before {
-    right: -6vw;
-    top: 45%;
-    width: 92vw;
-    height: 40vw;
-    opacity: 0.36;
+  .hero.app-map-hero.australia-hero.indonesia-hero::after {
+    right: -8vw !important;
+    top: 43% !important;
+    width: 104vw !important;
+    height: 46vw !important;
+    opacity: 0.42 !important;
   }
 }
 
