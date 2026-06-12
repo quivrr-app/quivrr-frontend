@@ -2291,3 +2291,17 @@ footer {
   }
 }
 
+
+/* Indonesia page uses the Australia hero layout but overrides the regional map */
+.hero.app-map-hero.australia-hero.indonesia-hero::after {
+  background-image: url("/Media/maps/indonesia.svg");
+  background-position: right 7vw center;
+  background-size: min(440px, 28vw) auto;
+}
+
+@media (max-width: 768px) {
+  .hero.app-map-hero.australia-hero.indonesia-hero::after {
+    background-position: center bottom 3rem;
+    background-size: 70vw auto;
+  }
+}
