@@ -265,12 +265,26 @@
       return `${size.length} x ${size.width} x ${size.thickness} / ${size.volumeLitres}L`;
     }
 
-    function formatPrice(value) {
+    function formatPrice(value, currencyCode = "AUD") {
       if (!value) {
         return "Price not listed";
       }
 
-      return `$${Number(value).toLocaleString("en-AU")}`;
+      const amount = Number(value);
+
+      if (!Number.isFinite(amount)) {
+        return "Price not listed";
+      }
+
+      if (currencyCode === "IDR") {
+        return `IDR ${amount.toLocaleString("id-ID", { maximumFractionDigits: 0 })}`;
+      }
+
+      if (currencyCode === "USD") {
+        return `USD ${amount.toLocaleString("en-US", { maximumFractionDigits: 0 })}`;
+      }
+
+      return `$${amount.toLocaleString("en-AU")}`;
     }
 
     const APPROVED_RETAILER_LOGO_FILES = {
@@ -439,7 +453,9 @@
       } else if (isDirectManufacturer) {
         price.textContent = formatPrice(result.priceAmount);
       } else {
-        price.textContent = formatPrice(result.priceAud);
+        price.textContent = result.priceAud
+          ? formatPrice(result.priceAud, "AUD")
+          : formatPrice(result.priceAmount, result.priceCurrency);
       }
 
       const source = document.createElement("small");
