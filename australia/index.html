@@ -783,7 +783,25 @@
 
 
     async function loadBrands() {
-      const allBrands = await apiFetchJson(`${API_BASE}/api/brands`);
+      brandSelect.innerHTML = '<option>Loading brands...</option>';
+
+      let allBrands = [];
+
+      try {
+        allBrands = await apiFetchJson(`${API_BASE}/api/brands`, {
+          timeoutMs: 15000,
+          retries: 2
+        });
+      } catch (error) {
+        console.error("Brand load failed", error);
+
+        brandSelect.innerHTML = '<option value="">Could not load brands. Refresh or try again.</option>';
+        modelSelect.innerHTML = '<option value="">Select model</option>';
+        constructionSelect.innerHTML = '<option value="">Select construction</option>';
+        sizeSelect.innerHTML = '<option value="">Select dimensions</option>';
+
+        return;
+      }
 
       const brands = allBrands.filter(brand => {
         return !EXCLUDED_BRANDS.has(brand.brandName);
