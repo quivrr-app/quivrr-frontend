@@ -2274,3 +2274,80 @@ footer {
   position: relative !important;
   z-index: 5 !important;
 }
+
+
+/* Europe pre-launch regional page */
+.hero.app-map-hero.australia-hero.europe-hero::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -5rem -6rem 0 -4rem !important;
+  background-image: url("/Media/maps/europe.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8% center !important;
+  background-size: min(1500px, 92vw) auto !important;
+  opacity: 0.82 !important;
+  filter:
+    brightness(1.55)
+    contrast(1.35)
+    saturate(1.18)
+    drop-shadow(0 0 14px rgba(118, 228, 208, 0.86))
+    drop-shadow(0 0 48px rgba(118, 228, 208, 0.42)) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.hero.app-map-hero.australia-hero.europe-hero .hero-content {
+  position: relative !important;
+  z-index: 5 !important;
+}
+
+.beta-search-shell select,
+.beta-search-shell button {
+  cursor: not-allowed !important;
+}
+
+.beta-search-shell label {
+  opacity: 0.92;
+}
+
+.beta-search-shell button {
+  background: #444444 !important;
+  opacity: 0.82 !important;
+}
+
+.eu-rollout-track {
+  gap: 1rem !important;
+}
+
+.eu-rollout-track span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 62px;
+  padding: 0.8rem 1.1rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2E2E2E;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.europe-beta-panel .section-heading > p {
+  max-width: 980px;
+}
+
+.europe-status-card strong {
+  color: #2E2E2E;
+}
+
+@media (max-width: 768px) {
+  .hero.app-map-hero.australia-hero.europe-hero::after {
+    inset: -2rem -8rem 1rem -8rem !important;
+    background-position: center 48% !important;
+    background-size: 150vw auto !important;
+    opacity: 0.46 !important;
+  }
+}
