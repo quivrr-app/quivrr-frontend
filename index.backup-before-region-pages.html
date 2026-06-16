@@ -465,7 +465,7 @@
       searchButton.textContent = "WAIT";
 
       const response = await fetch(
-        `${API_BASE}/api/search?boardSizeId=${selectedSize.value}`
+        `${API_BASE}/api/search?boardSizeId=${selectedSize.value}&region=AU`
       );
 
       const data = await response.json();

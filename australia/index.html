@@ -751,7 +751,7 @@
 
       try {
         const data = await apiFetchJson(
-          `${API_BASE}/api/search?boardSizeId=${selectedSize.value}`,
+          `${API_BASE}/api/search?boardSizeId=${selectedSize.value}&region=AU`,
           {
             timeoutMs: 10000,
             retries: 1
