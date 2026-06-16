@@ -8,11 +8,11 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Quivrr Europe | Surfboard Inventory Search</title>
+  <title>Quivrr Europe | One Search</title>
 
   <meta
     name="description"
-    content="Europe Surfboard Inventory Search is in beta as Quivrr prepares EU retailer onboarding across Portugal, Spain, France, Germany and the Netherlands."
+    content="Search surfboard inventory across Europe, including Portugal, Spain, France, Germany and the Netherlands."
   />
 
   <link rel="stylesheet" href="/styles.css" />
@@ -43,117 +43,173 @@
 
       <div class="hero-content">
         <div class="hero-region-title">Europe</div>
-        <p class="hero-kicker">Europe Surfboard Inventory Search</p>
-        <p class="hero-subtitle">Pre-launch beta | RegionCode: EU</p>
+        <p class="hero-kicker">One Search Across<br>Europe&apos;s Surf Industry</p>
+        <p class="hero-subtitle">Portugal • Spain • France • Germany • Netherlands<br>Estd 2026</p>
 
-        <form class="search-bar beta-search-shell" aria-label="Europe beta search shell">
+        <form class="search-bar">
           <label>
             <span>Brand</span>
-            <select disabled>
-              <option>EU brands loading soon</option>
+            <select id="brandSelect">
+              <option>Loading brands...</option>
             </select>
           </label>
 
           <label>
             <span>Model</span>
-            <select disabled>
-              <option>Model search pending</option>
+            <select id="modelSelect">
+              <option>Select model</option>
             </select>
           </label>
 
           <label>
             <span>Construction</span>
-            <select disabled>
-              <option>Construction pending</option>
+            <select id="constructionSelect">
+              <option>Select construction</option>
             </select>
           </label>
 
           <label class="dimensions-field">
             <span>Dimensions</span>
-            <select disabled>
-              <option>EU inventory import required</option>
+            <select id="sizeSelect">
+              <option>Select dimensions</option>
             </select>
           </label>
 
-          <button type="button" disabled>
-            BETA
+          <button type="button" id="searchButton">
+            GO.
           </button>
         </form>
       </div>
 
-      <section class="retailer-logo-strip eu-rollout-strip" aria-label="Europe retailer onboarding">
-        <div class="retailer-logo-track eu-rollout-track">
-          <span>Mundo Surf</span>
-          <span>Single Quiver</span>
-          <span>Pukas Surf Shop</span>
-          <span>58 Surf</span>
-          <span>Bell Surf</span>
-          <span>Board Exchange</span>
-          <span>HawaiiSurf</span>
-          <span>Hart Beach</span>
-          <span>Warehouse One</span>
-          <span>Blue Tomato</span>
-          <span>Mundo Surf</span>
-          <span>Single Quiver</span>
-          <span>Pukas Surf Shop</span>
-          <span>58 Surf</span>
-          <span>Bell Surf</span>
-          <span>Board Exchange</span>
-          <span>HawaiiSurf</span>
-          <span>Hart Beach</span>
-          <span>Warehouse One</span>
-          <span>Blue Tomato</span>
+      <section class="retailer-logo-strip europe-brand-logo-strip" aria-label="Surfboard brands">
+        <div class="retailer-logo-track europe-brand-logo-track">
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
+
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
         </div>
       </section>
     </section>
 
-    <section class="results-preview europe-beta-panel">
+    <section class="results-preview" id="resultsPreview">
       <div class="section-heading australia-how-it-works">
-        <p>EU coverage preparing across Portugal, Spain, France, Germany and the Netherlands</p>
+        <p>EU coverage across Portugal, Spain, France, Germany and the Netherlands</p>
 
         <div class="how-it-works-grid">
           <article>
             <span>01</span>
-            <h2>Retailer inventory onboarding in progress</h2>
-            <p>Wave 1 discovery starts with priority surf shops in Portugal, Spain, France and the Netherlands.</p>
+            <h2>Choose your board</h2>
+            <p>Search by brand, model, construction and exact dimensions.</p>
           </article>
 
           <article>
             <span>02</span>
-            <h2>Manufacturer direct availability to follow</h2>
-            <p>Direct brand availability will be connected after the EU retailer data shape is proven.</p>
+            <h2>Check retailers</h2>
+            <p>We scan leading European surfboard retailers for matching live stock.</p>
           </article>
 
           <article>
             <span>03</span>
-            <h2>RegionCode: EU</h2>
-            <p>EU inventory will stay separate from AU, ID and UK data.</p>
+            <h2>Check direct</h2>
+            <p>Manufacturer direct inventory will be connected where available.</p>
           </article>
 
           <article>
             <span>04</span>
-            <h2>Search shell ready</h2>
-            <p>The page is prepared for test searches once reviewed EU inventory has been imported.</p>
+            <h2>Show close options</h2>
+            <p>If the exact board is unavailable, we surface close alternatives.</p>
           </article>
         </div>
       </div>
 
       <section class="manufacturer-section">
         <div class="result-section-heading">
-          <span>Pre-launch</span>
-          <h2>Europe beta search</h2>
+          <span>Official board</span>
+          <h2>Manufacturer catalogue</h2>
         </div>
 
-        <div class="manufacturer-grid">
-          <article class="result-card manufacturer-card europe-status-card">
-            <span class="stock-tag">EU beta</span>
-            <h2>Europe Surfboard Inventory Search</h2>
-            <p>Retailer inventory onboarding in progress.</p>
-            <strong>PriceCurrency: EUR</strong>
-            <small>Live EU search remains disabled until backend inventory is approved.</small>
+        <div class="manufacturer-grid" id="manufacturerGrid">
+          <article class="result-card manufacturer-card">
+            <span class="stock-tag">Live catalogue</span>
+
+            <h2 id="selectedModel">Select a board</h2>
+
+            <p id="selectedSpecs">
+              Construction and dimensions will appear here.
+            </p>
+
+            <strong id="selectedConstruction">None</strong>
+
+            <small>Live SQL catalogue data</small>
           </article>
         </div>
       </section>
+
+      <section class="exact-section">
+        <div class="result-section-heading">
+          <span>Retailer stock</span>
+          <h2>Exact matches</h2>
+        </div>
+
+        <div class="result-grid exact-grid" id="exactResultGrid"></div>
+
+        <button
+          type="button"
+          class="show-more-button"
+          id="showMoreExactButton"
+          hidden
+        >
+          Show more exact matches
+        </button>
+
+        <div
+          class="result-grid exact-grid expanded-grid"
+          id="extraExactResultGrid"
+          hidden
+        ></div>
+      </section>
+    </section>
+
+    <section class="brand-strip">
+      <div class="brand-track" id="brandTrack"></div>
+    </section>
+
+    <section class="close-results-section">
+      <div class="result-section-heading">
+        <span>Similar boards</span>
+        <h2>Close matches</h2>
+      </div>
+
+      <div class="result-grid close-grid" id="closeResultGrid"></div>
     </section>
   </main>
 
@@ -163,5 +219,708 @@
       with Europe prepared as a separate EU inventory region.
     </p>
   </footer>
+
+  <script>
+    const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
+    const REGION_CODE = "EU";
+
+    const EXCLUDED_BRANDS = new Set([
+      "Aloha",
+      "Dark Arts",
+      "Mayhem",
+      "Mick Fanning Softboards",
+      "NSP",
+      "Softlite",
+      "Town and Country",
+      "Torq"
+    ]);
+
+    const brandSelect = document.getElementById("brandSelect");
+    const modelSelect = document.getElementById("modelSelect");
+    const constructionSelect = document.getElementById("constructionSelect");
+    const sizeSelect = document.getElementById("sizeSelect");
+    const brandTrack = document.getElementById("brandTrack");
+    const searchButton = document.getElementById("searchButton");
+
+    const manufacturerGrid = document.getElementById("manufacturerGrid");
+    const exactResultGrid = document.getElementById("exactResultGrid");
+    const extraExactResultGrid = document.getElementById("extraExactResultGrid");
+    const closeResultGrid = document.getElementById("closeResultGrid");
+    const showMoreExactButton = document.getElementById("showMoreExactButton");
+
+    const selectedModel = document.getElementById("selectedModel");
+    const selectedSpecs = document.getElementById("selectedSpecs");
+    const selectedConstruction = document.getElementById("selectedConstruction");
+
+    function formatSizeLabel(size) {
+      if (size.label) {
+        return size.label;
+      }
+
+      return `${size.length} x ${size.width} x ${size.thickness} / ${size.volumeLitres}L`;
+    }
+
+    function formatPrice(value, currency = "EUR") {
+      if (!value) {
+        return "Price not listed";
+      }
+
+      const locale = currency === "EUR" ? "en-IE" : "en-AU";
+
+      return Number(value).toLocaleString(locale, {
+        style: "currency",
+        currency
+      });
+    }
+
+    const APPROVED_RETAILER_LOGO_FILES = {
+      "58_surf": "58_surf.png",
+      "bell_surf": "bell_surf.png",
+      "board_exchange": "board_exchange.png",
+      "guincho_wind_factory": "guincho_wind_factory.png",
+      "hart_beach": "hart_beach.png",
+      "hawaiisurf": "hawaiisurf.png",
+      "mundo_surf": "mundo_surf.png",
+      "pukas_surf_shop": "pukas_surf_shop.png",
+      "santoloco": "santoloco.png",
+      "single_quiver": "single_quiver.png",
+      "surf_boss": "surf_boss.png",
+      "surf_pirates": "surf_pirates.png"
+    };
+
+    function retailerSlug(value) {
+      return String(value || "")
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[’']/g, "")
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+    }
+
+    function getApprovedRetailerLogoPath(result) {
+      const slug = retailerSlug(result.retailerName);
+      const logoFile = APPROVED_RETAILER_LOGO_FILES[slug];
+
+      if (!logoFile) {
+        return "";
+      }
+
+      return `/assets/retailers/${logoFile}`;
+    }
+
+    function createRetailerHeader(result) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "retailer-header";
+
+      const name = document.createElement("span");
+      name.textContent = result.retailerName || "Retailer";
+      name.className = "retailer-name";
+
+      wrapper.appendChild(name);
+
+      return wrapper;
+    }
+
+    function addBoardImage(card, imageUrl, altText) {
+      if (!imageUrl) {
+        return;
+      }
+
+      const image = document.createElement("img");
+      image.src = imageUrl;
+      image.alt = altText;
+      image.className = "result-image";
+      image.loading = "lazy";
+
+      image.onerror = () => {
+        image.remove();
+      };
+
+      card.appendChild(image);
+    }
+
+    function createResultCard(result, tagText) {
+      const card = document.createElement("article");
+      card.className = "result-card";
+
+      const isOfficialManufacturer =
+        result.resultType === "manufacturer";
+
+      const isDirectManufacturer =
+        result.resultType === "manufacturerDirect" ||
+        result.resultType === "manufacturerAlternateConstruction";
+
+      if (isOfficialManufacturer || isDirectManufacturer) {
+        card.classList.add("manufacturer-card");
+      }
+
+      if (isDirectManufacturer) {
+        card.classList.add("manufacturer-direct-card");
+      }
+
+      if (!isOfficialManufacturer && !isDirectManufacturer) {
+        card.appendChild(createRetailerHeader(result));
+      }
+
+      addBoardImage(
+        card,
+        result.imageUrl || result.productImageUrl,
+        result.title || result.modelName || "Surfboard"
+      );
+
+      const tag = document.createElement("span");
+      tag.className = "stock-tag";
+      tag.textContent = tagText;
+
+      const title = document.createElement("h2");
+      title.textContent =
+        result.title ||
+        `${result.brandName || ""} ${result.modelName || ""}`.trim() ||
+        "Surfboard";
+
+      const specs = document.createElement("p");
+      specs.textContent = [
+        result.construction,
+        result.length,
+        result.width,
+        result.thickness,
+        result.volumeLitres ? `${result.volumeLitres}L` : null
+      ].filter(Boolean).join(" | ");
+
+      const price = document.createElement("strong");
+
+      if (isOfficialManufacturer) {
+        price.textContent = "Manufacturer catalogue";
+      } else if (isDirectManufacturer) {
+        price.textContent = formatPrice(result.priceAmount, result.priceCurrency || "EUR");
+      } else {
+        price.textContent = formatPrice(
+          result.priceAmount || result.priceAud,
+          result.priceCurrency || "EUR"
+        );
+      }
+
+      const source = document.createElement("small");
+
+      if (isOfficialManufacturer || isDirectManufacturer) {
+        const availability =
+          isOfficialManufacturer
+            ? result.manufacturerAvailability
+            : result;
+
+        if (availability || result.brandName === "JS Industries") {
+          const badge = document.createElement("div");
+
+          const available =
+            availability && availability.isAvailable === true;
+
+          badge.className =
+            "manufacturer-availability-badge " +
+            (available ? "available" : "sold-out");
+
+          badge.textContent =
+            available ? "AVAILABLE" : "SOLD OUT";
+
+          card.appendChild(badge);
+        }
+
+        source.textContent = isDirectManufacturer
+          ? "Manufacturer direct board"
+          : "Official catalogue reference";
+      } else {
+        source.textContent = `${result.retailerName || "Retailer"} | ${result.stockStatus || "Stock status pending"}`;
+      }
+
+      card.appendChild(tag);
+      card.appendChild(title);
+      card.appendChild(specs);
+      card.appendChild(price);
+      card.appendChild(source);
+
+      if (result.productUrl) {
+        const actionRow = document.createElement("div");
+        actionRow.className = "result-action-row";
+
+        const link = document.createElement("a");
+        link.href = result.productUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "View board";
+        link.className = "result-link";
+
+        actionRow.appendChild(link);
+
+        if (!isOfficialManufacturer && !isDirectManufacturer) {
+          const approvedLogoPath = getApprovedRetailerLogoPath(result);
+
+          if (approvedLogoPath) {
+            const logo = document.createElement("img");
+            logo.src = approvedLogoPath;
+            logo.alt = `${result.retailerName || "Retailer"} logo`;
+            logo.loading = "lazy";
+            logo.className = "retailer-action-logo";
+
+            logo.onerror = () => {
+              logo.remove();
+            };
+
+            actionRow.appendChild(logo);
+          }
+        }
+
+        card.appendChild(actionRow);
+      }
+
+      return card;
+    }
+
+    function renderEmptyCard(grid, title, message) {
+      const emptyCard = document.createElement("article");
+      emptyCard.className = "result-card";
+
+      emptyCard.innerHTML = `
+        <span class="stock-tag">No results</span>
+        <h2>${title}</h2>
+        <p>${message}</p>
+        <strong>None</strong>
+        <small>Search completed</small>
+      `;
+
+      grid.appendChild(emptyCard);
+    }
+
+    function groupManufacturerDirectMatches(matches) {
+      const grouped = new Map();
+
+      matches.forEach(match => {
+        const key = [
+          match.brandName,
+          match.modelName,
+          match.length,
+          match.width,
+          match.thickness,
+          match.volumeLitres,
+          match.construction,
+          match.priceAmount
+        ].join("|");
+
+        if (!grouped.has(key)) {
+          grouped.set(key, {
+            ...match,
+            finSetups: [],
+            productUrls: []
+          });
+        }
+
+        const group = grouped.get(key);
+
+        if (match.finSetup && !group.finSetups.includes(match.finSetup)) {
+          group.finSetups.push(match.finSetup);
+        }
+
+        if (match.productUrl && !group.productUrls.includes(match.productUrl)) {
+          group.productUrls.push(match.productUrl);
+        }
+      });
+
+      return Array.from(grouped.values()).map(group => {
+        return {
+          ...group,
+          finSetup: group.finSetups.length > 0
+            ? group.finSetups.join(" / ")
+            : group.finSetup,
+          productUrl: group.productUrls[0] || group.productUrl
+        };
+      });
+    }
+
+    function renderSearchResults(data) {
+      manufacturerGrid.innerHTML = "";
+      exactResultGrid.innerHTML = "";
+      extraExactResultGrid.innerHTML = "";
+      closeResultGrid.innerHTML = "";
+
+      extraExactResultGrid.hidden = true;
+      showMoreExactButton.hidden = true;
+      showMoreExactButton.textContent = "Show more exact matches";
+
+      if (data.manufacturer) {
+        const directManufacturerMatches =
+          data.directManufacturerMatches ||
+          data.manufacturer.directManufacturerMatches ||
+          [];
+
+        const hasAvailableDirectManufacturerStock =
+          directManufacturerMatches.some(result => result.isAvailable === true);
+
+        if (hasAvailableDirectManufacturerStock) {
+          groupManufacturerDirectMatches(
+            directManufacturerMatches.filter(result => result.isAvailable === true)
+          ).forEach(result => {
+            manufacturerGrid.appendChild(
+              createResultCard(
+                {
+                  ...result,
+                  resultType: "manufacturerDirect"
+                },
+                "Available from manufacturer"
+              )
+            );
+          });
+        } else {
+          manufacturerGrid.appendChild(
+            createResultCard(
+              {
+                ...data.manufacturer,
+                resultType: "manufacturer"
+              },
+              "Manufacturer"
+            )
+          );
+        }
+      } else {
+        renderEmptyCard(
+          manufacturerGrid,
+          "No official board found",
+          "Try another model or size."
+        );
+      }
+
+      const exactMatches = data.exactRetailerMatches || [];
+      const firstExactMatches = exactMatches.slice(0, 4);
+      const extraExactMatches = exactMatches.slice(4);
+
+      if (firstExactMatches.length > 0) {
+        firstExactMatches.forEach(result => {
+          exactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          exactResultGrid,
+          "No exact retailer matches",
+          "Try another construction or size."
+        );
+      }
+
+      if (extraExactMatches.length > 0) {
+        extraExactMatches.forEach(result => {
+          extraExactResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Exact retailer match"
+            )
+          );
+        });
+
+        showMoreExactButton.hidden = false;
+        showMoreExactButton.textContent =
+          `Show ${extraExactMatches.length} more exact matches`;
+      }
+
+      const closeMatches = data.closeRetailerMatches || [];
+
+      if (closeMatches.length > 0) {
+        closeMatches.forEach(result => {
+          closeResultGrid.appendChild(
+            createResultCard(
+              result,
+              "Close retailer match"
+            )
+          );
+        });
+      } else {
+        renderEmptyCard(
+          closeResultGrid,
+          "No close matches",
+          "Try another size or model."
+        );
+      }
+
+      document.querySelector("#resultsPreview").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => window.setTimeout(resolve, ms));
+    }
+
+    async function apiFetchJson(url, options = {}) {
+      const timeoutMs = options.timeoutMs || 10000;
+      const retries = options.retries || 1;
+      let lastError = null;
+
+      for (let attempt = 0; attempt <= retries; attempt += 1) {
+        const controller = new AbortController();
+        const timeoutId = window.setTimeout(() => {
+          controller.abort();
+        }, timeoutMs);
+
+        try {
+          const response = await fetch(url, {
+            signal: controller.signal
+          });
+
+          window.clearTimeout(timeoutId);
+
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+
+          return await response.json();
+        } catch (error) {
+          window.clearTimeout(timeoutId);
+          lastError = error;
+
+          if (attempt < retries) {
+            await sleep(600);
+            continue;
+          }
+
+          throw lastError;
+        }
+      }
+
+      throw lastError;
+    }
+
+    async function runSearch() {
+      const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+
+      if (!selectedSize || !selectedSize.value) {
+        return;
+      }
+
+      searchButton.disabled = true;
+      searchButton.textContent = "WAIT";
+
+      try {
+        const data = await apiFetchJson(
+          `${API_BASE}/api/search?boardSizeId=${selectedSize.value}&region=${REGION_CODE}`,
+          {
+            timeoutMs: 12000,
+            retries: 1
+          }
+        );
+
+        renderSearchResults(data);
+      } catch (error) {
+        console.error("Search request failed", error);
+
+        manufacturerGrid.innerHTML = "";
+        exactResultGrid.innerHTML = "";
+        extraExactResultGrid.innerHTML = "";
+        closeResultGrid.innerHTML = "";
+
+        renderEmptyCard(
+          manufacturerGrid,
+          "Search timed out",
+          "The search service took too long to respond. Please try again."
+        );
+
+        document.querySelector("#resultsPreview").scrollIntoView({
+          behavior: "smooth"
+        });
+      } finally {
+        searchButton.disabled = false;
+        searchButton.textContent = "GO.";
+      }
+    }
+
+    async function loadBrands() {
+      brandSelect.innerHTML = '<option>Loading brands...</option>';
+
+      let allBrands = [];
+
+      try {
+        allBrands = await apiFetchJson(`${API_BASE}/api/brands`, {
+          timeoutMs: 15000,
+          retries: 2
+        });
+      } catch (error) {
+        console.error("Brand load failed", error);
+
+        brandSelect.innerHTML = '<option value="">Could not load brands. Refresh or try again.</option>';
+        modelSelect.innerHTML = '<option value="">Select model</option>';
+        constructionSelect.innerHTML = '<option value="">Select construction</option>';
+        sizeSelect.innerHTML = '<option value="">Select dimensions</option>';
+
+        return;
+      }
+
+      const brands = allBrands.filter(brand => {
+        return !EXCLUDED_BRANDS.has(brand.brandName);
+      });
+
+      brandSelect.innerHTML = "";
+      brandTrack.innerHTML = "";
+
+      brands.forEach(brand => {
+        const option = document.createElement("option");
+
+        option.value = brand.brandId;
+        option.textContent = brand.brandName;
+
+        brandSelect.appendChild(option);
+
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
+
+        brandTrack.appendChild(brandItem);
+      });
+
+      brands.forEach(brand => {
+        const brandItem = document.createElement("span");
+        brandItem.textContent = brand.brandName;
+
+        brandTrack.appendChild(brandItem);
+      });
+
+      if (brands.length > 0) {
+        await loadModels(brands[0].brandId);
+      }
+    }
+
+    async function loadModels(brandId) {
+      const models = await apiFetchJson(`${API_BASE}/api/models/${brandId}`);
+
+      modelSelect.innerHTML = "";
+      constructionSelect.innerHTML = "";
+      sizeSelect.innerHTML = "";
+
+      const uniqueModels = [];
+      const seen = new Set();
+
+      models.forEach(model => {
+        if (!seen.has(model.modelName)) {
+          seen.add(model.modelName);
+          uniqueModels.push(model);
+        }
+      });
+
+      uniqueModels.forEach(model => {
+        const option = document.createElement("option");
+
+        option.value = model.modelId;
+        option.textContent = model.modelName;
+
+        modelSelect.appendChild(option);
+      });
+
+      if (uniqueModels.length > 0) {
+        await loadConstructions(uniqueModels[0].modelId);
+      }
+    }
+
+    async function loadConstructions(modelId) {
+      const constructions = await apiFetchJson(`${API_BASE}/api/constructions/${modelId}`);
+
+      constructionSelect.innerHTML = "";
+      sizeSelect.innerHTML = "";
+
+      constructions.forEach(item => {
+        const option = document.createElement("option");
+
+        option.value = item.construction;
+        option.textContent = item.construction;
+
+        constructionSelect.appendChild(option);
+      });
+
+      if (constructions.length > 0) {
+        await loadSizes(
+          modelId,
+          constructions[0].construction
+        );
+      }
+    }
+
+    async function loadSizes(modelId, construction) {
+      const sizes = await apiFetchJson(
+        `${API_BASE}/api/sizes/${modelId}/${encodeURIComponent(construction)}`
+      );
+
+      sizeSelect.innerHTML = "";
+
+      sizes.forEach(size => {
+        const option = document.createElement("option");
+        const label = formatSizeLabel(size);
+
+        option.value = size.boardSizeId;
+        option.textContent = label;
+
+        option.dataset.label = label;
+        option.dataset.length = size.length;
+        option.dataset.width = size.width;
+        option.dataset.thickness = size.thickness;
+        option.dataset.volume = size.volumeLitres;
+        option.dataset.construction = size.construction;
+
+        sizeSelect.appendChild(option);
+      });
+
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const selectedModelText =
+        modelSelect.options[modelSelect.selectedIndex]?.text ||
+        "Select a board";
+
+      const selectedSize =
+        sizeSelect.options[sizeSelect.selectedIndex];
+
+      const selectedConstructionText =
+        constructionSelect.options[constructionSelect.selectedIndex]?.text ||
+        "None";
+
+      selectedModel.textContent = selectedModelText;
+
+      if (selectedSize) {
+        selectedSpecs.textContent =
+          selectedSize.dataset.label;
+      }
+
+      selectedConstruction.textContent =
+        selectedConstructionText;
+    }
+
+    brandSelect.addEventListener("change", async event => {
+      await loadModels(event.target.value);
+    });
+
+    modelSelect.addEventListener("change", async event => {
+      await loadConstructions(event.target.value);
+    });
+
+    constructionSelect.addEventListener("change", async () => {
+      await loadSizes(
+        modelSelect.value,
+        constructionSelect.value
+      );
+    });
+
+    sizeSelect.addEventListener("change", () => {
+      updatePreview();
+    });
+
+    showMoreExactButton.addEventListener("click", () => {
+      const isHidden = extraExactResultGrid.hidden;
+
+      extraExactResultGrid.hidden = !isHidden;
+      showMoreExactButton.textContent = isHidden
+        ? "Show fewer exact matches"
+        : `Show ${extraExactResultGrid.children.length} more exact matches`;
+    });
+
+    searchButton.addEventListener("click", runSearch);
+
+    loadBrands();
+  </script>
 </body>
 </html>

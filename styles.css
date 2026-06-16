@@ -2351,3 +2351,65 @@ footer {
     opacity: 0.46 !important;
   }
 }
+
+/* Europe live regional page uplift */
+.region-europe-page .europe-hero {
+  overflow: hidden;
+}
+
+.region-europe-page .europe-hero::before,
+.region-europe-page .europe-hero::after {
+  pointer-events: none;
+}
+
+.region-europe-page .europe-hero::after {
+  right: clamp(2rem, 7vw, 8rem) !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: clamp(4rem, 13vh, 8rem) !important;
+  width: min(520px, 34vw) !important;
+  height: min(520px, 34vw) !important;
+  opacity: 0.34 !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transform: none !important;
+  z-index: 2 !important;
+}
+
+.region-europe-page .hero-world-logo {
+  z-index: 5;
+}
+
+.region-europe-page .hero-content {
+  z-index: 6;
+}
+
+.region-europe-page .europe-brand-logo-strip {
+  z-index: 8;
+}
+
+.region-europe-page .europe-brand-logo-track img {
+  max-height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+.region-europe-page .hero-subtitle {
+  line-height: 1.8;
+}
+
+.region-europe-page .search-bar button:not(:disabled) {
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .region-europe-page .europe-hero::after {
+    right: 1rem !important;
+    bottom: 8rem !important;
+    width: min(360px, 70vw) !important;
+    height: min(360px, 70vw) !important;
+    opacity: 0.18 !important;
+  }
+}
+
