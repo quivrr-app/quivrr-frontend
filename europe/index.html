@@ -732,6 +732,41 @@
       }
     }
 
+    const bodhiSearchParams = new URLSearchParams(window.location.search);
+
+    async function applyBodhiSearchParams(brands) {
+      const requestedBrand = bodhiSearchParams.get("brand");
+      const requestedModel = bodhiSearchParams.get("model");
+      const requestedConstruction = bodhiSearchParams.get("construction");
+      const requestedSizeId = bodhiSearchParams.get("boardSizeId");
+      const requestedVolume = Number(bodhiSearchParams.get("volume"));
+      if (!requestedBrand && !requestedModel && !requestedSizeId) return false;
+
+      const brand = brands.find(item => item.brandName.toLowerCase() === String(requestedBrand || "").toLowerCase()) || brands[0];
+      brandSelect.value = brand.brandId;
+      await loadModels(brand.brandId);
+      const modelOption = [...modelSelect.options].find(option => option.textContent.toLowerCase() === String(requestedModel || "").toLowerCase());
+      if (modelOption) {
+        modelSelect.value = modelOption.value;
+        await loadConstructions(modelOption.value);
+      }
+      const constructionOption = [...constructionSelect.options].find(option => option.textContent.toLowerCase() === String(requestedConstruction || "").toLowerCase());
+      if (constructionOption) {
+        constructionSelect.value = constructionOption.value;
+        await loadSizes(modelSelect.value, constructionOption.value);
+      }
+      let sizeOption = requestedSizeId ? [...sizeSelect.options].find(option => option.value === requestedSizeId) : null;
+      if (!sizeOption && Number.isFinite(requestedVolume)) {
+        sizeOption = [...sizeSelect.options].sort((left, right) =>
+          Math.abs(Number(left.dataset.volume) - requestedVolume) - Math.abs(Number(right.dataset.volume) - requestedVolume)
+        )[0];
+      }
+      if (sizeOption) sizeSelect.value = sizeOption.value;
+      updatePreview();
+      if (bodhiSearchParams.get("autoSearch") === "1" && sizeSelect.value) await runSearch();
+      return true;
+    }
+
     async function loadBrands() {
       brandSelect.innerHTML = '<option>Loading brands...</option>';
 
@@ -781,7 +816,7 @@
         brandTrack.appendChild(brandItem);
       });
 
-      if (brands.length > 0) {
+      if (brands.length > 0 && !(await applyBodhiSearchParams(brands))) {
         await loadModels(brands[0].brandId);
       }
     }
