@@ -2301,6 +2301,31 @@ footer {
   z-index: 5 !important;
 }
 
+/* United States regional hero map placement */
+.hero.app-map-hero.australia-hero.united-states-hero::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -4rem -5rem 0 -4rem !important;
+  background-image: url("/Media/maps/united-states.svg") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 10% center !important;
+  background-size: min(1580px, 104vw) auto !important;
+  opacity: 0.88 !important;
+  filter:
+    brightness(1.62)
+    contrast(1.38)
+    saturate(1.2)
+    drop-shadow(0 0 14px rgba(118, 228, 208, 0.88))
+    drop-shadow(0 0 44px rgba(118, 228, 208, 0.4)) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+.hero.app-map-hero.australia-hero.united-states-hero .hero-content {
+  position: relative !important;
+  z-index: 5 !important;
+}
+
 .beta-search-shell select,
 .beta-search-shell button {
   cursor: not-allowed !important;
@@ -2403,6 +2428,56 @@ footer {
   cursor: pointer;
 }
 
+.region-united-states-page .united-states-hero {
+  overflow: hidden;
+}
+
+.region-united-states-page .united-states-hero::before,
+.region-united-states-page .united-states-hero::after {
+  pointer-events: none;
+}
+
+.region-united-states-page .united-states-hero::after {
+  right: clamp(1rem, 5vw, 5rem) !important;
+  left: auto !important;
+  top: auto !important;
+  bottom: clamp(4rem, 11vh, 7rem) !important;
+  width: min(620px, 42vw) !important;
+  height: min(420px, 30vw) !important;
+  opacity: 0.32 !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  transform: none !important;
+  z-index: 2 !important;
+}
+
+.region-united-states-page .hero-world-logo {
+  z-index: 5;
+}
+
+.region-united-states-page .hero-content {
+  z-index: 6;
+}
+
+.region-united-states-page .united-states-brand-logo-strip {
+  z-index: 8;
+}
+
+.region-united-states-page .united-states-brand-logo-track img {
+  max-height: 70px;
+  width: auto;
+  object-fit: contain;
+}
+
+.region-united-states-page .hero-subtitle {
+  line-height: 1.8;
+}
+
+.region-united-states-page .search-bar button:not(:disabled) {
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .region-europe-page .europe-hero::after {
     right: 1rem !important;
@@ -2410,6 +2485,14 @@ footer {
     width: min(360px, 70vw) !important;
     height: min(360px, 70vw) !important;
     opacity: 0.18 !important;
+  }
+
+  .region-united-states-page .united-states-hero::after {
+    right: 0.5rem !important;
+    bottom: 8rem !important;
+    width: min(430px, 82vw) !important;
+    height: min(300px, 58vw) !important;
+    opacity: 0.16 !important;
   }
 }
 
