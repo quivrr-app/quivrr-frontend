@@ -218,7 +218,7 @@
     <section class="close-results-section" id="otherModelsSection" hidden>
       <div class="result-section-heading">
         <span>Keep surfing</span>
-        <h2>Other Models Available</h2>
+        <h2 id="otherModelsHeading">Other Models Available</h2>
       </div>
 
       <div class="result-grid close-grid" id="otherModelsGrid"></div>
@@ -258,6 +258,7 @@
     const closeResultGrid = document.getElementById("closeResultGrid");
     const otherModelsSection = document.getElementById("otherModelsSection");
     const otherModelsGrid = document.getElementById("otherModelsGrid");
+    const otherModelsHeading = document.getElementById("otherModelsHeading");
     const showMoreExactButton = document.getElementById("showMoreExactButton");
 
     const selectedModel = document.getElementById("selectedModel");
@@ -704,17 +705,12 @@
         );
       }
 
-      const otherModelMatches = (data.otherModelMatches || []).filter(result =>
-        result.brandName === data.manufacturer?.brandName
-      );
-      const shouldShowOtherModels =
-        directManufacturerMatches.length === 0 &&
-        exactMatches.length === 0 &&
-        closeMatches.length === 0 &&
-        otherModelMatches.length > 0;
+      const otherModelMatches = data.otherModelMatches || [];
+      const shouldShowOtherModels = otherModelMatches.length > 0;
 
       if (shouldShowOtherModels) {
         otherModelsSection.hidden = false;
+        otherModelsHeading.textContent = `More Boards from ${data.manufacturer?.brandName || "this brand"}`;
         otherModelMatches.forEach(result => {
           otherModelsGrid.appendChild(
             createResultCard(
