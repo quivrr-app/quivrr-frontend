@@ -615,26 +615,26 @@
       });
     }
 
-    function renderSearchResults(data) {
-      manufacturerGrid.innerHTML = "";
-      exactResultGrid.innerHTML = "";
-      extraExactResultGrid.innerHTML = "";
-      closeResultGrid.innerHTML = "";
+      function renderSearchResults(data) {
+        manufacturerGrid.innerHTML = "";
+        exactResultGrid.innerHTML = "";
+        extraExactResultGrid.innerHTML = "";
+        closeResultGrid.innerHTML = "";
       otherModelsGrid.innerHTML = "";
 
-      extraExactResultGrid.hidden = true;
-      otherModelsSection.hidden = true;
-      showMoreExactButton.hidden = true;
-      showMoreExactButton.textContent = "Show more exact matches";
+        extraExactResultGrid.hidden = true;
+        otherModelsSection.hidden = true;
+        showMoreExactButton.hidden = true;
+        showMoreExactButton.textContent = "Show more exact matches";
 
-      if (data.manufacturer) {
         const directManufacturerMatches =
           data.directManufacturerMatches ||
-          data.manufacturer.directManufacturerMatches ||
+          data.manufacturer?.directManufacturerMatches ||
           [];
 
-        const hasAvailableDirectManufacturerStock =
-          directManufacturerMatches.some(result => result.isAvailable === true);
+        if (data.manufacturer) {
+          const hasAvailableDirectManufacturerStock =
+            directManufacturerMatches.some(result => result.isAvailable === true);
 
         if (hasAvailableDirectManufacturerStock) {
           groupManufacturerDirectMatches(
