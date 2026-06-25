@@ -211,6 +211,15 @@
 
       <div class="result-grid close-grid" id="closeResultGrid"></div>
     </section>
+
+    <section class="close-results-section" id="otherModelsSection" hidden>
+      <div class="result-section-heading">
+        <span>Keep surfing</span>
+        <h2>Other Models Available</h2>
+      </div>
+
+      <div class="result-grid close-grid" id="otherModelsGrid"></div>
+    </section>
   </main>
 
   <footer>
@@ -246,6 +255,8 @@
     const exactResultGrid = document.getElementById("exactResultGrid");
     const extraExactResultGrid = document.getElementById("extraExactResultGrid");
     const closeResultGrid = document.getElementById("closeResultGrid");
+    const otherModelsSection = document.getElementById("otherModelsSection");
+    const otherModelsGrid = document.getElementById("otherModelsGrid");
     const showMoreExactButton = document.getElementById("showMoreExactButton");
 
     const selectedModel = document.getElementById("selectedModel");
@@ -539,8 +550,10 @@
       exactResultGrid.innerHTML = "";
       extraExactResultGrid.innerHTML = "";
       closeResultGrid.innerHTML = "";
+      otherModelsGrid.innerHTML = "";
 
       extraExactResultGrid.hidden = true;
+      otherModelsSection.hidden = true;
       showMoreExactButton.hidden = true;
       showMoreExactButton.textContent = "Show more exact matches";
 
@@ -641,6 +654,27 @@
         );
       }
 
+      const otherModelMatches = (data.otherModelMatches || []).filter(result =>
+        result.brandName === data.manufacturer?.brandName
+      );
+      const shouldShowOtherModels =
+        directManufacturerMatches.length === 0 &&
+        exactMatches.length === 0 &&
+        closeMatches.length === 0 &&
+        otherModelMatches.length > 0;
+
+      if (shouldShowOtherModels) {
+        otherModelsSection.hidden = false;
+        otherModelMatches.forEach(result => {
+          otherModelsGrid.appendChild(
+            createResultCard(
+              result,
+              "Other live model"
+            )
+          );
+        });
+      }
+
       document.querySelector("#resultsPreview").scrollIntoView({
         behavior: "smooth"
       });
@@ -716,6 +750,8 @@
         exactResultGrid.innerHTML = "";
         extraExactResultGrid.innerHTML = "";
         closeResultGrid.innerHTML = "";
+        otherModelsGrid.innerHTML = "";
+        otherModelsSection.hidden = true;
 
         renderEmptyCard(
           manufacturerGrid,
