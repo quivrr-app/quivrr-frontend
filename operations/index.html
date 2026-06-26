@@ -673,6 +673,24 @@
       return date.toLocaleString();
     }
 
+    function formatDuration(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return "n/a";
+      const seconds = Number(value);
+      if (seconds < 60) return `${seconds.toFixed(seconds < 10 ? 1 : 0)}s`;
+      if (seconds < 3600) return `${(seconds / 60).toFixed(1)}m`;
+      return `${(seconds / 3600).toFixed(1)}h`;
+    }
+
+    function jobTypeLabel(value) {
+      const lookup = {
+        retailer_inventory: "Retailer inventory",
+        manufacturer_availability: "Manufacturer availability",
+        catalogue: "Weekly canonical catalogue",
+        market_intelligence: "Market intelligence"
+      };
+      return lookup[value] || value || "Job";
+    }
+
     function severityPill(alert) {
       const color = alert.statusColor || (alert.severity === "critical" ? "red" : alert.severity === "warning" ? "yellow" : "grey");
       const label = alert.severity || color;
@@ -859,11 +877,50 @@
       `;
     }
 
+    function jobRowHtml(job) {
+      return `
+        <tr>
+          <td><strong>${jobTypeLabel(job.jobType)}</strong><br><span class="ops-empty">${job.jobName || "n/a"}</span></td>
+          <td>${statusPillHtml(job.status, job.statusLabel || job.status)}</td>
+          <td>${job.expectedRegion || job.region || "n/a"}</td>
+          <td>${job.schedule || "n/a"}</td>
+          <td>${formatTimestamp(job.lastSucceededUtc)}</td>
+          <td>${formatTimestamp(job.lastFailedUtc)}</td>
+          <td>${formatDuration(job.durationSeconds)}</td>
+          <td>${formatNumber(job.rowsInserted ?? job.rowsUpdated ?? job.activeRowsAfter)}</td>
+          <td>${job.statusReason || "n/a"}</td>
+        </tr>
+      `;
+    }
+
+    function jobCardHtml(job) {
+      return `
+        <article class="ops-retailer-card">
+          <div class="ops-meta-inline">
+            ${statusPillHtml(job.status, job.statusLabel || job.status)}
+            <span class="ops-pill info">${jobTypeLabel(job.jobType)}</span>
+          </div>
+          <strong>${job.jobName || "Unnamed job"}</strong>
+          <ul>
+            <li>Expected region: ${job.expectedRegion || job.region || "n/a"}</li>
+            <li>Schedule: ${job.schedule || "n/a"}</li>
+            <li>Last success: ${formatTimestamp(job.lastSucceededUtc)}</li>
+            <li>Last failure: ${formatTimestamp(job.lastFailedUtc)}</li>
+            <li>Duration: ${formatDuration(job.durationSeconds)}</li>
+            <li>Rows: ${formatNumber(job.rowsInserted ?? job.rowsUpdated ?? job.activeRowsAfter)}</li>
+            <li>${job.statusReason || "No status reason."}</li>
+          </ul>
+        </article>
+      `;
+    }
+
     function renderRegionDetail(payload) {
       const region = state.selectedRegion;
       const detail = payload.regionDetails?.[region] || {};
       const overview = detail.overview || {};
       const retailerSummary = detail.retailerHealth?.summary || {};
+      const regionJobSummary = detail.jobHealth?.summary || {};
+      const regionJobs = detail.jobHealth?.jobs || [];
       const regionAlerts = detail.alerts || [];
       const regionMfa = detail.mfaHealth || [];
       const filteredRetailers = getFilteredRetailers(detail);
@@ -910,6 +967,11 @@
                 <strong>${formatPct(retailerSummary.averageExactSizeLinkagePct)}</strong>
                 <p class="ops-empty">Search ${formatPct(detail.searchQuality?.supportedModelLinkagePct)}</p>
               </article>
+              <article class="ops-stat-card">
+                <small>Configured Jobs</small>
+                <strong>${formatNumber(regionJobSummary.configuredJobs)}</strong>
+                <p class="ops-empty">Healthy ${formatNumber(regionJobSummary.healthy)} · Warning ${formatNumber(regionJobSummary.yellow)} · Failing ${formatNumber(regionJobSummary.red)}</p>
+              </article>
             </div>
 
             <div class="ops-section">
@@ -948,6 +1010,37 @@
                 </table>
               </div>
               <div class="ops-mobile-retailer-grid">${filteredRetailers.map(retailerCardHtml).join("") || `<p class="ops-empty">No retailers match the current filter.</p>`}</div>
+            </div>
+
+            <div class="ops-section">
+              <div class="ops-section-header">
+                <div>
+                  <small>Job Health</small>
+                  <h2>${region} Scheduled Jobs</h2>
+                </div>
+              </div>
+              <div class="ops-retailer-toolbar">
+                <p class="ops-empty">Configured ${formatNumber(regionJobSummary.configuredJobs)} · Healthy ${formatNumber(regionJobSummary.healthy)} · Warning ${formatNumber(regionJobSummary.yellow)} · Failing ${formatNumber(regionJobSummary.red)} · Last success ${formatTimestamp(regionJobSummary.lastSuccessfulJobUtc)}</p>
+              </div>
+              <div class="ops-table-scroll">
+                <table class="ops-table">
+                  <thead>
+                    <tr>
+                      <th>Job</th>
+                      <th>Status</th>
+                      <th>Expected region</th>
+                      <th>Schedule</th>
+                      <th>Last success</th>
+                      <th>Last failure</th>
+                      <th>Duration</th>
+                      <th>Rows</th>
+                      <th>Reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>${regionJobs.map(jobRowHtml).join("") || `<tr><td colspan="9" class="ops-empty">No configured jobs found for this region.</td></tr>`}</tbody>
+                </table>
+              </div>
+              <div class="ops-mobile-retailer-grid">${regionJobs.map(jobCardHtml).join("") || `<p class="ops-empty">No configured jobs found for this region.</p>`}</div>
             </div>
           </div>
 
