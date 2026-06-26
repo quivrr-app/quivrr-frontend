@@ -725,7 +725,8 @@
         card.innerHTML = `
           <small>${region.displayName || region.region}</small>
           <div class="ops-meta-inline">
-            ${statusPillHtml(region.overallStatus || region.statusColor, region.regionStatus || region.overallStatus)}
+            ${statusPillHtml(region.operationalHealthStatus || region.overallStatus || region.statusColor, "Operational")}
+            ${statusPillHtml(region.dataQualityStatus || region.searchHealthStatus || "grey", "Data quality")}
             <span class="ops-pill info">${region.region}</span>
           </div>
           <h2>${region.region}</h2>
@@ -735,6 +736,7 @@
             <li>Freshness: ${statusLabel(region.dataFreshnessStatus)}</li>
             <li>Search quality: ${statusLabel(region.searchHealthStatus)}</li>
             <li>Coverage quality: ${statusLabel(region.coverageQualityStatus)}</li>
+            <li>Coverage gap: ${formatPct(region.coverageGapPct)}</li>
           </ul>
         `;
         card.addEventListener("click", () => {
@@ -775,6 +777,8 @@
           </div>
           <strong>${alert.title || alert.source || "Regional signal"}</strong>
           <p>${alert.message || "No message provided."}</p>
+          ${alert.metricName ? `<p class="ops-empty">${alert.metricName}: ${alert.currentValue === null || alert.currentValue === undefined ? "n/a" : typeof alert.currentValue === "number" ? formatPct(alert.currentValue) : alert.currentValue} · threshold ${alert.threshold ?? "n/a"}</p>` : ""}
+          ${alert.sourceType ? `<p class="ops-empty">Source ${alert.sourceType}${alert.suggestedAction ? ` · ${alert.suggestedAction}` : ""}</p>` : ""}
           ${alert.affectedRetailers ? `<p class="ops-empty">Affected retailers: ${formatNumber(alert.affectedRetailers)}</p>` : ""}
         </li>
       `).join("");
@@ -934,13 +938,14 @@
           </div>
           <div class="ops-mini-statuses">
             <div class="ops-meta-inline">
-              ${statusPillHtml(overview.overallStatus || overview.statusColor, "Overall")}
+              ${statusPillHtml(overview.operationalHealthStatus || overview.overallStatus || overview.statusColor, "Operational")}
+              ${statusPillHtml(overview.dataQualityStatus || "grey", "Data quality")}
               ${statusPillHtml(overview.retailerStatus, "Retailers")}
               ${statusPillHtml(overview.mfaStatus, "MFA")}
               ${statusPillHtml(overview.searchHealthStatus, "Search")}
               ${statusPillHtml(overview.coverageQualityStatus, "Coverage")}
             </div>
-            <p>Retailer refresh ${formatTimestamp(overview.lastRetailerInventoryRefreshUtc)} · MFA refresh ${formatTimestamp(overview.lastMfaRefreshUtc)}</p>
+            <p>Retailer refresh ${formatTimestamp(overview.lastRetailerInventoryRefreshUtc)} · MFA refresh ${formatTimestamp(overview.lastMfaRefreshUtc)} · Runtime ${overview.retailerRuntime || "n/a"}</p>
           </div>
         </div>
 
@@ -955,17 +960,22 @@
               <article class="ops-stat-card">
                 <small>Retailer Boards</small>
                 <strong>${formatNumber(retailerSummary.activeRows)}</strong>
-                <p class="ops-empty">Available ${formatNumber(retailerSummary.availableRows)}</p>
+                <p class="ops-empty">Available ${formatNumber(retailerSummary.availableRows)} · Runtime ${retailerSummary.retailerRuntime || "n/a"}</p>
               </article>
               <article class="ops-stat-card">
-                <small>Average Model Link</small>
-                <strong>${formatPct(retailerSummary.averageModelLinkagePct)}</strong>
-                <p class="ops-empty">Family ${formatPct(retailerSummary.averageSizeFamilyLinkagePct)}</p>
+                <small>Model Link</small>
+                <strong>${formatPct(detail.searchQuality?.supportedModelLinkagePct)}</strong>
+                <p class="ops-empty">Retailer avg ${formatPct(retailerSummary.averageModelLinkagePct)}</p>
               </article>
               <article class="ops-stat-card">
-                <small>Average Exact Size</small>
-                <strong>${formatPct(retailerSummary.averageExactSizeLinkagePct)}</strong>
-                <p class="ops-empty">Search ${formatPct(detail.searchQuality?.supportedModelLinkagePct)}</p>
+                <small>Size Family / Exact</small>
+                <strong>${formatPct(detail.searchQuality?.canonicalSizeFamilyLinkagePct)}</strong>
+                <p class="ops-empty">Exact ${formatPct(detail.searchQuality?.exactBoardSizeLinkagePct)}</p>
+              </article>
+              <article class="ops-stat-card">
+                <small>Coverage Gap</small>
+                <strong>${formatPct(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywherePct)}</strong>
+                <p class="ops-empty">No stock anywhere ${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywhere?.count)} / ${formatNumber(detail.coverageGaps?.supportedModelCount)}</p>
               </article>
               <article class="ops-stat-card">
                 <small>Configured Jobs</small>
