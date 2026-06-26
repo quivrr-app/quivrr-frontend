@@ -12,8 +12,9 @@
   <link rel="icon" type="image/svg+xml" href="/Media/Quivrr_Logos/quivrr-q-favicon.svg?v=3" />
   <style>
     :root {
-      --ops-bg: #f2f1ec;
-      --ops-panel: #fbfaf6;
+      --ops-bg: #eef1ec;
+      --ops-panel: rgba(252, 251, 246, 0.98);
+      --ops-panel-strong: #ffffff;
       --ops-ink: #202127;
       --ops-muted: #61707e;
       --ops-line: rgba(32, 33, 39, 0.12);
@@ -22,63 +23,76 @@
       --ops-red: #b63d30;
       --ops-grey: #6a7380;
       --ops-accent: #2a807b;
+      --ops-dark: #0f1717;
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body.operations-page {
       margin: 0;
-      background: linear-gradient(180deg, #0f1717 0, #1f3837 20rem, var(--ops-bg) 20rem);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(42, 128, 123, 0.2), transparent 28rem),
+        linear-gradient(180deg, #081011 0, #17302f 18rem, var(--ops-bg) 18rem);
       color: var(--ops-ink);
       font-family: "Segoe UI", Arial, sans-serif;
     }
 
     .ops-shell {
-      width: min(1200px, calc(100vw - 2rem));
+      width: min(1240px, calc(100vw - 2rem));
       margin: 0 auto;
       padding: 2rem 0 4rem;
     }
 
     .ops-header {
       display: grid;
-      gap: 1.25rem;
-      align-items: end;
-      grid-template-columns: 1fr;
-      color: #f4f2eb;
-      margin-bottom: 2rem;
+      gap: 1.2rem;
+      color: #f5f2eb;
+      margin-bottom: 1.5rem;
     }
 
     .ops-brand {
       display: inline-flex;
       align-items: center;
-      gap: 0.9rem;
-      color: inherit;
-      text-decoration: none;
+      width: fit-content;
     }
 
     .ops-brand img {
       width: 180px;
-      max-width: 50vw;
+      max-width: 54vw;
       display: block;
+    }
+
+    .ops-header-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: end;
+      justify-content: space-between;
     }
 
     .ops-header h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-size: clamp(2.25rem, 5vw, 4rem);
       line-height: 0.95;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.045em;
     }
 
     .ops-header p {
-      margin: 0.3rem 0 0;
-      max-width: 52rem;
-      color: rgba(244, 242, 235, 0.82);
+      margin: 0.45rem 0 0;
+      max-width: 54rem;
+      color: rgba(245, 242, 235, 0.82);
       font-size: 1rem;
       line-height: 1.6;
     }
 
     .ops-auth,
     .ops-section,
+    .ops-region,
     .ops-matrix {
-      background: rgba(251, 250, 246, 0.98);
+      background: var(--ops-panel);
       border: 1px solid var(--ops-line);
       box-shadow: 0 24px 50px rgba(14, 19, 20, 0.08);
     }
@@ -100,7 +114,7 @@
     .ops-auth label {
       display: grid;
       gap: 0.35rem;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
       color: var(--ops-muted);
@@ -116,7 +130,10 @@
       color: var(--ops-ink);
     }
 
-    .ops-auth-actions {
+    .ops-auth-actions,
+    .ops-region-tabs,
+    .ops-filter-row,
+    .ops-alert-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.7rem;
@@ -140,7 +157,21 @@
       color: #21232a;
     }
 
-    .ops-status-row {
+    .ops-button.ops-tab,
+    .ops-button.ops-filter {
+      background: #e3e7e2;
+      color: #17302f;
+      border: 1px solid rgba(23, 48, 47, 0.1);
+      padding: 0.78rem 1rem;
+    }
+
+    .ops-button.is-active {
+      background: #17302f;
+      color: #f5f2eb;
+    }
+
+    .ops-status-row,
+    .ops-meta-inline {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
@@ -155,7 +186,7 @@
       gap: 0.45rem;
       border-radius: 999px;
       padding: 0.4rem 0.7rem;
-      font-size: 0.8rem;
+      font-size: 0.76rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -185,18 +216,33 @@
       margin-bottom: 1.5rem;
     }
 
-    .ops-card {
-      background: var(--ops-panel);
+    .ops-card,
+    .ops-stat-card,
+    .ops-retailer-card,
+    .ops-alert-card {
+      background: var(--ops-panel-strong);
       border: 1px solid var(--ops-line);
       border-radius: 1.25rem;
       padding: 1rem;
-      min-height: 10rem;
+    }
+
+    .ops-card {
+      min-height: 12rem;
       display: grid;
       gap: 0.75rem;
+      cursor: pointer;
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+
+    .ops-card.is-selected {
+      transform: translateY(-2px);
+      border-color: rgba(42, 128, 123, 0.6);
+      box-shadow: 0 18px 34px rgba(14, 19, 20, 0.12);
     }
 
     .ops-card small,
-    .ops-table small {
+    .ops-table small,
+    .ops-section small {
       color: var(--ops-muted);
       text-transform: uppercase;
       letter-spacing: 0.16em;
@@ -205,18 +251,23 @@
     }
 
     .ops-card h2,
-    .ops-section h2 {
+    .ops-section h2,
+    .ops-region h2,
+    .ops-matrix h2 {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1.04rem;
     }
 
-    .ops-card strong {
-      font-size: 2.1rem;
+    .ops-card strong,
+    .ops-stat-card strong {
+      font-size: 2rem;
       line-height: 1;
       letter-spacing: -0.04em;
     }
 
-    .ops-card ul {
+    .ops-card ul,
+    .ops-retailer-card ul,
+    .ops-alert-card ul {
       list-style: none;
       padding: 0;
       margin: 0;
@@ -229,54 +280,93 @@
     .ops-two-up {
       display: grid;
       gap: 1rem;
-      grid-template-columns: 1.3fr 1fr;
+      grid-template-columns: 1.25fr 1fr;
       margin-bottom: 1.5rem;
     }
 
-    .ops-section {
+    .ops-section,
+    .ops-region,
+    .ops-matrix {
       border-radius: 1.4rem;
       padding: 1.2rem;
+      margin-bottom: 1.5rem;
     }
 
     .ops-section-header {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.75rem;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 1rem;
     }
 
-    .ops-section p,
-    .ops-alerts li,
+    .ops-region-grid,
+    .ops-detail-grid,
+    .ops-stat-grid,
+    .ops-alert-summary-grid,
+    .ops-mobile-retailer-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .ops-detail-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: start;
+    }
+
+    .ops-stat-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 1rem;
+    }
+
+    .ops-stat-card {
+      display: grid;
+      gap: 0.5rem;
+      min-height: 9rem;
+    }
+
+    .ops-alert-summary-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-bottom: 1rem;
+    }
+
+    .ops-alert-summary-card {
+      background: #f4f4ef;
+      border: 1px solid var(--ops-line);
+      border-radius: 1rem;
+      padding: 0.95rem;
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .ops-alert-summary-card strong {
+      font-size: 1.7rem;
+      letter-spacing: -0.04em;
+    }
+
+    .ops-alert-list,
     .ops-empty {
       margin: 0;
       color: var(--ops-muted);
       line-height: 1.55;
     }
 
-    .ops-alerts {
+    .ops-alert-list {
       list-style: none;
       padding: 0;
-      margin: 0;
       display: grid;
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
 
-    .ops-alerts li {
-      border: 1px solid var(--ops-line);
-      border-radius: 1rem;
-      padding: 0.9rem 1rem;
-      background: #fff;
+    .ops-alert-card {
       display: grid;
-      gap: 0.45rem;
-    }
-
-    .ops-alert-meta {
-      display: flex;
-      flex-wrap: wrap;
       gap: 0.55rem;
-      align-items: center;
+    }
+
+    .ops-alert-card strong {
+      font-size: 1rem;
+      letter-spacing: -0.02em;
     }
 
     .ops-table-scroll {
@@ -295,7 +385,7 @@
     .ops-table td {
       text-align: left;
       vertical-align: top;
-      padding: 0.8rem 0.75rem;
+      padding: 0.85rem 0.75rem;
       border-top: 1px solid var(--ops-line);
       font-size: 0.92rem;
     }
@@ -308,26 +398,57 @@
       font-size: 0.7rem;
     }
 
-    .ops-matrix {
-      border-radius: 1.4rem;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
+    .ops-region {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(250, 248, 241, 0.98)),
+        radial-gradient(circle at top right, rgba(42, 128, 123, 0.08), transparent 20rem);
     }
 
-    .ops-cell {
+    .ops-region-hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .ops-region-hero h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.05em;
+    }
+
+    .ops-mini-statuses {
       display: grid;
-      gap: 0.3rem;
-      min-width: 8.5rem;
+      gap: 0.55rem;
     }
 
-    .ops-cell strong {
-      font-size: 0.95rem;
-    }
-
-    .ops-cell-meta {
+    .ops-mini-statuses p {
+      margin: 0;
       color: var(--ops-muted);
-      font-size: 0.82rem;
-      line-height: 1.45;
+      font-size: 0.92rem;
+    }
+
+    .ops-retailer-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.9rem;
+    }
+
+    .ops-mobile-retailer-grid {
+      display: none;
+    }
+
+    .ops-retailer-card {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    .ops-retailer-card strong {
+      font-size: 1.05rem;
     }
 
     .ops-footer-note {
@@ -336,31 +457,43 @@
       font-size: 0.9rem;
     }
 
-    @media (max-width: 980px) {
+    @media (max-width: 1080px) {
       .ops-grid,
-      .ops-two-up {
+      .ops-alert-summary-grid,
+      .ops-stat-grid {
         grid-template-columns: 1fr 1fr;
+      }
+
+      .ops-detail-grid,
+      .ops-two-up {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .ops-shell {
         width: min(100vw - 1rem, 100%);
         padding-top: 1rem;
       }
 
       .ops-grid,
-      .ops-two-up,
-      .ops-auth-grid {
+      .ops-auth-grid,
+      .ops-alert-summary-grid,
+      .ops-stat-grid {
         grid-template-columns: 1fr;
       }
 
-      .ops-card strong {
-        font-size: 1.8rem;
+      .ops-table-scroll {
+        display: none;
       }
 
-      .ops-table {
-        min-width: 42rem;
+      .ops-mobile-retailer-grid {
+        display: grid;
+      }
+
+      .ops-card strong,
+      .ops-stat-card strong {
+        font-size: 1.8rem;
       }
     }
   </style>
@@ -368,14 +501,18 @@
 <body class="operations-page">
   <main class="ops-shell">
     <header class="ops-header">
-      <a class="ops-brand" href="/">
-        <img src="/Media/Quivrr_Logos/Quivrr%20-%20World%20Green%20Logo.PNG" alt="Quivrr" />
-      </a>
+      <div class="ops-header-top">
+        <a class="ops-brand" href="/">
+          <img src="/Media/Quivrr_Logos/Quivrr%20-%20World%20Green%20Logo.PNG" alt="Quivrr" />
+        </a>
+        <span class="ops-pill info">Internal Command Centre</span>
+      </div>
       <div>
         <h1>Operations Dashboard</h1>
         <p>
-          Internal Quivrr operations view for regional health, retailer freshness, manufacturer availability,
-          linkage quality, and current alert posture. This page is only useful with a valid internal dashboard key.
+          Internal Quivrr operating view for regional freshness, retailer health, manufacturer availability,
+          stock coverage, and search linkage quality. Use the region selector to move from global posture
+          into a phone-friendly regional operating view.
         </p>
       </div>
     </header>
@@ -403,6 +540,20 @@
       <article class="ops-section">
         <div class="ops-section-header">
           <div>
+            <small>Alert Posture</small>
+            <h2>Actionable Alerts</h2>
+          </div>
+          <div class="ops-alert-actions">
+            <button class="ops-button ops-secondary" id="toggleAlertsButton" type="button">Show all alerts</button>
+          </div>
+        </div>
+        <div class="ops-alert-summary-grid" id="alertSummaryGrid"></div>
+        <ul class="ops-alert-list" id="alertsList"></ul>
+      </article>
+
+      <article class="ops-section">
+        <div class="ops-section-header">
+          <div>
             <small>Inventory</small>
             <h2>Regional Inventory Counts</h2>
           </div>
@@ -422,68 +573,24 @@
           </table>
         </div>
       </article>
-
-      <article class="ops-section">
-        <div class="ops-section-header">
-          <div>
-            <small>Attention</small>
-            <h2>Current Alerts</h2>
-          </div>
-        </div>
-        <ul class="ops-alerts" id="alertsList"></ul>
-      </article>
     </section>
 
-    <section class="ops-section">
+    <section class="ops-region">
       <div class="ops-section-header">
         <div>
-          <small>Search Quality</small>
-          <h2>Regional Link Quality</h2>
+          <small>Region Detail</small>
+          <h2>Regional Operations View</h2>
         </div>
       </div>
-      <div class="ops-table-scroll">
-        <table class="ops-table">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>Model Link %</th>
-              <th>Size Family %</th>
-              <th>Exact Size %</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="linkQualityBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="ops-section">
-      <div class="ops-section-header">
-        <div>
-          <small>Coverage Gaps</small>
-          <h2>Supported Models Missing Stock</h2>
-        </div>
-      </div>
-      <div class="ops-table-scroll">
-        <table class="ops-table">
-          <thead>
-            <tr>
-              <th>Region</th>
-              <th>No Retailer Stock</th>
-              <th>No MFA Stock</th>
-              <th>No Stock Anywhere</th>
-            </tr>
-          </thead>
-          <tbody id="coverageGapsBody"></tbody>
-        </table>
-      </div>
+      <div class="ops-region-tabs" id="regionTabs"></div>
+      <div id="regionDetail"></div>
     </section>
 
     <section class="ops-matrix">
       <div class="ops-section-header">
         <div>
           <small>Manufacturer Availability</small>
-          <h2>MFA Health Matrix</h2>
+          <h2>Global MFA Matrix</h2>
         </div>
       </div>
       <div class="ops-table-scroll">
@@ -500,31 +607,8 @@
           <tbody id="mfaHealthBody"></tbody>
         </table>
       </div>
-    </section>
-
-    <section class="ops-matrix">
-      <div class="ops-section-header">
-        <div>
-          <small>Retailer Inventory</small>
-          <h2>Retailer Health Matrix</h2>
-        </div>
-      </div>
-      <div class="ops-table-scroll">
-        <table class="ops-table">
-          <thead>
-            <tr>
-              <th>Retailer</th>
-              <th>AU</th>
-              <th>EU</th>
-              <th>ID</th>
-              <th>US</th>
-            </tr>
-          </thead>
-          <tbody id="retailerHealthBody"></tbody>
-        </table>
-      </div>
       <p class="ops-footer-note">
-        Wide matrices scroll horizontally on mobile so the regional columns remain readable.
+        MFA remains valuable as a global matrix because supported direct manufacturers are limited and region applicability is stable.
       </p>
     </section>
   </main>
@@ -533,19 +617,35 @@
     const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
     const STORAGE_KEY = "quivrrOpsDashboardKey";
     const REGION_ORDER = ["AU", "EU", "ID", "US"];
+    const FILTERS = [
+      { key: "all", label: "All" },
+      { key: "red", label: "Red" },
+      { key: "yellow", label: "Yellow" },
+      { key: "green", label: "Green" },
+      { key: "low-linkage", label: "Low linkage" },
+      { key: "stale", label: "Stale" }
+    ];
+
+    const state = {
+      payload: null,
+      selectedRegion: "AU",
+      retailerFilter: "all",
+      showAllAlerts: false
+    };
 
     const opsApiKey = document.getElementById("opsApiKey");
     const loadDashboardButton = document.getElementById("loadDashboardButton");
     const clearKeyButton = document.getElementById("clearKeyButton");
+    const toggleAlertsButton = document.getElementById("toggleAlertsButton");
     const loadStatePill = document.getElementById("loadStatePill");
     const loadMeta = document.getElementById("loadMeta");
     const regionCards = document.getElementById("regionCards");
-    const inventoryCountsBody = document.getElementById("inventoryCountsBody");
+    const alertSummaryGrid = document.getElementById("alertSummaryGrid");
     const alertsList = document.getElementById("alertsList");
-    const linkQualityBody = document.getElementById("linkQualityBody");
-    const coverageGapsBody = document.getElementById("coverageGapsBody");
+    const inventoryCountsBody = document.getElementById("inventoryCountsBody");
+    const regionTabs = document.getElementById("regionTabs");
+    const regionDetail = document.getElementById("regionDetail");
     const mfaHealthBody = document.getElementById("mfaHealthBody");
-    const retailerHealthBody = document.getElementById("retailerHealthBody");
 
     function statusLabel(value) {
       if (!value) return "grey";
@@ -573,35 +673,93 @@
       return date.toLocaleString();
     }
 
+    function severityPill(alert) {
+      const color = alert.statusColor || (alert.severity === "critical" ? "red" : alert.severity === "warning" ? "yellow" : "grey");
+      const label = alert.severity || color;
+      return statusPillHtml(color, label);
+    }
+
     function renderEmptyState(message) {
+      state.payload = null;
       regionCards.innerHTML = `<article class="ops-card"><small>Status</small><h2>Dashboard not loaded</h2><p class="ops-empty">${message}</p></article>`;
+      alertSummaryGrid.innerHTML = "";
+      alertsList.innerHTML = `<li class="ops-alert-card"><p class="ops-empty">${message}</p></li>`;
       inventoryCountsBody.innerHTML = "";
-      alertsList.innerHTML = `<li><p class="ops-empty">${message}</p></li>`;
-      linkQualityBody.innerHTML = "";
-      coverageGapsBody.innerHTML = "";
+      regionTabs.innerHTML = "";
+      regionDetail.innerHTML = `<p class="ops-empty">${message}</p>`;
       mfaHealthBody.innerHTML = "";
-      retailerHealthBody.innerHTML = "";
+    }
+
+    function getAlertSummary(summary) {
+      return [
+        { key: "critical", label: "Critical", color: "red", count: summary?.critical ?? 0 },
+        { key: "warnings", label: "Warnings", color: "yellow", count: summary?.warnings ?? 0 },
+        { key: "staleSources", label: "Stale Sources", color: "grey", count: summary?.staleSources ?? 0 },
+        { key: "linkageWarnings", label: "Linkage Warnings", color: "info", count: summary?.linkageWarnings ?? 0 }
+      ];
     }
 
     function renderRegionCards(regionOverview) {
       regionCards.innerHTML = "";
       regionOverview.forEach(region => {
         const card = document.createElement("article");
-        card.className = "ops-card";
+        card.className = `ops-card${state.selectedRegion === region.region ? " is-selected" : ""}`;
         card.innerHTML = `
           <small>${region.displayName || region.region}</small>
-          <div>${statusPillHtml(region.statusColor, region.regionStatus)}</div>
+          <div class="ops-meta-inline">
+            ${statusPillHtml(region.overallStatus || region.statusColor, region.regionStatus || region.overallStatus)}
+            <span class="ops-pill info">${region.region}</span>
+          </div>
           <h2>${region.region}</h2>
           <strong>${formatPct(region.supportedModelLinkagePct)}</strong>
           <ul>
-            <li>Retailer refresh: ${formatTimestamp(region.lastRetailerInventoryRefreshUtc)}</li>
-            <li>MFA refresh: ${formatTimestamp(region.lastMfaRefreshUtc)}</li>
-            <li>Retailer boards: ${formatNumber(region.activeRetailerBoardCount)}</li>
-            <li>MFA boards: ${formatNumber(region.activeMfaBoardCount)}</li>
+            <li>Operational: ${statusLabel(region.operationalHealthStatus)}</li>
+            <li>Freshness: ${statusLabel(region.dataFreshnessStatus)}</li>
+            <li>Search quality: ${statusLabel(region.searchHealthStatus)}</li>
+            <li>Coverage quality: ${statusLabel(region.coverageQualityStatus)}</li>
           </ul>
         `;
+        card.addEventListener("click", () => {
+          state.selectedRegion = region.region;
+          renderDashboard(state.payload);
+        });
         regionCards.appendChild(card);
       });
+    }
+
+    function renderAlertSummary(summary) {
+      alertSummaryGrid.innerHTML = getAlertSummary(summary).map(item => `
+        <article class="ops-alert-summary-card">
+          <small>${item.label}</small>
+          <strong>${formatNumber(item.count)}</strong>
+          ${statusPillHtml(item.color, item.label)}
+        </article>
+      `).join("");
+    }
+
+    function renderAlerts(payload) {
+      const alertSummary = payload.alertSummary || {};
+      const alerts = state.showAllAlerts ? (alertSummary.allAlerts || []) : (payload.alerts || []);
+      renderAlertSummary(alertSummary.summary || {});
+      toggleAlertsButton.textContent = state.showAllAlerts ? "Show top 10 alerts" : "Show all alerts";
+
+      if (!alerts || alerts.length === 0) {
+        alertsList.innerHTML = `<li class="ops-alert-card"><p class="ops-empty">No active critical or warning alerts in the current payload.</p></li>`;
+        return;
+      }
+
+      alertsList.innerHTML = alerts.map(alert => `
+        <li class="ops-alert-card">
+          <div class="ops-meta-inline">
+            ${severityPill(alert)}
+            <span class="ops-pill info">${alert.category || "alert"}</span>
+            ${alert.region ? `<span class="ops-pill info">${alert.region}</span>` : ""}
+          </div>
+          <strong>${alert.title || alert.source || "Regional signal"}</strong>
+          <p>${alert.message || "No message provided."}</p>
+          ${alert.affectedRetailers ? `<p class="ops-empty">Affected retailers: ${formatNumber(alert.affectedRetailers)}</p>` : ""}
+        </li>
+      `).join("");
     }
 
     function renderInventoryCounts(rows) {
@@ -616,83 +774,274 @@
       `).join("");
     }
 
-    function renderAlerts(alerts) {
-      if (!alerts || alerts.length === 0) {
-        alertsList.innerHTML = `<li><p class="ops-empty">No active red or yellow alerts in the current payload.</p></li>`;
-        return;
-      }
-
-      alertsList.innerHTML = alerts.map(alert => `
-        <li>
-          <div class="ops-alert-meta">
-            ${statusPillHtml(alert.severity, alert.severity)}
-            <span class="ops-pill info">${alert.category || "alert"}</span>
-            ${alert.region ? `<span class="ops-pill info">${alert.region}</span>` : ""}
-          </div>
-          <strong>${alert.source || "Regional signal"}</strong>
-          <p>${alert.message || "No message provided."}</p>
-        </li>
-      `).join("");
-    }
-
-    function renderLinkQuality(rows, regionOverview) {
-      const statusByRegion = new Map((regionOverview || []).map(region => [region.region, region.searchHealthStatus]));
-      linkQualityBody.innerHTML = rows.map(row => `
+    function renderMfaMatrix(rows) {
+      mfaHealthBody.innerHTML = rows.map(row => `
         <tr>
-          <td><strong>${row.region}</strong></td>
-          <td>${formatPct(row.supportedModelLinkagePct)}</td>
-          <td>${formatPct(row.canonicalSizeFamilyLinkagePct)}</td>
-          <td>${formatPct(row.exactBoardSizeLinkagePct)}</td>
-          <td>${statusPillHtml(statusByRegion.get(row.region), statusByRegion.get(row.region) || "unknown")}</td>
+          <td><strong>${row.brand}</strong></td>
+          ${REGION_ORDER.map(region => {
+            const cell = row.regions?.[region];
+            if (!cell || cell.applicability === "not_applicable") {
+              return `<td>${statusPillHtml("grey", "n/a")}</td>`;
+            }
+            return `
+              <td>
+                <div class="ops-cell">
+                  ${statusPillHtml(cell.statusColor, cell.statusLabel)}
+                  <strong>${formatNumber(cell.activeRowCount)}</strong>
+                  <div class="ops-cell-meta">
+                    Updated ${formatTimestamp(cell.lastSuccessfulUpdateUtc)}<br>
+                    Available ${formatNumber(cell.availableBoardCount)}<br>
+                    Model ${formatPct(cell.supportedModelLinkPct)} · Family ${formatPct(cell.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(cell.exactBoardSizeLinkPct)}
+                  </div>
+                </div>
+              </td>
+            `;
+          }).join("")}
         </tr>
       `).join("");
     }
 
-    function renderCoverageGaps(rows) {
-      coverageGapsBody.innerHTML = rows.map(row => {
-        const noRetailer = row.supportedCanonicalModelsNoActiveRetailerStock || {};
-        const noMfa = row.supportedCanonicalModelsNoActiveMfaStock || {};
-        const noStock = row.supportedCanonicalModelsNoStockAnywhere || {};
-        const retailerSample = (noRetailer.sample || []).slice(0, 3).join(", ");
-        const mfaSample = (noMfa.sample || []).slice(0, 3).join(", ");
-        const noStockSample = (noStock.sample || []).slice(0, 3).join(", ");
-
-        return `
-          <tr>
-            <td><strong>${row.region}</strong></td>
-            <td>${formatNumber(noRetailer.count)}${retailerSample ? `<br><small>${retailerSample}</small>` : ""}</td>
-            <td>${formatNumber(noMfa.count)}${mfaSample ? `<br><small>${mfaSample}</small>` : ""}</td>
-            <td>${formatNumber(noStock.count)}${noStockSample ? `<br><small>${noStockSample}</small>` : ""}</td>
-          </tr>
-        `;
-      }).join("");
+    function renderRegionTabs(regions) {
+      regionTabs.innerHTML = regions.map(region => `
+        <button class="ops-button ops-tab ${state.selectedRegion === region ? "is-active" : ""}" type="button" data-region="${region}">
+          ${region}
+        </button>
+      `).join("");
+      Array.from(regionTabs.querySelectorAll("[data-region]")).forEach(button => {
+        button.addEventListener("click", () => {
+          state.selectedRegion = button.dataset.region;
+          renderDashboard(state.payload);
+        });
+      });
     }
 
-    function renderMatrixCell(cell, includePct) {
-      if (!cell) return `<div class="ops-cell">${statusPillHtml("grey", "n/a")}</div>`;
-      const pctMeta = includePct
-        ? `<div class="ops-cell-meta">Model ${formatPct(cell.linkedModelPct ?? cell.supportedModelLinkPct)} · Family ${formatPct(cell.canonicalSizeFamilyPct ?? cell.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(cell.exactBoardSizePct ?? cell.exactBoardSizeLinkPct)}</div>`
-        : "";
+    function getFilteredRetailers(regionPayload) {
+      const rows = regionPayload?.retailerHealth?.retailers || [];
+      const filter = state.retailerFilter;
+      if (filter === "all") return rows;
+      if (filter === "low-linkage") return rows.filter(row => row.isLowLinkage);
+      if (filter === "stale") return rows.filter(row => row.statusLabel === "stale" || row.statusColor === "yellow");
+      return rows.filter(row => row.statusColor === filter);
+    }
+
+    function retailerRowHtml(row) {
       return `
-        <div class="ops-cell">
-          ${statusPillHtml(cell.statusColor, cell.statusLabel)}
-          <strong>${formatNumber(cell.activeRowCount)}</strong>
-          <div class="ops-cell-meta">
-            Updated ${formatTimestamp(cell.lastSuccessfulUpdateUtc)}<br>
-            Available ${formatNumber(cell.availableBoardCount)}
-          </div>
-          ${pctMeta}
-        </div>
+        <tr>
+          <td><strong>${row.retailer}</strong></td>
+          <td>${statusPillHtml(row.statusColor, row.statusLabel)}</td>
+          <td>${formatNumber(row.activeRows)}</td>
+          <td>${formatNumber(row.availableRows)}</td>
+          <td>${formatTimestamp(row.lastUpdatedUtc)}</td>
+          <td>${formatPct(row.modelLinkPct)}</td>
+          <td>${formatPct(row.sizeFamilyLinkPct)}</td>
+          <td>${formatPct(row.exactSizeLinkPct)}</td>
+          <td>${row.notes || "n/a"}</td>
+        </tr>
       `;
     }
 
-    function renderHealthMatrix(target, rows, labelField, includePct) {
-      target.innerHTML = rows.map(row => `
-        <tr>
-          <td><strong>${row[labelField]}</strong></td>
-          ${REGION_ORDER.map(region => `<td>${renderMatrixCell(row.regions[region], includePct)}</td>`).join("")}
-        </tr>
-      `).join("");
+    function retailerCardHtml(row) {
+      return `
+        <article class="ops-retailer-card">
+          <div class="ops-meta-inline">
+            ${statusPillHtml(row.statusColor, row.statusLabel)}
+            ${row.isLowLinkage ? `<span class="ops-pill info">Low linkage</span>` : ""}
+          </div>
+          <strong>${row.retailer}</strong>
+          <ul>
+            <li>Active rows: ${formatNumber(row.activeRows)}</li>
+            <li>Available rows: ${formatNumber(row.availableRows)}</li>
+            <li>Updated: ${formatTimestamp(row.lastUpdatedUtc)}</li>
+            <li>Model ${formatPct(row.modelLinkPct)} · Family ${formatPct(row.sizeFamilyLinkPct)} · Exact ${formatPct(row.exactSizeLinkPct)}</li>
+            <li>${row.notes || "No notes."}</li>
+          </ul>
+        </article>
+      `;
+    }
+
+    function renderRegionDetail(payload) {
+      const region = state.selectedRegion;
+      const detail = payload.regionDetails?.[region] || {};
+      const overview = detail.overview || {};
+      const retailerSummary = detail.retailerHealth?.summary || {};
+      const regionAlerts = detail.alerts || [];
+      const regionMfa = detail.mfaHealth || [];
+      const filteredRetailers = getFilteredRetailers(detail);
+
+      regionDetail.innerHTML = `
+        <div class="ops-region-hero">
+          <div>
+            <small>${overview.displayName || region}</small>
+            <h2>${overview.displayName || region} Operations</h2>
+            <p class="ops-empty">Use this view for day-to-day triage on retailer freshness, MFA freshness, stock posture, and regional link quality.</p>
+          </div>
+          <div class="ops-mini-statuses">
+            <div class="ops-meta-inline">
+              ${statusPillHtml(overview.overallStatus || overview.statusColor, "Overall")}
+              ${statusPillHtml(overview.retailerStatus, "Retailers")}
+              ${statusPillHtml(overview.mfaStatus, "MFA")}
+              ${statusPillHtml(overview.searchHealthStatus, "Search")}
+              ${statusPillHtml(overview.coverageQualityStatus, "Coverage")}
+            </div>
+            <p>Retailer refresh ${formatTimestamp(overview.lastRetailerInventoryRefreshUtc)} · MFA refresh ${formatTimestamp(overview.lastMfaRefreshUtc)}</p>
+          </div>
+        </div>
+
+        <div class="ops-detail-grid">
+          <div>
+            <div class="ops-stat-grid">
+              <article class="ops-stat-card">
+                <small>Configured Retailers</small>
+                <strong>${formatNumber(retailerSummary.configuredRetailers)}</strong>
+                <p class="ops-empty">Healthy ${formatNumber(retailerSummary.healthyRetailers)} · Stale ${formatNumber(retailerSummary.staleRetailers)} · Failing ${formatNumber(retailerSummary.failingRetailers)}</p>
+              </article>
+              <article class="ops-stat-card">
+                <small>Retailer Boards</small>
+                <strong>${formatNumber(retailerSummary.activeRows)}</strong>
+                <p class="ops-empty">Available ${formatNumber(retailerSummary.availableRows)}</p>
+              </article>
+              <article class="ops-stat-card">
+                <small>Average Model Link</small>
+                <strong>${formatPct(retailerSummary.averageModelLinkagePct)}</strong>
+                <p class="ops-empty">Family ${formatPct(retailerSummary.averageSizeFamilyLinkagePct)}</p>
+              </article>
+              <article class="ops-stat-card">
+                <small>Average Exact Size</small>
+                <strong>${formatPct(retailerSummary.averageExactSizeLinkagePct)}</strong>
+                <p class="ops-empty">Search ${formatPct(detail.searchQuality?.supportedModelLinkagePct)}</p>
+              </article>
+            </div>
+
+            <div class="ops-section">
+              <div class="ops-section-header">
+                <div>
+                  <small>Retailer Health</small>
+                  <h2>${region} Retailer View</h2>
+                </div>
+                <div class="ops-filter-row" id="retailerFilters">
+                  ${FILTERS.map(filter => `
+                    <button class="ops-button ops-filter ${state.retailerFilter === filter.key ? "is-active" : ""}" type="button" data-filter="${filter.key}">
+                      ${filter.label}
+                    </button>
+                  `).join("")}
+                </div>
+              </div>
+              <div class="ops-retailer-toolbar">
+                <p class="ops-empty">Showing ${formatNumber(filteredRetailers.length)} retailer rows for ${region}. Red and stale retailers float to the top.</p>
+              </div>
+              <div class="ops-table-scroll">
+                <table class="ops-table">
+                  <thead>
+                    <tr>
+                      <th>Retailer</th>
+                      <th>Status</th>
+                      <th>Active rows</th>
+                      <th>Available rows</th>
+                      <th>Last updated</th>
+                      <th>Model %</th>
+                      <th>Size family %</th>
+                      <th>Exact size %</th>
+                      <th>Notes / reason</th>
+                    </tr>
+                  </thead>
+                  <tbody>${filteredRetailers.map(retailerRowHtml).join("")}</tbody>
+                </table>
+              </div>
+              <div class="ops-mobile-retailer-grid">${filteredRetailers.map(retailerCardHtml).join("") || `<p class="ops-empty">No retailers match the current filter.</p>`}</div>
+            </div>
+          </div>
+
+          <div class="ops-region-grid">
+            <div class="ops-section">
+              <div class="ops-section-header">
+                <div>
+                  <small>Regional Alerts</small>
+                  <h2>${region} Action Queue</h2>
+                </div>
+              </div>
+              <ul class="ops-alert-list">
+                ${(regionAlerts.length ? regionAlerts : [{ title: "No actionable region alerts", message: "This region has no active critical or warning alerts.", severity: "info", statusColor: "grey" }]).map(alert => `
+                  <li class="ops-alert-card">
+                    <div class="ops-meta-inline">
+                      ${severityPill(alert)}
+                      <span class="ops-pill info">${alert.category || "alert"}</span>
+                    </div>
+                    <strong>${alert.title || alert.source || "Regional signal"}</strong>
+                    <p>${alert.message || "No message provided."}</p>
+                  </li>
+                `).join("")}
+              </ul>
+            </div>
+
+            <div class="ops-section">
+              <div class="ops-section-header">
+                <div>
+                  <small>Coverage</small>
+                  <h2>${region} Coverage Snapshot</h2>
+                </div>
+              </div>
+              <ul class="ops-alert-list">
+                <li class="ops-alert-card">
+                  <strong>No retailer stock</strong>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveRetailerStock?.count)} supported models</p>
+                </li>
+                <li class="ops-alert-card">
+                  <strong>No MFA stock</strong>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveMfaStock?.count)} supported models</p>
+                </li>
+                <li class="ops-alert-card">
+                  <strong>No stock anywhere</strong>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywhere?.count)} supported models</p>
+                </li>
+              </ul>
+            </div>
+
+            <div class="ops-section">
+              <div class="ops-section-header">
+                <div>
+                  <small>MFA Brands</small>
+                  <h2>${region} MFA Status</h2>
+                </div>
+              </div>
+              <ul class="ops-alert-list">
+                ${regionMfa.filter(item => item.applicability !== "not_applicable").map(item => `
+                  <li class="ops-alert-card">
+                    <div class="ops-meta-inline">
+                      ${statusPillHtml(item.statusColor, item.statusLabel)}
+                      <span class="ops-pill info">${item.brand}</span>
+                    </div>
+                    <p>Rows ${formatNumber(item.activeRowCount)} · Available ${formatNumber(item.availableBoardCount)} · Updated ${formatTimestamp(item.lastSuccessfulUpdateUtc)}</p>
+                    <p>Model ${formatPct(item.supportedModelLinkPct)} · Family ${formatPct(item.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(item.exactBoardSizeLinkPct)}</p>
+                  </li>
+                `).join("") || `<li class="ops-alert-card"><p class="ops-empty">No applicable MFA brands in this region payload.</p></li>`}
+              </ul>
+            </div>
+          </div>
+        </div>
+      `;
+
+      Array.from(regionDetail.querySelectorAll("[data-filter]")).forEach(button => {
+        button.addEventListener("click", () => {
+          state.retailerFilter = button.dataset.filter;
+          renderDashboard(payload);
+        });
+      });
+    }
+
+    function renderDashboard(payload) {
+      if (!payload) return;
+      const regions = payload.regions || REGION_ORDER;
+      if (!regions.includes(state.selectedRegion)) {
+        state.selectedRegion = regions[0] || "AU";
+      }
+
+      renderRegionCards(payload.regionOverview || []);
+      renderAlertSummary(payload.alertSummary?.summary || {});
+      renderAlerts(payload);
+      renderInventoryCounts(payload.inventoryCounts || []);
+      renderRegionTabs(regions);
+      renderRegionDetail(payload);
+      renderMfaMatrix(payload.mfaHealth || []);
     }
 
     async function fetchDashboard(key) {
@@ -729,18 +1078,12 @@
       try {
         const payload = await fetchDashboard(key);
         window.localStorage.setItem(STORAGE_KEY, key);
-
-        renderRegionCards(payload.regionOverview || []);
-        renderInventoryCounts(payload.inventoryCounts || []);
-        renderAlerts(payload.alerts || payload.alertSummary || []);
-        renderLinkQuality(payload.searchQuality || [], payload.regionOverview || []);
-        renderCoverageGaps(payload.coverageGaps || []);
-        renderHealthMatrix(mfaHealthBody, payload.mfaHealth || [], "brand", true);
-        renderHealthMatrix(retailerHealthBody, payload.retailerHealth || [], "retailer", true);
+        state.payload = payload;
+        renderDashboard(payload);
 
         loadStatePill.className = "ops-pill green";
         loadStatePill.textContent = payload.cacheStatus === "hit" ? "Cache hit" : "Cache miss";
-        loadMeta.textContent = `Version ${payload.version || "unknown"} · Generated ${formatTimestamp(payload.generatedAtUtc)} · Regions ${formatNumber((payload.regions || []).length)}`;
+        loadMeta.textContent = `Version ${payload.version || "unknown"} · Generated ${formatTimestamp(payload.generatedAtUtc)} · Region ${state.selectedRegion}`;
       } catch (error) {
         console.error(error);
         loadStatePill.className = "ops-pill red";
@@ -753,9 +1096,17 @@
     }
 
     loadDashboardButton.addEventListener("click", loadDashboard);
+    toggleAlertsButton.addEventListener("click", () => {
+      state.showAllAlerts = !state.showAllAlerts;
+      if (state.payload) {
+        renderAlerts(state.payload);
+      }
+    });
     clearKeyButton.addEventListener("click", () => {
       window.localStorage.removeItem(STORAGE_KEY);
       opsApiKey.value = "";
+      state.payload = null;
+      state.showAllAlerts = false;
       loadStatePill.className = "ops-pill info";
       loadStatePill.textContent = "Key cleared";
       loadMeta.textContent = "The saved browser key was removed.";
@@ -774,6 +1125,7 @@
         }
       }, 150);
     }
+
     renderEmptyState("Load the dashboard with a valid internal key to view live operations status.");
   </script>
 </body>
