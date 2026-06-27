@@ -630,6 +630,9 @@
     const API_BASE = "https://quivrr-backend-api.azurewebsites.net";
     const STORAGE_KEY = "quivrrOpsDashboardKey";
     const REGION_ORDER = ["AU", "EU", "ID", "US"];
+    const DASHBOARD_REQUIRED_REGIONS = ["AU", "EU", "ID", "US"];
+    const DASHBOARD_RETRY_ATTEMPTS = 4;
+    const DASHBOARD_RETRY_DELAY_MS = 2000;
     const FILTERS = [
       { key: "all", label: "All" },
       { key: "red", label: "Red" },
@@ -693,6 +696,27 @@
       if (seconds < 60) return `${seconds.toFixed(seconds < 10 ? 1 : 0)}s`;
       if (seconds < 3600) return `${(seconds / 60).toFixed(1)}m`;
       return `${(seconds / 3600).toFixed(1)}h`;
+    }
+
+    function delay(ms) {
+      return new Promise(resolve => window.setTimeout(resolve, ms));
+    }
+
+    function hasGlobalDashboardPayload(payload) {
+      if (!payload || typeof payload !== "object") return false;
+      const requiredCollections = [
+        "jobContracts",
+        "jobHealth",
+        "regionOverview",
+        "inventoryCounts",
+        "regionalReadiness",
+        "coverageGaps",
+        "pipelineHealth"
+      ];
+      const regions = Array.isArray(payload.regions) ? payload.regions : [];
+      if (regions.length < DASHBOARD_REQUIRED_REGIONS.length) return false;
+      if (!DASHBOARD_REQUIRED_REGIONS.every(region => regions.includes(region))) return false;
+      return requiredCollections.every(key => Array.isArray(payload[key]) && payload[key].length > 0);
     }
 
     function jobTypeLabel(value) {
@@ -1203,6 +1227,28 @@
       return response.json();
     }
 
+    async function fetchCompleteDashboard(key) {
+      let lastPayload = null;
+
+      for (let attempt = 0; attempt < DASHBOARD_RETRY_ATTEMPTS; attempt += 1) {
+        const payload = await fetchDashboard(key);
+        lastPayload = payload;
+        if (hasGlobalDashboardPayload(payload)) {
+          return payload;
+        }
+        if (attempt < DASHBOARD_RETRY_ATTEMPTS - 1) {
+          loadStatePill.className = "ops-pill info";
+          loadStatePill.textContent = "Warming";
+          loadMeta.textContent = `Operations snapshot warming. Retrying ${attempt + 2}/${DASHBOARD_RETRY_ATTEMPTS}.`;
+          await delay(DASHBOARD_RETRY_DELAY_MS);
+        }
+      }
+
+      throw new Error(
+        `Operations dashboard returned an incomplete payload (version ${lastPayload?.version || "unknown"}, cache ${lastPayload?.cacheStatus || "unknown"}).`
+      );
+    }
+
     async function loadDashboard() {
       const key = opsApiKey.value.trim();
       if (!key) {
@@ -1219,13 +1265,18 @@
       loadMeta.textContent = "Fetching the latest dashboard snapshot.";
 
       try {
-        const payload = await fetchDashboard(key);
+        const payload = await fetchCompleteDashboard(key);
         window.localStorage.setItem(STORAGE_KEY, key);
         state.payload = payload;
         renderDashboard(payload);
 
         loadStatePill.className = "ops-pill green";
-        loadStatePill.textContent = payload.cacheStatus === "hit" ? "Cache hit" : "Cache miss";
+        loadStatePill.textContent =
+          payload.cacheStatus === "hit"
+            ? "Cache hit"
+            : payload.cacheStatus === "stale"
+              ? "Cache stale"
+              : "Cache miss";
         loadMeta.textContent = `Version ${payload.version || "unknown"} · Generated ${formatTimestamp(payload.generatedAtUtc)} · Region ${state.selectedRegion}`;
       } catch (error) {
         console.error(error);
