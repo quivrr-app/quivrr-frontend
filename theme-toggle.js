@@ -43,6 +43,7 @@
 
   function findMountPoint() {
     return (
+      document.querySelector(".hero-header-actions") ||
       document.querySelector(".ops-header-top") ||
       document.querySelector(".site-header") ||
       document.querySelector(".coming-soon-shell .site-header") ||

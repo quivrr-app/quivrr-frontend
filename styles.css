@@ -2055,27 +2055,6 @@ footer {
 }
 
 
-/* Tight top right placement for global return */
-@media (min-width: 1000px) {
-
-  .global-return-card {
-    position: absolute;
-    top: 2.2rem;
-    right: 3rem;
-
-    transform: scale(0.84);
-
-    transform-origin: top right;
-
-    z-index: 40;
-  }
-
-  .global-return-card:hover,
-  .global-return-card:focus-visible {
-    transform: scale(0.88) translateY(-1px);
-  }
-}
-
 /* Australia glow uplift */
 .hero.app-map-hero.australia-hero::after {
   opacity: 0.72 !important;
@@ -2565,18 +2544,10 @@ body {
   transition: background 0.22s ease, color 0.22s ease;
 }
 
-.site-header {
-  gap: 1.5rem;
-}
-
-.region-nav {
-  margin-left: auto;
-}
-
 .theme-toggle-slot {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex: 0 0 auto;
 }
 
@@ -2637,109 +2608,145 @@ body {
   border: 0;
 }
 
-.results-preview,
-.close-results-section,
-.brand-strip,
-footer {
-  background: var(--theme-surface-muted);
+.hero-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
 }
 
-.section-heading h1,
-.result-section-heading h2,
-.result-card h2,
-.result-card strong,
-footer p {
-  color: var(--theme-text-primary);
+.hero-header-actions .theme-toggle-slot {
+  margin: 0;
 }
 
-.section-heading p,
-.result-section-heading span,
-.result-card small,
-.global-return-copy small,
-.search-bar span {
-  color: var(--theme-text-muted);
+.hero-header-actions .theme-toggle {
+  width: 40px;
+  height: 40px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 12px 34px rgba(0, 0, 0, 0.28),
+    0 0 24px rgba(118, 228, 208, 0.10);
 }
 
-.result-card p,
-.global-return-copy,
-.retailer-name {
-  color: var(--theme-text-secondary);
+.site-header {
+  gap: 1.5rem;
 }
 
-.search-bar label,
-.result-card,
-.manufacturer-direct-card,
-.global-return-card {
-  background: var(--theme-surface);
-  color: var(--theme-text-primary);
-  border-color: var(--theme-border);
-  box-shadow: var(--theme-shadow);
+.region-nav {
+  margin-left: auto;
 }
 
-.manufacturer-card,
-.manufacturer-direct-card {
-  background: var(--theme-surface-elevated);
-}
-
-.retailer-header,
-.result-image,
-.retailer-logo-track img,
-.retailer-action-logo,
-.retailer-source-logo {
-  background: var(--theme-surface-elevated);
-  border-color: var(--theme-border);
-}
-
-.retailer-header {
-  box-shadow: var(--theme-shadow-soft);
-}
-
-.stock-tag {
-  background: var(--theme-pill-bg);
-  color: var(--theme-pill-text);
-}
-
-.search-bar label {
-  border: 1px solid var(--theme-input-border);
-}
-
-.search-bar select,
-.search-bar input,
-.search-bar textarea,
-input,
-textarea,
-select {
-  background: var(--theme-input-bg);
-  color: var(--theme-text-primary);
-  border-color: var(--theme-input-border);
-}
-
-select option,
-select optgroup {
-  background: var(--theme-surface-elevated);
-  color: var(--theme-text-primary);
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: var(--theme-text-muted);
-}
-
-.show-more-button {
-  background: var(--theme-surface-elevated);
-  color: var(--theme-text-primary);
-  border-color: var(--theme-border-strong);
-  box-shadow: var(--theme-shadow-soft);
-}
-
-.show-more-button:hover {
-  background: var(--theme-bg-secondary);
+.hero-header-actions {
+  position: absolute;
+  top: 2.2rem;
+  right: 3rem;
+  z-index: 40;
+  transform: scale(0.84);
+  transform-origin: top right;
 }
 
 html[data-theme="dark"] .hero-overlay {
   background:
     linear-gradient(90deg, rgba(7, 9, 10, 0.82), rgba(7, 9, 10, 0.24)),
     linear-gradient(180deg, rgba(7, 9, 10, 0.12), rgba(7, 9, 10, 0.34));
+}
+
+html[data-theme="dark"] .results-preview,
+html[data-theme="dark"] .close-results-section,
+html[data-theme="dark"] .brand-strip,
+html[data-theme="dark"] footer {
+  background: var(--theme-surface-muted);
+}
+
+html[data-theme="dark"] .section-heading h1,
+html[data-theme="dark"] .result-section-heading h2,
+html[data-theme="dark"] .result-card h2,
+html[data-theme="dark"] .result-card strong,
+html[data-theme="dark"] footer p {
+  color: var(--theme-text-primary);
+}
+
+html[data-theme="dark"] .section-heading p,
+html[data-theme="dark"] .result-section-heading span,
+html[data-theme="dark"] .result-card small,
+html[data-theme="dark"] .global-return-copy small,
+html[data-theme="dark"] .search-bar span {
+  color: var(--theme-text-muted);
+}
+
+html[data-theme="dark"] .result-card p,
+html[data-theme="dark"] .global-return-copy,
+html[data-theme="dark"] .retailer-name {
+  color: var(--theme-text-secondary);
+}
+
+html[data-theme="dark"] .search-bar label,
+html[data-theme="dark"] .result-card,
+html[data-theme="dark"] .manufacturer-direct-card,
+html[data-theme="dark"] .global-return-card {
+  background: var(--theme-surface);
+  color: var(--theme-text-primary);
+  border-color: var(--theme-border);
+  box-shadow: var(--theme-shadow);
+}
+
+html[data-theme="dark"] .manufacturer-card,
+html[data-theme="dark"] .manufacturer-direct-card {
+  background: var(--theme-surface-elevated);
+}
+
+html[data-theme="dark"] .retailer-header,
+html[data-theme="dark"] .result-image,
+html[data-theme="dark"] .retailer-logo-track img,
+html[data-theme="dark"] .retailer-action-logo,
+html[data-theme="dark"] .retailer-source-logo {
+  background: var(--theme-surface-elevated);
+  border-color: var(--theme-border);
+}
+
+html[data-theme="dark"] .retailer-header {
+  box-shadow: var(--theme-shadow-soft);
+}
+
+html[data-theme="dark"] .stock-tag {
+  background: var(--theme-pill-bg);
+  color: var(--theme-pill-text);
+}
+
+html[data-theme="dark"] .search-bar label {
+  border: 1px solid var(--theme-input-border);
+}
+
+html[data-theme="dark"] .search-bar select,
+html[data-theme="dark"] .search-bar input,
+html[data-theme="dark"] .search-bar textarea,
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+  background: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+  border-color: var(--theme-input-border);
+}
+
+html[data-theme="dark"] select option,
+html[data-theme="dark"] select optgroup {
+  background: var(--theme-surface-elevated);
+  color: var(--theme-text-primary);
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+  color: var(--theme-text-muted);
+}
+
+html[data-theme="dark"] .show-more-button {
+  background: var(--theme-surface-elevated);
+  color: var(--theme-text-primary);
+  border-color: var(--theme-border-strong);
+  box-shadow: var(--theme-shadow-soft);
+}
+
+html[data-theme="dark"] .show-more-button:hover {
+  background: var(--theme-bg-secondary);
 }
 
 html[data-theme="dark"] .hero.app-map-hero .search-bar label {
@@ -2840,6 +2847,19 @@ html[data-theme="dark"] .ops-empty {
 @media (max-width: 768px) {
   .site-header {
     align-items: stretch;
+  }
+
+  .hero-header-actions {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.2rem;
+    gap: 0.5rem;
+    transform: none;
+  }
+
+  .hero-header-actions .theme-toggle {
+    width: 38px;
+    height: 38px;
   }
 
   .region-nav {
