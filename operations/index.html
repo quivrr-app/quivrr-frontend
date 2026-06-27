@@ -536,6 +536,19 @@
 
     <section class="ops-grid" id="regionCards"></section>
 
+    <section class="ops-section">
+      <div class="ops-section-header">
+        <div>
+          <small>Pipeline View</small>
+          <h2>Gen 3 Operating Flow</h2>
+        </div>
+      </div>
+      <div class="ops-grid" id="pipelineHealthGrid"></div>
+      <p class="ops-footer-note">
+        This view follows the Gen 3 path from global canonical truth through regional stock layers, linkage quality, and the public operations surface.
+      </p>
+    </section>
+
     <section class="ops-two-up">
       <article class="ops-section">
         <div class="ops-section-header">
@@ -640,6 +653,7 @@
     const loadStatePill = document.getElementById("loadStatePill");
     const loadMeta = document.getElementById("loadMeta");
     const regionCards = document.getElementById("regionCards");
+    const pipelineHealthGrid = document.getElementById("pipelineHealthGrid");
     const alertSummaryGrid = document.getElementById("alertSummaryGrid");
     const alertsList = document.getElementById("alertsList");
     const inventoryCountsBody = document.getElementById("inventoryCountsBody");
@@ -700,6 +714,7 @@
     function renderEmptyState(message) {
       state.payload = null;
       regionCards.innerHTML = `<article class="ops-card"><small>Status</small><h2>Dashboard not loaded</h2><p class="ops-empty">${message}</p></article>`;
+      pipelineHealthGrid.innerHTML = "";
       alertSummaryGrid.innerHTML = "";
       alertsList.innerHTML = `<li class="ops-alert-card"><p class="ops-empty">${message}</p></li>`;
       inventoryCountsBody.innerHTML = "";
@@ -745,6 +760,30 @@
         });
         regionCards.appendChild(card);
       });
+    }
+
+    function renderPipelineHealth(pipelineHealth) {
+      const rows = Array.isArray(pipelineHealth) ? pipelineHealth : [];
+      if (!rows.length) {
+        pipelineHealthGrid.innerHTML = `<article class="ops-card"><small>Pipeline</small><h2>No pipeline health yet</h2><p class="ops-empty">The dashboard payload did not include pipeline stage telemetry.</p></article>`;
+        return;
+      }
+
+      pipelineHealthGrid.innerHTML = rows.map(stage => `
+        <article class="ops-card">
+          <small>${stage.label || stage.key || "Pipeline stage"}</small>
+          <div class="ops-meta-inline">
+            ${statusPillHtml(stage.status, stage.status)}
+            ${stage.anchor ? `<span class="ops-pill info">${stage.anchor.replace("#", "")}</span>` : ""}
+          </div>
+          <h2>${stage.label || stage.key || "Pipeline stage"}</h2>
+          <strong>${stage.primaryMetric || "n/a"}</strong>
+          <ul>
+            <li>${stage.latestIssue || "No current issue."}</li>
+            <li>Last success: ${formatTimestamp(stage.lastSuccessUtc)}</li>
+          </ul>
+        </article>
+      `).join("");
     }
 
     function renderAlertSummary(summary) {
@@ -1139,6 +1178,7 @@
       }
 
       renderRegionCards(payload.regionOverview || []);
+      renderPipelineHealth(payload.pipelineHealth || []);
       renderAlertSummary(payload.alertSummary?.summary || {});
       renderAlerts(payload);
       renderInventoryCounts(payload.inventoryCounts || []);
