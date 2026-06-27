@@ -41,16 +41,16 @@
     }
 
     .ops-shell {
-      width: min(1240px, calc(100vw - 2rem));
+      width: min(1380px, calc(100vw - 2rem));
       margin: 0 auto;
-      padding: 2rem 0 4rem;
+      padding: 2rem 0 3.5rem;
     }
 
     .ops-header {
       display: grid;
-      gap: 1.2rem;
+      gap: 1rem;
       color: #f5f2eb;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .ops-brand {
@@ -75,17 +75,17 @@
 
     .ops-header h1 {
       margin: 0;
-      font-size: clamp(2.25rem, 5vw, 4rem);
-      line-height: 0.95;
+      font-size: clamp(2.4rem, 5vw, 4.3rem);
+      line-height: 0.92;
       letter-spacing: -0.045em;
     }
 
     .ops-header p {
-      margin: 0.45rem 0 0;
-      max-width: 54rem;
+      margin: 0.55rem 0 0;
+      max-width: 58rem;
       color: rgba(245, 242, 235, 0.82);
-      font-size: 1rem;
-      line-height: 1.6;
+      font-size: 1.02rem;
+      line-height: 1.7;
     }
 
     .ops-auth,
@@ -100,9 +100,9 @@
     .ops-auth {
       display: grid;
       gap: 1rem;
-      padding: 1.25rem;
+      padding: 1.15rem 1.2rem;
       border-radius: 1.3rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
     .ops-auth-grid {
@@ -212,8 +212,8 @@
     .ops-grid {
       display: grid;
       gap: 1rem;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-bottom: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-bottom: 1.25rem;
     }
 
     .ops-card,
@@ -223,13 +223,13 @@
       background: var(--ops-panel-strong);
       border: 1px solid var(--ops-line);
       border-radius: 1.25rem;
-      padding: 1rem;
+      padding: 1rem 1.05rem;
     }
 
     .ops-card {
-      min-height: 12rem;
+      min-height: 10.5rem;
       display: grid;
-      gap: 0.75rem;
+      gap: 0.6rem;
       cursor: pointer;
       transition: transform 0.14s ease, border-color 0.14s ease;
     }
@@ -260,9 +260,18 @@
 
     .ops-card strong,
     .ops-stat-card strong {
-      font-size: 2rem;
-      line-height: 1;
+      font-size: 1.75rem;
+      line-height: 0.98;
       letter-spacing: -0.04em;
+    }
+
+    .ops-card p,
+    .ops-card li,
+    .ops-retailer-card p,
+    .ops-retailer-card li,
+    .ops-alert-card p,
+    .ops-alert-card li {
+      line-height: 1.5;
     }
 
     .ops-card ul,
@@ -280,16 +289,16 @@
     .ops-two-up {
       display: grid;
       gap: 1rem;
-      grid-template-columns: 1.25fr 1fr;
-      margin-bottom: 1.5rem;
+      grid-template-columns: 1.15fr 0.95fr;
+      margin-bottom: 1.25rem;
     }
 
     .ops-section,
     .ops-region,
     .ops-matrix {
       border-radius: 1.4rem;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
+      padding: 1.15rem 1.2rem;
+      margin-bottom: 1.25rem;
     }
 
     .ops-section-header {
@@ -298,7 +307,7 @@
       gap: 0.75rem;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .ops-region-grid,
@@ -316,19 +325,19 @@
     }
 
     .ops-stat-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-bottom: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      margin-bottom: 0.9rem;
     }
 
     .ops-stat-card {
       display: grid;
-      gap: 0.5rem;
-      min-height: 9rem;
+      gap: 0.45rem;
+      min-height: 8rem;
     }
 
     .ops-alert-summary-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-bottom: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      margin-bottom: 0.9rem;
     }
 
     .ops-alert-summary-card {
@@ -337,11 +346,11 @@
       border-radius: 1rem;
       padding: 0.95rem;
       display: grid;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
 
     .ops-alert-summary-card strong {
-      font-size: 1.7rem;
+      font-size: 1.45rem;
       letter-spacing: -0.04em;
     }
 
@@ -356,12 +365,12 @@
       list-style: none;
       padding: 0;
       display: grid;
-      gap: 0.8rem;
+      gap: 0.65rem;
     }
 
     .ops-alert-card {
       display: grid;
-      gap: 0.55rem;
+      gap: 0.45rem;
     }
 
     .ops-alert-card strong {
@@ -377,7 +386,7 @@
 
     .ops-table {
       width: 100%;
-      min-width: 48rem;
+      min-width: 52rem;
       border-collapse: collapse;
     }
 
@@ -385,9 +394,9 @@
     .ops-table td {
       text-align: left;
       vertical-align: top;
-      padding: 0.85rem 0.75rem;
+      padding: 0.78rem 0.7rem;
       border-top: 1px solid var(--ops-line);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
     .ops-table thead th {
@@ -414,7 +423,7 @@
     }
 
     .ops-region-hero h2 {
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
       letter-spacing: -0.05em;
     }
 
@@ -451,8 +460,160 @@
       font-size: 1.05rem;
     }
 
+    .ops-eyebrow {
+      color: var(--ops-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .ops-card-head,
+    .ops-stage-head,
+    .ops-alert-head {
+      display: flex;
+      gap: 0.6rem;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    .ops-card-head h2,
+    .ops-stage-head h2,
+    .ops-alert-head h2 {
+      margin: 0.15rem 0 0;
+      font-size: 1.08rem;
+      line-height: 1.15;
+    }
+
+    .ops-metric {
+      display: grid;
+      gap: 0.18rem;
+    }
+
+    .ops-metric-label {
+      color: var(--ops-muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+    }
+
+    .ops-metric-value {
+      font-size: clamp(1.55rem, 2vw, 2rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    .ops-card-note,
+    .ops-subtle {
+      color: var(--ops-muted);
+      font-size: 0.9rem;
+    }
+
+    .ops-summary-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 0.32rem;
+      color: var(--ops-muted);
+      font-size: 0.92rem;
+    }
+
+    .ops-summary-list li {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.8rem;
+    }
+
+    .ops-summary-list span:last-child {
+      color: var(--ops-ink);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .ops-stage-card {
+      min-height: 11rem;
+      cursor: default;
+    }
+
+    .ops-stage-card .ops-metric-value {
+      font-size: 1.2rem;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+    }
+
+    .ops-stage-foot {
+      display: grid;
+      gap: 0.28rem;
+      font-size: 0.88rem;
+      color: var(--ops-muted);
+    }
+
+    .ops-region-card {
+      min-height: 12.2rem;
+    }
+
+    .ops-region-card .ops-metric-value {
+      font-size: 2.15rem;
+    }
+
+    .ops-summary-table th:nth-child(1) { width: 12%; }
+    .ops-summary-table th:nth-child(2) { width: 17%; }
+    .ops-summary-table th:nth-child(3) { width: 17%; }
+    .ops-summary-table th:nth-child(4) { width: 17%; }
+    .ops-summary-table th:nth-child(5) { width: 17%; }
+
+    .ops-job-table th:nth-child(1) { width: 18%; }
+    .ops-job-table th:nth-child(2) { width: 10%; }
+    .ops-job-table th:nth-child(3) { width: 10%; }
+    .ops-job-table th:nth-child(4) { width: 10%; }
+    .ops-job-table th:nth-child(5) { width: 12%; }
+    .ops-job-table th:nth-child(6) { width: 9%; }
+    .ops-job-table th:nth-child(7) { width: 9%; }
+    .ops-job-table th:nth-child(8) { width: 10%; }
+    .ops-job-table th:nth-child(9) { width: 12%; }
+
+    .ops-cell {
+      display: grid;
+      gap: 0.32rem;
+      min-width: 9rem;
+    }
+
+    .ops-cell strong {
+      font-size: 1rem;
+      line-height: 1.1;
+    }
+
+    .ops-cell-meta {
+      color: var(--ops-muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .ops-inline-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.8rem;
+      color: var(--ops-muted);
+      font-size: 0.88rem;
+    }
+
+    .ops-label {
+      color: var(--ops-muted);
+    }
+
+    .ops-truncate {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
     .ops-footer-note {
-      margin-top: 1rem;
+      margin-top: 0.8rem;
       color: var(--ops-muted);
       font-size: 0.9rem;
     }
@@ -467,6 +628,10 @@
       .ops-detail-grid,
       .ops-two-up {
         grid-template-columns: 1fr;
+      }
+
+      .ops-region-card {
+        min-height: auto;
       }
     }
 
@@ -505,14 +670,14 @@
         <a class="ops-brand" href="/">
           <img src="/Media/Quivrr_Logos/Quivrr%20-%20World%20Green%20Logo.PNG" alt="Quivrr" />
         </a>
-        <span class="ops-pill info">Internal Command Centre</span>
+        <span class="ops-pill info">Quivrr Operations Centre</span>
       </div>
       <div>
-        <h1>Operations Centre</h1>
+        <h1>Quivrr Operations Centre</h1>
         <p>
-          Internal Quivrr operating view for regional freshness, retailer health, manufacturer availability,
-          stock coverage, and search linkage quality. Use the region selector to move from global posture
-          into a phone-friendly regional operating view.
+          Internal operating view for regional freshness, retailer health, manufacturer availability,
+          stock coverage, and search linkage quality. Start with platform posture, then move into region-by-region
+          operations and source follow-up.
         </p>
       </div>
     </header>
@@ -534,7 +699,15 @@
       </div>
     </section>
 
-    <section class="ops-grid" id="regionCards"></section>
+    <section class="ops-section">
+      <div class="ops-section-header">
+        <div>
+          <small>Platform Summary</small>
+          <h2>Regional Readiness</h2>
+        </div>
+      </div>
+      <div class="ops-grid" id="regionCards"></div>
+    </section>
 
     <section class="ops-section">
       <div class="ops-section-header">
@@ -567,19 +740,20 @@
       <article class="ops-section">
         <div class="ops-section-header">
           <div>
-            <small>Inventory</small>
-            <h2>Regional Inventory Counts</h2>
+            <small>Data Quality</small>
+            <h2>Coverage and Inventory Summary</h2>
           </div>
         </div>
         <div class="ops-table-scroll">
-          <table class="ops-table">
+          <table class="ops-table ops-summary-table">
             <thead>
               <tr>
                 <th>Region</th>
                 <th>Retailer Boards</th>
-                <th>MFA Boards</th>
-                <th>Total Active</th>
-                <th>Supported Rows</th>
+                <th>Manufacturer Boards</th>
+                <th>Total Active Boards</th>
+                <th>Supported Inventory</th>
+                <th>Used Boards</th>
               </tr>
             </thead>
             <tbody id="inventoryCountsBody"></tbody>
@@ -698,6 +872,33 @@
       return `${(seconds / 3600).toFixed(1)}h`;
     }
 
+    function shortText(value, maxLength = 120) {
+      if (!value) return "n/a";
+      const text = String(value).replace(/\s+/g, " ").trim();
+      if (text.length <= maxLength) return text;
+      return `${text.slice(0, maxLength - 1).trimEnd()}…`;
+    }
+
+    function findReadinessRow(readinessRows, regionCode) {
+      return (readinessRows || []).find(row => row.region === regionCode) || {};
+    }
+
+    function readinessStatusSummary(region) {
+      const issues = [];
+      if ((region.dataQualityStatus || region.searchHealthStatus) === "yellow") {
+        issues.push("Coverage or linkage below preferred target.");
+      }
+      if ((region.retailerStatus || "") === "red" || (region.mfaStatus || "") === "red") {
+        issues.push("Freshness or source follow-up required.");
+      }
+      if (!issues.length) return "Fresh data and usable linkage across the current region runtime.";
+      return issues[0];
+    }
+
+    function friendlyReason(value) {
+      return shortText(value || "No issue recorded.", 120);
+    }
+
     function delay(ms) {
       return new Promise(resolve => window.setTimeout(resolve, ms));
     }
@@ -756,27 +957,34 @@
       ];
     }
 
-    function renderRegionCards(regionOverview) {
+    function renderRegionCards(regionOverview, readinessRows) {
       regionCards.innerHTML = "";
       regionOverview.forEach(region => {
+        const readiness = findReadinessRow(readinessRows, region.region);
         const card = document.createElement("article");
-        card.className = `ops-card${state.selectedRegion === region.region ? " is-selected" : ""}`;
+        card.className = `ops-card ops-region-card${state.selectedRegion === region.region ? " is-selected" : ""}`;
         card.innerHTML = `
-          <small>${region.displayName || region.region}</small>
+          <div class="ops-card-head">
+            <div>
+              <small>${region.displayName || region.region}</small>
+              <h2>${region.displayName || region.region}</h2>
+            </div>
+            <span class="ops-pill info">${region.region}</span>
+          </div>
           <div class="ops-meta-inline">
             ${statusPillHtml(region.operationalHealthStatus || region.overallStatus || region.statusColor, "Operational")}
             ${statusPillHtml(region.dataQualityStatus || region.searchHealthStatus || "grey", "Data quality")}
-            <span class="ops-pill info">${region.region}</span>
           </div>
-          <h2>${region.region}</h2>
-          <strong>${formatPct(region.supportedModelLinkagePct)}</strong>
-          <ul>
-            <li>Operational: ${statusLabel(region.operationalHealthStatus)}</li>
-            <li>Freshness: ${statusLabel(region.dataFreshnessStatus)}</li>
-            <li>Search quality: ${statusLabel(region.searchHealthStatus)}</li>
-            <li>Coverage quality: ${statusLabel(region.coverageQualityStatus)}</li>
-            <li>Coverage gap: ${formatPct(region.coverageGapPct)}</li>
+          <div class="ops-metric">
+            <span class="ops-metric-label">Overall readiness</span>
+            <span class="ops-metric-value">${formatPct(readiness.overallScore)}</span>
+          </div>
+          <ul class="ops-summary-list">
+            <li><span>Retailer freshness</span><span>${statusLabel(region.retailerStatus)}</span></li>
+            <li><span>Manufacturer freshness</span><span>${statusLabel(region.mfaStatus)}</span></li>
+            <li><span>Coverage gap</span><span>${formatPct(region.coverageGapPct)}</span></li>
           </ul>
+          <p class="ops-card-note">${readinessStatusSummary(region)}</p>
         `;
         card.addEventListener("click", () => {
           state.selectedRegion = region.region;
@@ -794,18 +1002,22 @@
       }
 
       pipelineHealthGrid.innerHTML = rows.map(stage => `
-        <article class="ops-card">
-          <small>${stage.label || stage.key || "Pipeline stage"}</small>
-          <div class="ops-meta-inline">
+        <article class="ops-card ops-stage-card">
+          <div class="ops-stage-head">
+            <div>
+              <small>${stage.label || stage.key || "Pipeline stage"}</small>
+              <h2>${stage.label || stage.key || "Pipeline stage"}</h2>
+            </div>
             ${statusPillHtml(stage.status, stage.status)}
-            ${stage.anchor ? `<span class="ops-pill info">${stage.anchor.replace("#", "")}</span>` : ""}
           </div>
-          <h2>${stage.label || stage.key || "Pipeline stage"}</h2>
-          <strong>${stage.primaryMetric || "n/a"}</strong>
-          <ul>
-            <li>${stage.latestIssue || "No current issue."}</li>
-            <li>Last success: ${formatTimestamp(stage.lastSuccessUtc)}</li>
-          </ul>
+          <div class="ops-metric">
+            <span class="ops-metric-label">Primary signal</span>
+            <span class="ops-metric-value">${shortText(stage.primaryMetric || "n/a", 72)}</span>
+          </div>
+          <div class="ops-stage-foot">
+            <span><span class="ops-label">Last success</span> ${formatTimestamp(stage.lastSuccessUtc)}</span>
+            <span class="ops-truncate" title="${stage.latestIssue || "No current issue."}">${friendlyReason(stage.latestIssue || "No current issue.", 120)}</span>
+          </div>
         </article>
       `).join("");
     }
@@ -822,9 +1034,9 @@
 
     function renderAlerts(payload) {
       const alertSummary = payload.alertSummary || {};
-      const alerts = state.showAllAlerts ? (alertSummary.allAlerts || []) : (payload.alerts || []);
+      const alerts = state.showAllAlerts ? (alertSummary.allAlerts || []) : (payload.alerts || []).slice(0, 5);
       renderAlertSummary(alertSummary.summary || {});
-      toggleAlertsButton.textContent = state.showAllAlerts ? "Show top 10 alerts" : "Show all alerts";
+      toggleAlertsButton.textContent = state.showAllAlerts ? "Show top alerts" : "Show all alerts";
 
       if (!alerts || alerts.length === 0) {
         alertsList.innerHTML = `<li class="ops-alert-card"><p class="ops-empty">No active critical or warning alerts in the current payload.</p></li>`;
@@ -839,9 +1051,9 @@
             ${alert.region ? `<span class="ops-pill info">${alert.region}</span>` : ""}
           </div>
           <strong>${alert.title || alert.source || "Regional signal"}</strong>
-          <p>${alert.message || "No message provided."}</p>
+          <p>${shortText(alert.message || "No message provided.", 160)}</p>
           ${alert.metricName ? `<p class="ops-empty">${alert.metricName}: ${alert.currentValue === null || alert.currentValue === undefined ? "n/a" : typeof alert.currentValue === "number" ? formatPct(alert.currentValue) : alert.currentValue} · threshold ${alert.threshold ?? "n/a"}</p>` : ""}
-          ${alert.sourceType ? `<p class="ops-empty">Source ${alert.sourceType}${alert.suggestedAction ? ` · ${alert.suggestedAction}` : ""}</p>` : ""}
+          ${alert.sourceType ? `<p class="ops-empty" title="${alert.suggestedAction || ""}">Source ${alert.sourceType}${alert.suggestedAction ? ` · ${shortText(alert.suggestedAction, 92)}` : ""}</p>` : ""}
           ${alert.affectedRetailers ? `<p class="ops-empty">Affected retailers: ${formatNumber(alert.affectedRetailers)}</p>` : ""}
         </li>
       `).join("");
@@ -855,6 +1067,7 @@
           <td>${formatNumber(row.activeManufacturerInventoryRows)}</td>
           <td>${formatNumber(row.totalActiveBoards)}</td>
           <td>${formatNumber(row.supportedManufacturerRows)}</td>
+          <td>${formatNumber(row.usedSupportedBoards)}</td>
         </tr>
       `).join("");
     }
@@ -872,11 +1085,11 @@
               <td>
                 <div class="ops-cell">
                   ${statusPillHtml(cell.statusColor, cell.statusLabel)}
-                  <strong>${formatNumber(cell.activeRowCount)}</strong>
+                  <strong>Tracked ${formatNumber(cell.activeRowCount)}</strong>
                   <div class="ops-cell-meta">
-                    Updated ${formatTimestamp(cell.lastSuccessfulUpdateUtc)}<br>
                     Available ${formatNumber(cell.availableBoardCount)}<br>
-                    Model ${formatPct(cell.supportedModelLinkPct)} · Family ${formatPct(cell.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(cell.exactBoardSizeLinkPct)}
+                    Updated ${formatTimestamp(cell.lastSuccessfulUpdateUtc)}<br>
+                    Model ${formatPct(cell.supportedModelLinkPct)} · Size family ${formatPct(cell.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(cell.exactBoardSizeLinkPct)}
                   </div>
                 </div>
               </td>
@@ -920,7 +1133,7 @@
           <td>${formatPct(row.modelLinkPct)}</td>
           <td>${formatPct(row.sizeFamilyLinkPct)}</td>
           <td>${formatPct(row.exactSizeLinkPct)}</td>
-          <td>${row.notes || "n/a"}</td>
+          <td title="${row.notes || ""}">${shortText(row.notes || "No current note.", 88)}</td>
         </tr>
       `;
     }
@@ -934,11 +1147,11 @@
           </div>
           <strong>${row.retailer}</strong>
           <ul>
-            <li>Active rows: ${formatNumber(row.activeRows)}</li>
-            <li>Available rows: ${formatNumber(row.availableRows)}</li>
+            <li>Tracked boards: ${formatNumber(row.activeRows)}</li>
+            <li>Available boards: ${formatNumber(row.availableRows)}</li>
             <li>Updated: ${formatTimestamp(row.lastUpdatedUtc)}</li>
-            <li>Model ${formatPct(row.modelLinkPct)} · Family ${formatPct(row.sizeFamilyLinkPct)} · Exact ${formatPct(row.exactSizeLinkPct)}</li>
-            <li>${row.notes || "No notes."}</li>
+            <li>Model ${formatPct(row.modelLinkPct)} · Size family ${formatPct(row.sizeFamilyLinkPct)} · Exact ${formatPct(row.exactSizeLinkPct)}</li>
+            <li>${shortText(row.notes || "No notes.", 120)}</li>
           </ul>
         </article>
       `;
@@ -955,7 +1168,7 @@
           <td>${formatTimestamp(job.lastFailedUtc)}</td>
           <td>${formatDuration(job.durationSeconds)}</td>
           <td>${formatNumber(job.rowsInserted ?? job.rowsUpdated ?? job.activeRowsAfter)}</td>
-          <td>${job.statusReason || "n/a"}</td>
+          <td title="${job.statusReason || ""}">${shortText(job.statusReason || "No current issue.", 92)}</td>
         </tr>
       `;
     }
@@ -974,8 +1187,8 @@
             <li>Last success: ${formatTimestamp(job.lastSucceededUtc)}</li>
             <li>Last failure: ${formatTimestamp(job.lastFailedUtc)}</li>
             <li>Duration: ${formatDuration(job.durationSeconds)}</li>
-            <li>Rows: ${formatNumber(job.rowsInserted ?? job.rowsUpdated ?? job.activeRowsAfter)}</li>
-            <li>${job.statusReason || "No status reason."}</li>
+            <li>Boards written: ${formatNumber(job.rowsInserted ?? job.rowsUpdated ?? job.activeRowsAfter)}</li>
+            <li>${shortText(job.statusReason || "No status reason.", 120)}</li>
           </ul>
         </article>
       `;
@@ -1008,7 +1221,7 @@
               ${statusPillHtml(overview.searchHealthStatus, "Search")}
               ${statusPillHtml(overview.coverageQualityStatus, "Coverage")}
             </div>
-            <p>Retailer refresh ${formatTimestamp(overview.lastRetailerInventoryRefreshUtc)} · MFA refresh ${formatTimestamp(overview.lastMfaRefreshUtc)} · Runtime ${overview.retailerRuntime || "n/a"}</p>
+            <p>Retailer refresh ${formatTimestamp(overview.lastRetailerInventoryRefreshUtc)} · MFA refresh ${formatTimestamp(overview.lastMfaRefreshUtc)} · Retailer feed ${overview.retailerRuntime || "n/a"}</p>
           </div>
         </div>
 
@@ -1016,32 +1229,32 @@
           <div>
             <div class="ops-stat-grid">
               <article class="ops-stat-card">
-                <small>Configured Retailers</small>
+                <small>Retailer Coverage</small>
                 <strong>${formatNumber(retailerSummary.configuredRetailers)}</strong>
                 <p class="ops-empty">Healthy ${formatNumber(retailerSummary.healthyRetailers)} · Stale ${formatNumber(retailerSummary.staleRetailers)} · Failing ${formatNumber(retailerSummary.failingRetailers)}</p>
               </article>
               <article class="ops-stat-card">
                 <small>Retailer Boards</small>
                 <strong>${formatNumber(retailerSummary.activeRows)}</strong>
-                <p class="ops-empty">Available ${formatNumber(retailerSummary.availableRows)} · Runtime ${retailerSummary.retailerRuntime || "n/a"}</p>
+                <p class="ops-empty">Available ${formatNumber(retailerSummary.availableRows)} · Retailer feed ${retailerSummary.retailerRuntime || "n/a"}</p>
               </article>
               <article class="ops-stat-card">
                 <small>Model Link</small>
                 <strong>${formatPct(detail.searchQuality?.supportedModelLinkagePct)}</strong>
-                <p class="ops-empty">Retailer avg ${formatPct(retailerSummary.averageModelLinkagePct)}</p>
+                <p class="ops-empty">Regional inventory linked to supported models</p>
               </article>
               <article class="ops-stat-card">
-                <small>Size Family / Exact</small>
+                <small>Size Family</small>
                 <strong>${formatPct(detail.searchQuality?.canonicalSizeFamilyLinkagePct)}</strong>
-                <p class="ops-empty">Exact ${formatPct(detail.searchQuality?.exactBoardSizeLinkagePct)}</p>
+                <p class="ops-empty">Exact size ${formatPct(detail.searchQuality?.exactBoardSizeLinkagePct)}</p>
               </article>
               <article class="ops-stat-card">
-                <small>Coverage Gap</small>
+                <small>Stock Coverage Gap</small>
                 <strong>${formatPct(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywherePct)}</strong>
-                <p class="ops-empty">No stock anywhere ${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywhere?.count)} / ${formatNumber(detail.coverageGaps?.supportedModelCount)}</p>
+                <p class="ops-empty">Supported models with no active stock in-region</p>
               </article>
               <article class="ops-stat-card">
-                <small>Configured Jobs</small>
+                <small>Scheduled Jobs</small>
                 <strong>${formatNumber(regionJobSummary.configuredJobs)}</strong>
                 <p class="ops-empty">Healthy ${formatNumber(regionJobSummary.healthy)} · Warning ${formatNumber(regionJobSummary.yellow)} · Failing ${formatNumber(regionJobSummary.red)}</p>
               </article>
@@ -1062,7 +1275,7 @@
                 </div>
               </div>
               <div class="ops-retailer-toolbar">
-                <p class="ops-empty">Showing ${formatNumber(filteredRetailers.length)} retailer rows for ${region}. Red and stale retailers float to the top.</p>
+                <p class="ops-empty">Showing ${formatNumber(filteredRetailers.length)} retailer boards for ${region}. Lower-linkage and stale retailers rise to the top.</p>
               </div>
               <div class="ops-table-scroll">
                 <table class="ops-table">
@@ -1070,8 +1283,8 @@
                     <tr>
                       <th>Retailer</th>
                       <th>Status</th>
-                      <th>Active rows</th>
-                      <th>Available rows</th>
+                      <th>Tracked boards</th>
+                      <th>Available boards</th>
                       <th>Last updated</th>
                       <th>Model %</th>
                       <th>Size family %</th>
@@ -1096,7 +1309,7 @@
                 <p class="ops-empty">Configured ${formatNumber(regionJobSummary.configuredJobs)} · Healthy ${formatNumber(regionJobSummary.healthy)} · Warning ${formatNumber(regionJobSummary.yellow)} · Failing ${formatNumber(regionJobSummary.red)} · Last success ${formatTimestamp(regionJobSummary.lastSuccessfulJobUtc)}</p>
               </div>
               <div class="ops-table-scroll">
-                <table class="ops-table">
+                <table class="ops-table ops-job-table">
                   <thead>
                     <tr>
                       <th>Job</th>
@@ -1106,8 +1319,8 @@
                       <th>Last success</th>
                       <th>Last failure</th>
                       <th>Duration</th>
-                      <th>Rows</th>
-                      <th>Reason</th>
+                      <th>Boards written</th>
+                      <th>Issue</th>
                     </tr>
                   </thead>
                   <tbody>${regionJobs.map(jobRowHtml).join("") || `<tr><td colspan="9" class="ops-empty">No configured jobs found for this region.</td></tr>`}</tbody>
@@ -1149,15 +1362,15 @@
               <ul class="ops-alert-list">
                 <li class="ops-alert-card">
                   <strong>No retailer stock</strong>
-                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveRetailerStock?.count)} supported models</p>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveRetailerStock?.count)} supported models without retailer inventory</p>
                 </li>
                 <li class="ops-alert-card">
-                  <strong>No MFA stock</strong>
-                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveMfaStock?.count)} supported models</p>
+                  <strong>No manufacturer stock</strong>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoActiveMfaStock?.count)} supported models without direct manufacturer inventory</p>
                 </li>
                 <li class="ops-alert-card">
                   <strong>No stock anywhere</strong>
-                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywhere?.count)} supported models</p>
+                  <p>${formatNumber(detail.coverageGaps?.supportedCanonicalModelsNoStockAnywhere?.count)} supported models with no active stock anywhere in this region</p>
                 </li>
               </ul>
             </div>
@@ -1176,8 +1389,8 @@
                       ${statusPillHtml(item.statusColor, item.statusLabel)}
                       <span class="ops-pill info">${item.brand}</span>
                     </div>
-                    <p>Rows ${formatNumber(item.activeRowCount)} · Available ${formatNumber(item.availableBoardCount)} · Updated ${formatTimestamp(item.lastSuccessfulUpdateUtc)}</p>
-                    <p>Model ${formatPct(item.supportedModelLinkPct)} · Family ${formatPct(item.canonicalSizeFamilyLinkPct)} · Exact ${formatPct(item.exactBoardSizeLinkPct)}</p>
+                    <p>Tracked boards ${formatNumber(item.activeRowCount)} · Available boards ${formatNumber(item.availableBoardCount)} · Updated ${formatTimestamp(item.lastSuccessfulUpdateUtc)}</p>
+                    <p>Model link ${formatPct(item.supportedModelLinkPct)} · Size family ${formatPct(item.canonicalSizeFamilyLinkPct)} · Exact size ${formatPct(item.exactBoardSizeLinkPct)}</p>
                   </li>
                 `).join("") || `<li class="ops-alert-card"><p class="ops-empty">No applicable MFA brands in this region payload.</p></li>`}
               </ul>
@@ -1201,7 +1414,7 @@
         state.selectedRegion = regions[0] || "AU";
       }
 
-      renderRegionCards(payload.regionOverview || []);
+      renderRegionCards(payload.regionOverview || [], payload.regionalReadiness || []);
       renderPipelineHealth(payload.pipelineHealth || []);
       renderAlertSummary(payload.alertSummary?.summary || {});
       renderAlerts(payload);
