@@ -664,19 +664,10 @@
     }
 
     html[data-theme="dark"] body.operations-page {
-      background: linear-gradient(180deg, #081012 0, #132224 20rem, #0f1719 20rem);
-      color: #f1ede4;
-    }
-
-    html[data-theme="dark"] .ops-auth,
-    html[data-theme="dark"] .ops-section,
-    html[data-theme="dark"] .ops-matrix,
-    html[data-theme="dark"] .ops-card,
-    html[data-theme="dark"] .ops-table {
-      background: rgba(18, 26, 29, 0.96);
-      border-color: rgba(255, 255, 255, 0.1);
-      color: #f1ede4;
-      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+      background:
+        radial-gradient(circle at top right, rgba(42, 128, 123, 0.18), transparent 28rem),
+        linear-gradient(180deg, #081012 0, #171a1d 18rem, #101214 18rem);
+      color: #F5F5F5;
     }
 
     html[data-theme="dark"] .ops-header p,
@@ -686,25 +677,25 @@
     html[data-theme="dark"] .ops-auth label,
     html[data-theme="dark"] .ops-cell-meta,
     html[data-theme="dark"] .ops-footer-note {
-      color: rgba(241, 237, 228, 0.72);
+      color: #C5C9CE;
     }
 
     html[data-theme="dark"] .ops-auth input,
     html[data-theme="dark"] .ops-table td,
     html[data-theme="dark"] .ops-table th {
-      background: #0f1719;
-      color: #f1ede4;
-      border-color: rgba(255, 255, 255, 0.08);
+      background: #171a1d;
+      color: #F5F5F5;
+      border-color: #343a42;
     }
 
     html[data-theme="dark"] .ops-button.ops-secondary {
-      background: #243238;
-      color: #f1ede4;
+      background: #252a31;
+      color: #F5F5F5;
     }
 
     html[data-theme="dark"] .ops-pill {
       background: rgba(255, 255, 255, 0.08);
-      color: #f1ede4;
+      color: #F5F5F5;
     }
   </style>
 </head>
@@ -1568,14 +1559,6 @@
     const savedKey = window.localStorage.getItem(STORAGE_KEY);
     if (savedKey) {
       opsApiKey.value = savedKey;
-    } else {
-      window.setTimeout(() => {
-        const promptedKey = window.prompt("Operations key required.");
-        if (promptedKey && promptedKey.trim()) {
-          opsApiKey.value = promptedKey.trim();
-          loadDashboard();
-        }
-      }, 150);
     }
 
     renderEmptyState("Load the dashboard with a valid internal key to view live operations status.");
