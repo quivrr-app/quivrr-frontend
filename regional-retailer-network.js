@@ -7,7 +7,7 @@
         { name: "Natural Necessity", logoFile: "natural_necessity.png" },
         { name: "Beachin Surf", logoFile: "beachin_surf.png" },
         { name: "The Board Lab", logoFile: "the_board_lab.png" },
-        { name: "Onboard Store", logoFile: "onboard_store.png" },
+        { name: "Onboard Store", logoFile: "onboard_store.png", forceDarkCard: true },
         { name: "Wicks Surf", logoFile: "wicks_surf.png" },
         { name: "Coopers Board Store", logoFile: "coopers_board_store.png" },
         { name: "Sanbah Surf Shop", logoFile: "sanbah_surf_shop.png" },
@@ -17,7 +17,7 @@
         { name: "Sideways Surf", logoFile: "sideways_surf.png" },
         { name: "Aloha Surf Manly", logoFile: "aloha_surf_manly.jpg" },
         { name: "Star Surf and Skate", logoFile: "star_surf_and_skate.jpg" },
-        { name: "Powerhouse Surf", logoFile: "powerhouse_surf.webp" },
+        { name: "Powerhouse Surf", logoFile: "powerhouse_surf.webp", forceDarkCard: true },
         { name: "Classic Malibu", logoFile: "classic_malibu.png" },
         { name: "Extreme Boardriders", logoFile: "extreme_boardriders.png" }
       ]
@@ -68,7 +68,7 @@
       label: "Indonesia Retailer Network",
       retailers: [
         { name: "BGS Bali" },
-        { name: "Onboard Store Indonesia", logoFile: "onboard_store.png" },
+        { name: "Onboard Store Indonesia", logoFile: "onboard_store.png", forceDarkCard: true },
         { name: "Boardriders Bali" },
         { name: "Drifter Surf" }
       ]
@@ -188,6 +188,9 @@
         item.classList.remove("retailer-network-item-dark");
       });
       item.appendChild(img);
+      if (retailer.forceDarkCard) {
+        item.classList.add("retailer-network-item-dark");
+      }
       if (img.complete) {
         queueMicrotask(function () {
           evaluateRetailerLogoCard(img, item);
