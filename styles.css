@@ -225,6 +225,21 @@ a {
   backdrop-filter: blur(2px);
 }
 
+.retailer-network-strip {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.retailer-network-label {
+  padding: 0 3rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
 .retailer-logo-track {
   display: flex;
   align-items: center;
@@ -233,6 +248,7 @@ a {
   width: max-content;
 
   animation: scrollRetailerLogos 42s linear infinite;
+  padding-inline: 1.5rem;
 }
 
 .retailer-logo-track img {
@@ -248,6 +264,40 @@ a {
   padding: 0.55rem 0.8rem;
 
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.retailer-network-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
+  min-width: 176px;
+  padding: 0.8rem 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.retailer-network-track .retailer-network-logo {
+  display: block;
+  width: auto;
+  height: 42px;
+  max-width: 168px;
+  object-fit: contain;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.retailer-network-name {
+  color: #2E2E2E;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
 }
 
 @keyframes scrollRetailerLogos {
@@ -596,6 +646,12 @@ footer {
     padding: 1rem 0;
   }
 
+  .retailer-network-label {
+    padding: 0 1.4rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+
   .retailer-logo-track {
     gap: 1.6rem;
   }
@@ -603,6 +659,21 @@ footer {
   .retailer-logo-track img {
     height: 58px;
     max-width: 180px;
+  }
+
+  .retailer-network-item {
+    min-height: 56px;
+    min-width: 138px;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .retailer-network-track .retailer-network-logo {
+    height: 32px;
+    max-width: 132px;
+  }
+
+  .retailer-network-name {
+    font-size: 0.7rem;
   }
 
   .results-preview,
@@ -1955,6 +2026,17 @@ footer {
     0 0 38px rgba(118, 228, 208, 0.32);
 }
 
+.partner-cta-card {
+  background:
+    linear-gradient(135deg, rgba(11, 17, 18, 0.8), rgba(24, 92, 83, 0.62));
+}
+
+.partner-cta-card:hover,
+.partner-cta-card:focus-visible {
+  background:
+    linear-gradient(135deg, rgba(13, 22, 23, 0.9), rgba(32, 115, 103, 0.76));
+}
+
 .global-return-icon {
   position: relative;
 
@@ -2612,6 +2694,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: min(70vw, 760px);
 }
 
 .hero-header-actions .theme-toggle-slot {
@@ -2703,6 +2788,16 @@ html[data-theme="dark"] .retailer-source-logo {
   border-color: var(--theme-border);
 }
 
+html[data-theme="dark"] .retailer-network-item {
+  background: rgba(23, 26, 29, 0.92);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+html[data-theme="dark"] .retailer-network-name,
+html[data-theme="dark"] .retailer-network-label {
+  color: #F5F5F5;
+}
+
 html[data-theme="dark"] .retailer-header {
   box-shadow: var(--theme-shadow-soft);
 }
@@ -2776,6 +2871,11 @@ html[data-theme="dark"] .global-return-card {
   background:
     linear-gradient(135deg, rgba(12, 16, 18, 0.92), rgba(28, 57, 53, 0.78));
   border-color: rgba(118, 228, 208, 0.32);
+}
+
+html[data-theme="dark"] .partner-cta-card {
+  background:
+    linear-gradient(135deg, rgba(12, 16, 18, 0.92), rgba(16, 87, 77, 0.82));
 }
 
 html[data-theme="dark"] .global-return-copy strong {
@@ -2855,6 +2955,7 @@ html[data-theme="dark"] .ops-empty {
     right: 1.2rem;
     gap: 0.5rem;
     transform: none;
+    max-width: calc(100vw - 2.4rem);
   }
 
   .hero-header-actions .theme-toggle {
@@ -2870,6 +2971,347 @@ html[data-theme="dark"] .ops-empty {
 
   .theme-toggle-slot {
     justify-content: center;
+  }
+}
+
+.retailer-partnership-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top right, rgba(118, 228, 208, 0.18), transparent 26rem),
+    linear-gradient(180deg, #081011 0, #17302f 20rem, var(--theme-bg) 20rem);
+}
+
+.retailer-page-header {
+  position: relative;
+  z-index: 5;
+}
+
+.retailer-page-main {
+  width: min(1220px, calc(100vw - 2.4rem));
+  margin: 0 auto;
+  padding: 1rem 0 5rem;
+}
+
+.retailer-partnership-hero,
+.retailer-story-section,
+.retailer-benefits-section,
+.retailer-fit-section,
+.retailer-enquiry-section {
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  box-shadow: var(--theme-shadow);
+}
+
+.retailer-partnership-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(290px, 0.85fr);
+  gap: 2rem;
+  align-items: start;
+  padding: 3rem;
+  border-radius: 2rem;
+  margin-bottom: 1.4rem;
+}
+
+.retailer-partnership-eyebrow,
+.retailer-section-heading span {
+  display: inline-flex;
+  margin-bottom: 1rem;
+  color: #6C7B83;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.retailer-partnership-copy h1,
+.retailer-section-heading h2 {
+  margin: 0;
+  color: #2E2E2E;
+  letter-spacing: -0.05em;
+}
+
+.retailer-partnership-copy h1 {
+  font-size: clamp(3.4rem, 7vw, 5.6rem);
+  line-height: 0.92;
+  max-width: 9ch;
+}
+
+.retailer-partnership-subtitle {
+  margin: 1.3rem 0 0;
+  max-width: 34rem;
+  color: #444444;
+  font-size: 1.14rem;
+  line-height: 1.7;
+}
+
+.retailer-partnership-actions {
+  margin-top: 2rem;
+}
+
+.partnership-primary-link,
+.retailer-enquiry-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  padding: 0.95rem 1.6rem;
+  border: 1px solid rgba(118, 228, 208, 0.34);
+  background: linear-gradient(135deg, rgba(11, 17, 18, 0.94), rgba(32, 115, 103, 0.78));
+  color: #F3F3F4;
+  font-size: 0.84rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 16px 36px rgba(0, 0, 0, 0.28),
+    0 0 28px rgba(118, 228, 208, 0.16);
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.partnership-primary-link:hover,
+.partnership-primary-link:focus-visible,
+.retailer-enquiry-submit:hover,
+.retailer-enquiry-submit:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(118, 228, 208, 0.84);
+  background: linear-gradient(135deg, rgba(13, 22, 23, 0.96), rgba(38, 133, 119, 0.82));
+}
+
+.retailer-partnership-panel {
+  padding: 1.6rem;
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  background: rgba(242, 247, 246, 0.96);
+}
+
+.retailer-partnership-panel h2,
+.retailer-benefit-card h3,
+.retailer-fit-card h3,
+.retailer-enquiry-note h3 {
+  margin: 0 0 0.85rem;
+  color: #2E2E2E;
+  letter-spacing: -0.03em;
+}
+
+.retailer-partnership-panel p,
+.retailer-benefit-card p,
+.retailer-fit-card p,
+.retailer-enquiry-note p,
+.retailer-story-grid p {
+  margin: 0;
+  color: #444444;
+  line-height: 1.75;
+}
+
+.retailer-partnership-panel-list {
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+  color: #444444;
+  line-height: 1.8;
+}
+
+.retailer-story-section,
+.retailer-benefits-section,
+.retailer-fit-section,
+.retailer-enquiry-section {
+  padding: 2.4rem;
+  border-radius: 1.7rem;
+  margin-bottom: 1.25rem;
+}
+
+.retailer-section-heading {
+  margin-bottom: 1.4rem;
+}
+
+.retailer-section-heading h2 {
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1;
+  max-width: 15ch;
+}
+
+.retailer-story-grid {
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.retailer-benefits-grid,
+.retailer-fit-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.retailer-benefit-card,
+.retailer-fit-card,
+.retailer-enquiry-note {
+  padding: 1.35rem;
+  border: 1px solid rgba(46, 46, 46, 0.08);
+  background: rgba(247, 247, 247, 0.9);
+}
+
+.retailer-enquiry-layout {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.7fr);
+}
+
+.retailer-enquiry-form {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.retailer-enquiry-form label {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.retailer-enquiry-form label span {
+  color: #6C7B83;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.retailer-enquiry-form input,
+.retailer-enquiry-form select,
+.retailer-enquiry-form textarea {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(46, 46, 46, 0.12);
+  background: rgba(255, 255, 255, 0.98);
+  color: #2E2E2E;
+  font: inherit;
+}
+
+.retailer-enquiry-message,
+.retailer-enquiry-submit,
+.retailer-enquiry-status {
+  grid-column: 1 / -1;
+}
+
+.retailer-enquiry-form textarea {
+  min-height: 168px;
+  resize: vertical;
+}
+
+.retailer-enquiry-submit {
+  border: none;
+  cursor: pointer;
+}
+
+.retailer-enquiry-status,
+.retailer-enquiry-noscript {
+  margin: 0;
+  color: #6C7B83;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.retailer-page-footer {
+  padding: 0 1.2rem 3rem;
+}
+
+.retailer-page-footer p {
+  width: min(1220px, calc(100vw - 2.4rem));
+  margin: 0 auto;
+  color: #F5F5F5;
+}
+
+html[data-theme="dark"] .retailer-partnership-hero,
+html[data-theme="dark"] .retailer-story-section,
+html[data-theme="dark"] .retailer-benefits-section,
+html[data-theme="dark"] .retailer-fit-section,
+html[data-theme="dark"] .retailer-enquiry-section,
+html[data-theme="dark"] .retailer-partnership-panel,
+html[data-theme="dark"] .retailer-benefit-card,
+html[data-theme="dark"] .retailer-fit-card,
+html[data-theme="dark"] .retailer-enquiry-note {
+  background: var(--theme-surface);
+  border-color: var(--theme-border);
+  box-shadow: var(--theme-shadow);
+}
+
+html[data-theme="dark"] .retailer-partnership-copy h1,
+html[data-theme="dark"] .retailer-section-heading h2,
+html[data-theme="dark"] .retailer-partnership-panel h2,
+html[data-theme="dark"] .retailer-benefit-card h3,
+html[data-theme="dark"] .retailer-fit-card h3,
+html[data-theme="dark"] .retailer-enquiry-note h3 {
+  color: var(--theme-text-primary);
+}
+
+html[data-theme="dark"] .retailer-partnership-subtitle,
+html[data-theme="dark"] .retailer-partnership-panel p,
+html[data-theme="dark"] .retailer-benefit-card p,
+html[data-theme="dark"] .retailer-fit-card p,
+html[data-theme="dark"] .retailer-enquiry-note p,
+html[data-theme="dark"] .retailer-story-grid p,
+html[data-theme="dark"] .retailer-partnership-panel-list,
+html[data-theme="dark"] .retailer-enquiry-status,
+html[data-theme="dark"] .retailer-enquiry-noscript {
+  color: var(--theme-text-secondary);
+}
+
+html[data-theme="dark"] .retailer-partnership-eyebrow,
+html[data-theme="dark"] .retailer-section-heading span,
+html[data-theme="dark"] .retailer-enquiry-form label span {
+  color: var(--theme-text-muted);
+}
+
+html[data-theme="dark"] .retailer-enquiry-form input,
+html[data-theme="dark"] .retailer-enquiry-form select,
+html[data-theme="dark"] .retailer-enquiry-form textarea {
+  background: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+  border-color: var(--theme-input-border);
+}
+
+@media (max-width: 980px) {
+  .retailer-partnership-hero,
+  .retailer-enquiry-layout,
+  .retailer-story-grid,
+  .retailer-benefits-grid,
+  .retailer-fit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .retailer-enquiry-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .retailer-page-main {
+    width: min(100vw - 1rem, 1220px);
+    padding-top: 0.4rem;
+  }
+
+  .retailer-partnership-hero,
+  .retailer-story-section,
+  .retailer-benefits-section,
+  .retailer-fit-section,
+  .retailer-enquiry-section {
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+  }
+
+  .retailer-partnership-copy h1 {
+    font-size: 2.9rem;
+  }
+
+  .partnership-primary-link,
+  .retailer-enquiry-submit {
+    width: 100%;
   }
 }
 
