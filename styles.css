@@ -544,6 +544,17 @@ a {
   padding: 1.8rem 0;
 }
 
+.retailer-network-band {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem 0 1.8rem;
+}
+
+.brand-strip-label {
+  padding: 0 4rem;
+  color: rgba(0, 0, 0, 0.48);
+}
+
 .brand-track {
   display: flex;
   gap: 4rem;

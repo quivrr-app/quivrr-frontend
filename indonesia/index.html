@@ -93,9 +93,41 @@
         </form>
       </div>
 
-      <section class="retailer-logo-strip retailer-network-strip" data-region-network="ID" aria-label="Indonesia retailer network">
-        <div class="retailer-network-label" data-region-network-label>Indonesia Retailer Network</div>
-        <div class="retailer-logo-track retailer-network-track" data-region-network-track></div>
+      <section class="retailer-logo-strip" aria-label="Surfboard brands">
+        <div class="retailer-logo-track">
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+          <img src="/Media/brand_logos/Logo_Album.png" alt="Album" />
+          <img src="/Media/brand_logos/JS_Industries.png" alt="JS Industries" />
+          <img src="/Media/brand_logos/firewire.png" alt="Firewire" />
+          <img src="/Media/brand_logos/pyzel.png" alt="Pyzel" />
+          <img src="/Media/brand_logos/chilli.png" alt="Chilli" />
+          <img src="/Media/brand_logos/Dhd.png" alt="DHD" />
+          <img src="/Media/brand_logos/Hayden_Shapes.png" alt="Haydenshapes" />
+          <img src="/Media/brand_logos/rusty.png" alt="Rusty" />
+          <img src="/Media/brand_logos/pukas.png" alt="Pukas" />
+          <img src="/Media/brand_logos/CI_surfboards.png" alt="Channel Islands" />
+          <img src="/Media/brand_logos/Lost_Surfboards.png" alt="Lost Surfboards" />
+          <img src="/Media/brand_logos/chemistry.png" alt="Chemistry" />
+          <img src="/Media/brand_logos/christenson.png" alt="Christenson" />
+          <img src="/Media/brand_logos/sharpeye-surfboards-brasil-b.png" alt="Sharp Eye" />
+          <img src="/Media/brand_logos/Simon.png" alt="Simon Anderson" />
+          <img src="/Media/brand_logos/misfit-logo.png" alt="Misfit" />
+        </div>
       </section>
     </section>
 
@@ -182,8 +214,9 @@
       </section>
     </section>
 
-    <section class="brand-strip">
-      <div class="brand-track" id="brandTrack"></div>
+    <section class="brand-strip retailer-network-band" data-region-network="ID" aria-label="Indonesia retailer network">
+      <div class="retailer-network-label brand-strip-label" data-region-network-label>Indonesia Retailer Network</div>
+      <div class="brand-track retailer-network-track" id="brandTrack" data-region-network-track data-static-network="true"></div>
     </section>
 
     <section class="close-results-section">
@@ -871,7 +904,9 @@
       });
 
       brandSelect.innerHTML = "";
-      brandTrack.innerHTML = "";
+      if (!brandTrack.dataset.staticNetwork) {
+        brandTrack.innerHTML = "";
+      }
 
       brands.forEach(brand => {
         const option = document.createElement("option");
@@ -881,18 +916,20 @@
 
         brandSelect.appendChild(option);
 
-        const brandItem = document.createElement("span");
-        brandItem.textContent = brand.brandName;
-
-        brandTrack.appendChild(brandItem);
+        if (!brandTrack.dataset.staticNetwork) {
+          const brandItem = document.createElement("span");
+          brandItem.textContent = brand.brandName;
+          brandTrack.appendChild(brandItem);
+        }
       });
 
-      brands.forEach(brand => {
-        const brandItem = document.createElement("span");
-        brandItem.textContent = brand.brandName;
-
-        brandTrack.appendChild(brandItem);
-      });
+      if (!brandTrack.dataset.staticNetwork) {
+        brands.forEach(brand => {
+          const brandItem = document.createElement("span");
+          brandItem.textContent = brand.brandName;
+          brandTrack.appendChild(brandItem);
+        });
+      }
 
       if (brands.length > 0 && !(await applyBodhiSearchParams(brands))) {
         await loadModels(brands[0].brandId);
