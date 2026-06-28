@@ -278,6 +278,11 @@ a {
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
 }
 
+.retailer-network-item-dark {
+  background: #232629;
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
 .retailer-network-track .retailer-network-logo {
   display: block;
   width: auto;
@@ -298,6 +303,11 @@ a {
   text-transform: uppercase;
   text-align: center;
   white-space: nowrap;
+}
+
+.retailer-network-item-dark .retailer-network-name,
+.retailer-network-item-text .retailer-network-name {
+  color: #F5F5F5;
 }
 
 @keyframes scrollRetailerLogos {

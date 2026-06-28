@@ -79,6 +79,96 @@
     return "/assets/retailers/" + logoFile;
   }
 
+  function applyTextFallbackTheme(item) {
+    item.classList.add("retailer-network-item-dark");
+    item.classList.add("retailer-network-item-text");
+  }
+
+  function evaluateRetailerLogoCard(img, item) {
+    if (!img.complete || !img.naturalWidth || !img.naturalHeight) {
+      return;
+    }
+
+    const sampleWidth = Math.min(96, img.naturalWidth);
+    const sampleHeight = Math.min(96, img.naturalHeight);
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+
+    if (!context) {
+      return;
+    }
+
+    canvas.width = sampleWidth;
+    canvas.height = sampleHeight;
+    context.clearRect(0, 0, sampleWidth, sampleHeight);
+    context.drawImage(img, 0, 0, sampleWidth, sampleHeight);
+
+    const { data } = context.getImageData(0, 0, sampleWidth, sampleHeight);
+    let transparentPixels = 0;
+    let opaquePixels = 0;
+    let whitePixels = 0;
+    let edgePixels = 0;
+    let edgeTransparentPixels = 0;
+    let edgeWhitePixels = 0;
+    const alphaThreshold = 32;
+
+    for (let y = 0; y < sampleHeight; y += 1) {
+      for (let x = 0; x < sampleWidth; x += 1) {
+        const offset = (y * sampleWidth + x) * 4;
+        const red = data[offset];
+        const green = data[offset + 1];
+        const blue = data[offset + 2];
+        const alpha = data[offset + 3];
+        const isEdge =
+          x < 6 ||
+          y < 6 ||
+          x >= sampleWidth - 6 ||
+          y >= sampleHeight - 6;
+
+        if (alpha <= alphaThreshold) {
+          transparentPixels += 1;
+          if (isEdge) {
+            edgePixels += 1;
+            edgeTransparentPixels += 1;
+          }
+          continue;
+        }
+
+        opaquePixels += 1;
+
+        const maxChannel = Math.max(red, green, blue);
+        const minChannel = Math.min(red, green, blue);
+        const luminance = 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+        const lowSaturation = maxChannel - minChannel <= 22;
+        const isWhiteish = luminance >= 232 && lowSaturation;
+
+        if (isWhiteish) {
+          whitePixels += 1;
+        }
+
+        if (isEdge) {
+          edgePixels += 1;
+          if (isWhiteish) {
+            edgeWhitePixels += 1;
+          }
+        }
+      }
+    }
+
+    const totalPixels = sampleWidth * sampleHeight;
+    const transparentRatio = transparentPixels / totalPixels;
+    const whiteRatio = opaquePixels > 0 ? whitePixels / opaquePixels : 0;
+    const edgeTransparencyRatio = edgePixels > 0 ? edgeTransparentPixels / edgePixels : 0;
+    const edgeWhiteRatio = edgePixels > 0 ? edgeWhitePixels / edgePixels : 0;
+    const hasWhiteBackdrop = edgeTransparencyRatio < 0.08 && edgeWhiteRatio > 0.58;
+    const shouldUseDarkCard =
+      transparentRatio > 0.55 ||
+      edgeTransparencyRatio > 0.7 ||
+      (whiteRatio > 0.72 && transparentRatio > 0.15 && !hasWhiteBackdrop);
+
+    item.classList.toggle("retailer-network-item-dark", shouldUseDarkCard);
+  }
+
   function buildRetailerItem(retailer) {
     const item = document.createElement("div");
     item.className = "retailer-network-item";
@@ -91,13 +181,25 @@
       img.alt = retailer.name;
       img.loading = "lazy";
       img.decoding = "async";
+      img.addEventListener("load", function () {
+        evaluateRetailerLogoCard(img, item);
+      });
+      img.addEventListener("error", function () {
+        item.classList.remove("retailer-network-item-dark");
+      });
       item.appendChild(img);
+      if (img.complete) {
+        queueMicrotask(function () {
+          evaluateRetailerLogoCard(img, item);
+        });
+      }
       return item;
     }
 
     const name = document.createElement("span");
     name.className = "retailer-network-name";
     name.textContent = retailer.name;
+    applyTextFallbackTheme(item);
     item.appendChild(name);
     return item;
   }
