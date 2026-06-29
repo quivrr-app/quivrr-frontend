@@ -2874,7 +2874,8 @@ body {
 }
 
 .my-quivrr-modal-header p,
-.my-quivrr-step p {
+.my-quivrr-step p,
+.my-quivrr-modal-note {
   color: var(--theme-text-secondary);
   line-height: 1.65;
 }
