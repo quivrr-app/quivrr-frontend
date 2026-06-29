@@ -4,6 +4,55 @@
   const PKCE_KEY = "quivrrAuthPkce";
   const ANON_SESSION_KEY = "quivrrAnonymousSessionId";
   const DEFAULT_API_BASE = "https://quivrr-backend-api.azurewebsites.net";
+  const SKILL_LEVEL_OPTIONS = [
+    "Beginner",
+    "Progressing",
+    "Intermediate",
+    "Advanced",
+    "Expert",
+  ];
+  const WAVE_TYPE_OPTIONS = [
+    "Beach break",
+    "Point break",
+    "Reef break",
+    "Slab",
+    "River mouth",
+    "Small fun waves",
+    "Mixed conditions",
+  ];
+  const WAVE_SIZE_OPTIONS = [
+    "1 to 2 ft",
+    "2 to 3 ft",
+    "3 to 4 ft",
+    "4 to 6 ft",
+    "6 ft plus",
+    "Mixed",
+  ];
+  const SURF_FREQUENCY_OPTIONS = [
+    "A few times a year",
+    "Monthly",
+    "Fortnightly",
+    "Weekly",
+    "Several times a week",
+    "Daily if there are waves",
+  ];
+  const SURFING_GOAL_OPTIONS = [
+    "Catch more waves",
+    "More paddle power",
+    "More speed",
+    "Tighter turns",
+    "More hold",
+    "Better in bigger waves",
+    "Better in small waves",
+    "More forgiving board",
+    "Performance progression",
+  ];
+
+  function renderSelectOptions(options) {
+    return options.map(function (option) {
+      return '<option value="' + option + '">' + option + "</option>";
+    }).join("");
+  }
 
   function authConfig() {
     const configured = window.QUIVRR_AUTH_CONFIG || {};
@@ -199,27 +248,46 @@
       '    <p class="my-quivrr-modal-note">Your provider choice is handled inside the secure Microsoft sign-in flow.</p>',
       '  </section>',
       '  <section class="my-quivrr-step" data-my-quivrr-step="profile" hidden>',
-      '    <div class="my-quivrr-step-label">Complete your profile</div>',
-      '    <p>Everything here is optional. Skip now and finish later whenever you like.</p>',
+      '    <div class="my-quivrr-step-label">Complete your My Quivrr profile</div>',
+      '    <p>Optional, but useful. The more we know about how and where you surf, the better Bodhi can guide board recommendations, volume ranges and future stock alerts.</p>',
       '    <form class="my-quivrr-form-grid" data-my-quivrr-profile-form>',
-      '      <label class="my-quivrr-form-field"><span>Display name</span><input name="displayName" type="text" autocomplete="name" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Home region</span><select name="homeRegion"><option value="">Choose a region</option><option value="AU">Australia</option><option value="ID">Indonesia</option><option value="EU">Europe</option><option value="US">United States</option></select></label>',
-      '      <label class="my-quivrr-form-field"><span>Home break</span><input name="homeBreak" type="text" autocomplete="off" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Country</span><input name="homeCountry" type="text" autocomplete="country-name" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Height cm</span><input name="heightCm" type="number" inputmode="numeric" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Weight kg</span><input name="weightKg" type="number" inputmode="numeric" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Ability</span><input name="ability" type="text" autocomplete="off" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Current volume litres</span><input name="currentVolumeLitres" type="number" step="0.1" inputmode="decimal" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Preferred volume min</span><input name="preferredVolumeMinLitres" type="number" step="0.1" inputmode="decimal" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Preferred volume max</span><input name="preferredVolumeMaxLitres" type="number" step="0.1" inputmode="decimal" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Wave type</span><input name="waveType" type="text" autocomplete="off" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Wave size</span><input name="waveSize" type="text" autocomplete="off" /></label>',
-      '      <label class="my-quivrr-form-field"><span>Surf frequency</span><input name="surfFrequency" type="text" autocomplete="off" /></label>',
-      '      <label class="my-quivrr-form-field full"><span>Preferred brands</span><input name="preferredBrands" type="text" autocomplete="off" placeholder="Album, Pyzel, JS Industries" /></label>',
+      '      <div class="my-quivrr-form-section full">',
+      '        <div class="my-quivrr-step-label">Your surfing</div>',
+      '        <p>Start with the basics that shape volume, forgiveness and performance.</p>',
+      '      </div>',
+      '      <label class="my-quivrr-form-field"><span>Display name</span><input name="displayName" type="text" autocomplete="name" data-clearable="displayName" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Skill level</span><select name="ability" data-clearable="ability"><option value="">Choose a level</option>' + renderSelectOptions(SKILL_LEVEL_OPTIONS) + '</select></label>',
+      '      <label class="my-quivrr-form-field"><span>Height cm</span><input name="heightCm" type="number" inputmode="numeric" data-clearable="heightCm" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Weight kg</span><input name="weightKg" type="number" inputmode="numeric" data-clearable="weightKg" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Usual volume litres</span><input name="currentVolumeLitres" type="number" step="0.1" inputmode="decimal" data-clearable="currentVolumeLitres" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Surfing goal</span><select name="surfingGoal" data-clearable="surfingGoal"><option value="">Choose a goal</option>' + renderSelectOptions(SURFING_GOAL_OPTIONS) + '</select></label>',
+      '      <div class="my-quivrr-form-section full">',
+      '        <div class="my-quivrr-step-label">Your boards</div>',
+      '        <p>Let Quivrr and Bodhi understand the boards and ranges that already work for you.</p>',
+      '      </div>',
+      '      <label class="my-quivrr-form-field"><span>Preferred volume min</span><input name="preferredVolumeMinLitres" type="number" step="0.1" inputmode="decimal" data-clearable="preferredVolumeMinLitres" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Preferred volume max</span><input name="preferredVolumeMaxLitres" type="number" step="0.1" inputmode="decimal" data-clearable="preferredVolumeMaxLitres" /></label>',
+      '      <label class="my-quivrr-form-field full"><span>Current board</span><input name="currentBoard" type="text" autocomplete="off" placeholder="5\'8 groveller, 6\'1 step-up, 9\'1 log" data-clearable="currentBoard" /></label>',
+      '      <div class="my-quivrr-form-section full">',
+      '        <div class="my-quivrr-step-label">Your waves</div>',
+      '        <p>Where and what you surf matters just as much as raw litres.</p>',
+      '      </div>',
+      '      <label class="my-quivrr-form-field"><span>Home region</span><select name="homeRegion" data-clearable="homeRegion"><option value="">Choose a region</option><option value="AU">Australia</option><option value="ID">Indonesia</option><option value="EU">Europe</option><option value="US">United States</option></select></label>',
+      '      <label class="my-quivrr-form-field"><span>Home break</span><input name="homeBreak" type="text" autocomplete="off" data-clearable="homeBreak" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Location</span><input name="homeCountry" type="text" autocomplete="country-name" data-clearable="homeCountry" /></label>',
+      '      <label class="my-quivrr-form-field"><span>Favourite wave type</span><select name="waveType" data-clearable="waveType"><option value="">Choose a wave type</option>' + renderSelectOptions(WAVE_TYPE_OPTIONS) + '</select></label>',
+      '      <label class="my-quivrr-form-field"><span>Usual wave size</span><select name="waveSize" data-clearable="waveSize"><option value="">Choose a size</option>' + renderSelectOptions(WAVE_SIZE_OPTIONS) + '</select></label>',
+      '      <label class="my-quivrr-form-field"><span>Surf frequency</span><select name="surfFrequency" data-clearable="surfFrequency"><option value="">Choose a rhythm</option>' + renderSelectOptions(SURF_FREQUENCY_OPTIONS) + '</select></label>',
+      '      <div class="my-quivrr-form-section full">',
+      '        <div class="my-quivrr-step-label">Your preferences</div>',
+      '        <p>Favourite brands help Quivrr highlight the boards you are most likely to want.</p>',
+      '      </div>',
+      '      <label class="my-quivrr-form-field full"><span>Preferred brands</span><input name="preferredBrands" type="text" autocomplete="off" placeholder="Album, Pyzel, JS Industries" data-clearable="preferredBrands" /></label>',
       '    </form>',
+      '    <p class="my-quivrr-modal-note">You control this. Everything is optional and can be changed later.</p>',
       '    <div class="my-quivrr-form-actions">',
-      '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-complete="later">Finish later</button>',
-      '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-complete="skip">Skip for now</button>',
+      '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="later">Remind me later</button>',
+      '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="skip">Skip for now</button>',
       '      <button type="button" class="my-quivrr-modal-action" data-my-quivrr-save-profile>Save profile</button>',
       '    </div>',
       '  </section>',
@@ -235,6 +303,7 @@
       '        <button type="button" class="my-quivrr-modal-action" data-my-quivrr-logout>Log out</button>',
       '      </div>',
       '    </div>',
+      '    <div class="my-quivrr-panel my-quivrr-onboarding-card" data-my-quivrr-onboarding-card hidden></div>',
       '    <div class="my-quivrr-stats" data-my-quivrr-stats></div>',
       '    <div class="my-quivrr-dashboard">',
       '      <section class="my-quivrr-panel">',
@@ -304,6 +373,9 @@
   const quiverForm = modal.querySelector("[data-my-quivrr-quiver-form]");
   const quiverBoardLabelField = modal.querySelector("[data-my-quivrr-quiver-board-label]");
   const quiverBoardLabelInput = quiverBoardLabelField.querySelector("input");
+  const onboardingCard = modal.querySelector("[data-my-quivrr-onboarding-card]");
+  var pendingProfileClears = new Set();
+  var onboardingShownThisOpen = false;
 
   function setStatus(message) {
     status.textContent = message || "";
@@ -337,6 +409,26 @@
     window.__quivrrMyQuivrrState = state;
   }
 
+  function resetProfileClears() {
+    pendingProfileClears = new Set();
+  }
+
+  function mountClearButtons() {
+    profileForm.querySelectorAll("[data-clearable]").forEach(function (field) {
+      var label = field.closest(".my-quivrr-form-field");
+      var header = label ? label.querySelector("span") : null;
+      if (!header || header.querySelector("[data-my-quivrr-clear-field]")) {
+        return;
+      }
+      var button = document.createElement("button");
+      button.type = "button";
+      button.className = "my-quivrr-clear-field";
+      button.setAttribute("data-my-quivrr-clear-field", field.getAttribute("name"));
+      button.textContent = "Clear";
+      header.appendChild(button);
+    });
+  }
+
   function fillProfileForm(profileBundle) {
     if (!profileBundle || !profileBundle.profile) {
       profileForm.reset();
@@ -358,6 +450,9 @@
     profileForm.elements.waveSize.value = profile.waveSize || "";
     profileForm.elements.surfFrequency.value = profile.surfFrequency || "";
     profileForm.elements.preferredBrands.value = (profile.preferredBrands || []).join(", ");
+    profileForm.elements.currentBoard.value = profile.currentBoard || "";
+    profileForm.elements.surfingGoal.value = profile.surfingGoal || "";
+    resetProfileClears();
   }
 
   function renderStats(profile, quiver, savedBoards) {
@@ -380,8 +475,11 @@
       ["Home region", user.homeRegion || "Not set"],
       ["Ability", profile.ability || "Not set"],
       ["Volume", profile.currentVolumeLitres ? profile.currentVolumeLitres + "L" : "Not set"],
+      ["Goal", profile.surfingGoal || "Not set"],
       ["Preferred brands", (profile.preferredBrands || []).join(", ") || "Not set"],
+      ["Current board", profile.currentBoard || "Not set"],
       ["Home break", profile.homeBreak || "Not set"],
+      ["Wave type", profile.waveType || "Not set"],
     ];
     profileSummaryMount.innerHTML = rows.map(function (row) {
       return '<div class="my-quivrr-summary-item"><span>' + row[0] + '</span><strong>' + row[1] + '</strong></div>';
@@ -461,6 +559,42 @@
     }).join("");
   }
 
+  function renderOnboardingCard(profileBundle) {
+    if (profileBundle.profileComplete) {
+      onboardingCard.hidden = true;
+      onboardingCard.innerHTML = "";
+      return;
+    }
+    var strength = profileBundle.profileStrength || "none";
+    var usefulCount = profileBundle.profileUsefulFieldCount || 0;
+    var progressLine = strength === "partial"
+      ? "You have already filled " + usefulCount + " helpful profile fields. A little more detail helps Bodhi guide better boards and volume ranges."
+      : "Optional, but useful. The more we know about how and where you surf, the better Bodhi can guide board recommendations, volume ranges and future stock alerts.";
+    onboardingCard.hidden = false;
+    onboardingCard.innerHTML = [
+      '<div class="my-quivrr-step-label">Complete your My Quivrr profile</div>',
+      '<h3>Optional, but useful.</h3>',
+      '<p>' + progressLine + '</p>',
+      '<p class="my-quivrr-modal-note">You control this. Everything is optional and can be changed later.</p>',
+      '<div class="my-quivrr-form-actions">',
+      '  <button type="button" class="my-quivrr-modal-action" data-my-quivrr-open-profile>Complete profile</button>',
+      '  <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="skip">Skip for now</button>',
+      '  <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="later">Remind me later</button>',
+      '</div>'
+    ].join("");
+    if (!onboardingShownThisOpen) {
+      onboardingShownThisOpen = true;
+      postEvent({
+        eventType: "ProfileOnboardingShown",
+        regionCode: profileBundle.user ? profileBundle.user.homeRegion : null,
+        payload: {
+          profileStrength: strength,
+          usefulFieldCount: usefulCount,
+        },
+      });
+    }
+  }
+
   function hideQuiverEditor() {
     quiverEditor.hidden = true;
     quiverForm.reset();
@@ -515,6 +649,7 @@
     renderQuiverList(state.quiver);
     renderSavedBoards(state.savedBoards);
     renderRecentActivity(profile);
+    renderOnboardingCard(profile);
     accountSummary.textContent = profile.user && profile.user.email
       ? "Signed in as " + profile.user.email + "."
       : "Your My Quivrr identity is active.";
@@ -527,6 +662,7 @@
     modal.hidden = false;
     body.style.overflow = "hidden";
     hideQuiverEditor();
+    onboardingShownThisOpen = false;
     setStatus("");
 
     if (session && session.profile && session.expiresAt > Date.now()) {
@@ -621,15 +757,11 @@
     window.history.replaceState({}, document.title, pkce.returnTo || window.location.pathname);
     modal.hidden = false;
 
-    if (!me.profileComplete) {
-      showStep("profile");
-      fillProfileForm(me);
-      setStatus("Signed in. Complete your profile now or skip it for later.");
-      return;
-    }
-
     showStep("account");
     await loadDashboard();
+    if (!me.profileComplete) {
+      setStatus("Optional, but useful. Add a few surfing details whenever you are ready.");
+    }
   }
 
   function profilePayload() {
@@ -643,6 +775,9 @@
         ? String(value).split(",").map(function (brand) { return brand.trim(); }).filter(Boolean)
         : value;
     });
+    if (pendingProfileClears.size) {
+      payload.clearFields = Array.from(pendingProfileClears);
+    }
     return payload;
   }
 
@@ -654,16 +789,31 @@
       });
       const session = getSession();
       setSession({ ...session, profile: profile });
-      await postEvent({
-        eventType: "ProfileUpdated",
-        regionCode: profile.user ? profile.user.homeRegion : null,
-      });
+      resetProfileClears();
       showStep("account");
       await loadDashboard();
-      setStatus("Profile saved.");
+      setStatus(profile.profileStrength === "strong" ? "Profile saved. Bodhi has a strong surf profile to work with now." : "Profile saved. You can always add more detail later.");
     } catch (error) {
       setStatus("Profile could not be saved yet. Please try again.");
     }
+  }
+
+  function openProfileEditor() {
+    showStep("profile");
+    setStatus("Tell us a bit about your surfing. Everything here is optional.");
+  }
+
+  async function skipProfile(reason) {
+    showStep("account");
+    await loadDashboard();
+    await postEvent({
+      eventType: "ProfileSkipped",
+      regionCode: currentDashboardState().profile && currentDashboardState().profile.user
+        ? currentDashboardState().profile.user.homeRegion
+        : null,
+      payload: { reason: reason },
+    });
+    setStatus(reason === "later" ? "No problem. We will keep the profile handy for later." : "No problem. You can finish your profile whenever you like.");
   }
 
   function quiverPayload() {
@@ -872,7 +1022,8 @@
     const openTrigger = event.target.closest("[data-my-quivrr-open]");
     const learnTrigger = event.target.closest("[data-my-quivrr-learn]");
     const signInTrigger = event.target.closest("[data-my-quivrr-sign-in]");
-    const completeButton = event.target.closest("[data-my-quivrr-complete]");
+    const openProfileButton = event.target.closest("[data-my-quivrr-open-profile]");
+    const skipProfileButton = event.target.closest("[data-my-quivrr-skip-profile]");
     const saveProfileButton = event.target.closest("[data-my-quivrr-save-profile]");
     const editProfileButton = event.target.closest("[data-my-quivrr-edit-profile]");
     const logoutButton = event.target.closest("[data-my-quivrr-logout]");
@@ -896,6 +1047,10 @@
     }
     if (signInTrigger) {
       startSignIn();
+      return;
+    }
+    if (openProfileButton) {
+      openProfileEditor();
       return;
     }
     if (saveProfileButton) {
@@ -943,10 +1098,18 @@
       addSavedBoardToQuiver(addSavedToQuiverButton.getAttribute("data-my-quivrr-add-saved-to-quiver"));
       return;
     }
-    if (completeButton) {
-      showStep("account");
-      await loadDashboard();
-      setStatus("No problem. You can finish your profile whenever you like.");
+    if (skipProfileButton) {
+      await skipProfile(skipProfileButton.getAttribute("data-my-quivrr-skip-profile"));
+      return;
+    }
+    const clearFieldButton = event.target.closest("[data-my-quivrr-clear-field]");
+    if (clearFieldButton) {
+      var fieldName = clearFieldButton.getAttribute("data-my-quivrr-clear-field");
+      var field = profileForm.elements[fieldName];
+      if (field) {
+        field.value = "";
+        pendingProfileClears.add(fieldName);
+      }
       return;
     }
     if (logoutButton) {
@@ -960,9 +1123,20 @@
 
   function init() {
     mountEntryButton();
+    mountClearButtons();
     initGlobalApi();
     document.addEventListener("click", function (event) {
       handleClick(event);
+    });
+    profileForm.addEventListener("input", function (event) {
+      if (event.target && event.target.name) {
+        pendingProfileClears.delete(event.target.name);
+      }
+    });
+    profileForm.addEventListener("change", function (event) {
+      if (event.target && event.target.name) {
+        pendingProfileClears.delete(event.target.name);
+      }
     });
     document.addEventListener("keydown", function (event) {
       if (event.key === "Escape" && !modal.hidden) {
