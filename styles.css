@@ -2733,6 +2733,287 @@ body {
     0 0 24px rgba(118, 228, 208, 0.10);
 }
 
+.my-quivrr-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.58rem;
+  min-height: 42px;
+  padding: 0.42rem 0.82rem;
+  border: 1px solid rgba(118, 228, 208, 0.26);
+  background:
+    linear-gradient(135deg, rgba(9, 15, 15, 0.76), rgba(32, 78, 70, 0.52));
+  color: #F3F3F4;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 12px 34px rgba(0, 0, 0, 0.28),
+    0 0 24px rgba(118, 228, 208, 0.10);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.my-quivrr-entry:hover,
+.my-quivrr-entry:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(118, 228, 208, 0.72);
+  outline: none;
+}
+
+.my-quivrr-entry-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(118, 228, 208, 0.84);
+  border-radius: 999px;
+  background: rgba(118, 228, 208, 0.12);
+  color: #F3F3F4;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  flex: 0 0 auto;
+}
+
+.my-quivrr-entry-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.08rem;
+  text-align: left;
+}
+
+.my-quivrr-entry-text small {
+  color: rgba(255, 255, 255, 0.66);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.48rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-entry-text strong {
+  color: #F3F3F4;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-modal[hidden] {
+  display: none;
+}
+
+.my-quivrr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+}
+
+.my-quivrr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(8, 10, 12, 0.68);
+  cursor: pointer;
+}
+
+.my-quivrr-modal-dialog {
+  position: relative;
+  z-index: 1;
+  width: min(760px, 100%);
+  max-height: min(88vh, 960px);
+  overflow: auto;
+  padding: 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background: var(--theme-surface);
+  color: var(--theme-text-primary);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.30);
+}
+
+.my-quivrr-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--theme-input-border);
+  border-radius: 999px;
+  background: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+}
+
+.my-quivrr-modal-header {
+  padding-right: 3.5rem;
+}
+
+.my-quivrr-modal-kicker,
+.my-quivrr-step-label {
+  color: var(--slate);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-modal-header h2 {
+  margin: 0.8rem 0 0.9rem;
+  color: var(--theme-text-primary);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+
+.my-quivrr-modal-header p,
+.my-quivrr-step p {
+  color: var(--theme-text-secondary);
+  line-height: 1.65;
+}
+
+.my-quivrr-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.my-quivrr-benefits li {
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--theme-border);
+  background: var(--theme-surface-elevated);
+  color: var(--theme-text-primary);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.my-quivrr-provider-grid,
+.my-quivrr-form-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.my-quivrr-provider-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.25rem;
+}
+
+.my-quivrr-provider-button,
+.my-quivrr-modal-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--theme-input-border);
+  background: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+  cursor: pointer;
+}
+
+.my-quivrr-provider-button {
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.my-quivrr-provider-button span:last-child {
+  color: var(--slate);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-provider-button:hover,
+.my-quivrr-provider-button:focus-visible,
+.my-quivrr-modal-action:hover,
+.my-quivrr-modal-action:focus-visible,
+.my-quivrr-modal-close:hover,
+.my-quivrr-modal-close:focus-visible {
+  border-color: rgba(118, 228, 208, 0.56);
+  outline: none;
+}
+
+.my-quivrr-step[hidden] {
+  display: none;
+}
+
+.my-quivrr-step {
+  margin-top: 1.75rem;
+}
+
+.my-quivrr-form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.1rem;
+}
+
+.my-quivrr-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.my-quivrr-form-field.full {
+  grid-column: 1 / -1;
+}
+
+.my-quivrr-form-field span {
+  color: var(--theme-text-muted);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-form-field input,
+.my-quivrr-form-field select,
+.my-quivrr-form-field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--theme-input-border);
+  background: var(--theme-input-bg);
+  color: var(--theme-text-primary);
+}
+
+.my-quivrr-form-field textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.my-quivrr-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.my-quivrr-modal-action.secondary {
+  background: var(--theme-surface-elevated);
+}
+
+.my-quivrr-modal-status {
+  min-height: 1.4rem;
+  margin-top: 1rem;
+  color: #2f7f75;
+  font-family: "Courier Prime", monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+}
+
 .site-header {
   gap: 1.5rem;
 }
@@ -2894,6 +3175,12 @@ html[data-theme="dark"] .global-return-card {
   border-color: rgba(118, 228, 208, 0.32);
 }
 
+html[data-theme="dark"] .my-quivrr-entry {
+  background:
+    linear-gradient(135deg, rgba(12, 16, 18, 0.92), rgba(28, 57, 53, 0.78));
+  border-color: rgba(118, 228, 208, 0.32);
+}
+
 html[data-theme="dark"] .partner-cta-card {
   background:
     linear-gradient(135deg, rgba(12, 16, 18, 0.92), rgba(16, 87, 77, 0.82));
@@ -2992,6 +3279,33 @@ html[data-theme="dark"] .ops-empty {
 
   .theme-toggle-slot {
     justify-content: center;
+  }
+
+  .my-quivrr-entry {
+    min-height: 40px;
+    padding: 0.42rem 0.7rem;
+  }
+
+  .my-quivrr-entry-text small {
+    font-size: 0.44rem;
+  }
+
+  .my-quivrr-entry-text strong {
+    font-size: 0.66rem;
+  }
+
+  .my-quivrr-provider-grid,
+  .my-quivrr-form-grid,
+  .my-quivrr-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .my-quivrr-modal {
+    padding: 0.75rem;
+  }
+
+  .my-quivrr-modal-dialog {
+    padding: 1rem;
   }
 }
 
