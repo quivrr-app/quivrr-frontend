@@ -403,6 +403,51 @@
       card.appendChild(image);
     }
 
+    function myQuivrrClient() {
+      return window.QuivrrMyQuivrr || null;
+    }
+
+    function canPersistBoard(result) {
+      return Boolean(result && (result.boardModelId || result.boardSizeId));
+    }
+
+    async function handleSaveBoard(result, button, regionCode) {
+      const client = myQuivrrClient();
+      if (!client || typeof client.saveBoard !== "function") {
+        return;
+      }
+
+      button.disabled = true;
+
+      const response = await client.saveBoard({
+        boardModelId: result.boardModelId || null,
+        boardSizeId: result.boardSizeId || null,
+        regionCode: regionCode,
+        note: ""
+      });
+
+      button.disabled = false;
+      if (response && response.ok) {
+        button.textContent = "Saved";
+      }
+    }
+
+    async function handleAddBoardToQuiver(result, button) {
+      const client = myQuivrrClient();
+      if (!client || typeof client.addBoardToQuiver !== "function") {
+        return;
+      }
+
+      button.disabled = true;
+      await client.addBoardToQuiver({
+        boardModelId: result.boardModelId || null,
+        boardSizeId: result.boardSizeId || null,
+        title: result.title || `${result.brandName} ${result.modelName}`,
+        status: "Favourite board"
+      });
+      button.disabled = false;
+    }
+
     function createResultCard(result, tagText) {
       const card = document.createElement("article");
       card.className = "result-card";
@@ -507,6 +552,19 @@
         link.rel = "noopener noreferrer";
         link.textContent = "View board";
         link.className = "result-link";
+        link.addEventListener("click", () => {
+          const client = myQuivrrClient();
+          if (client && typeof client.trackEvent === "function") {
+            client.trackEvent({
+              eventType: "BoardViewed",
+              regionCode: "AU",
+              brandName: result.brandName,
+              modelName: result.modelName,
+              boardModelId: result.boardModelId || null,
+              boardSizeId: result.boardSizeId || null
+            });
+          }
+        });
 
         actionRow.appendChild(link);
 
@@ -529,6 +587,31 @@
         }
 
         card.appendChild(actionRow);
+      }
+
+      if (canPersistBoard(result)) {
+        const utilityRow = document.createElement("div");
+        utilityRow.className = "result-utility-row";
+
+        const saveButton = document.createElement("button");
+        saveButton.type = "button";
+        saveButton.className = "result-action-button";
+        saveButton.textContent = "Save board";
+        saveButton.addEventListener("click", () => {
+          handleSaveBoard(result, saveButton, "AU");
+        });
+
+        const quiverButton = document.createElement("button");
+        quiverButton.type = "button";
+        quiverButton.className = "result-action-button";
+        quiverButton.textContent = "Add to quiver";
+        quiverButton.addEventListener("click", () => {
+          handleAddBoardToQuiver(result, quiverButton);
+        });
+
+        utilityRow.appendChild(saveButton);
+        utilityRow.appendChild(quiverButton);
+        card.appendChild(utilityRow);
       }
 
       return card;
@@ -799,6 +882,16 @@
         );
 
         renderSearchResults(data);
+        const client = myQuivrrClient();
+        if (client && typeof client.trackEvent === "function") {
+          client.trackEvent({
+            eventType: "SearchPerformed",
+            regionCode: "AU",
+            brandName: brandSelect.options[brandSelect.selectedIndex]?.textContent || null,
+            modelName: modelSelect.options[modelSelect.selectedIndex]?.textContent || null,
+            boardSizeId: Number(selectedSize.value)
+          });
+        }
       } catch (error) {
         console.error("Search request failed", error);
 
