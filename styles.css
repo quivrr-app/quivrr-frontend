@@ -3336,3 +3336,180 @@ html[data-theme="dark"] .retailer-enquiry-form textarea {
   }
 }
 
+@media (max-width: 1024px) {
+  .region-page .hero {
+    padding-inline: 1.5rem;
+  }
+
+  .region-page .search-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .region-page .dimensions-field,
+  .region-page .search-bar button {
+    grid-column: span 2;
+  }
+
+  .region-page .results-preview,
+  .region-page .close-results-section {
+    padding-inline: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .region-page .site-header {
+    padding: 1.2rem 1rem 0;
+    align-items: flex-start;
+    gap: 0.85rem;
+  }
+
+  .region-page .hero-header-actions {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    justify-content: flex-end;
+    gap: 0.55rem;
+    margin-left: auto;
+  }
+
+  .region-page .hero-header-actions .theme-toggle-slot {
+    align-self: stretch;
+  }
+
+  .region-page .hero-header-actions .theme-toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+  .region-page .global-return-card {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 52px;
+    padding: 0.65rem 0.8rem;
+  }
+
+  .region-page .hero {
+    min-height: auto;
+    padding: 10.5rem 1rem 3.5rem;
+  }
+
+  .region-page .hero.app-map-hero.australia-hero .hero-content {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    max-width: calc(100vw - 2rem) !important;
+    transform: none !important;
+    padding-top: 5.75rem !important;
+  }
+
+  .region-page .hero.app-map-hero.australia-hero .hero-world-logo {
+    width: min(250px, 56vw) !important;
+    top: 6.5rem !important;
+    opacity: 0.68 !important;
+  }
+
+  .region-page .search-bar {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem;
+    margin-top: 1.5rem !important;
+  }
+
+  .region-page .dimensions-field,
+  .region-page .search-bar button {
+    grid-column: auto !important;
+  }
+
+  .region-page .search-bar label,
+  .region-page .search-bar button {
+    min-height: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .region-page .search-bar span {
+    margin-bottom: 0.5rem;
+    font-size: 0.86rem;
+  }
+
+  .region-page .search-bar select {
+    min-height: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .region-page .search-bar button {
+    font-size: 1.4rem;
+  }
+
+  .region-page .hero.app-map-hero.australia-hero .retailer-logo-strip {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    margin-top: 1.4rem;
+    padding: 1rem 0 !important;
+  }
+
+  .region-page .retailer-logo-track {
+    gap: 1.5rem;
+  }
+
+  .region-page .retailer-logo-track img {
+    height: 54px;
+    max-width: 172px;
+  }
+
+  .region-page .results-preview,
+  .region-page .close-results-section {
+    padding: 2.5rem 1rem 3rem !important;
+  }
+
+  .region-page .section-heading h1,
+  .region-page .result-section-heading h2 {
+    overflow-wrap: anywhere;
+  }
+
+  .region-page .manufacturer-grid,
+  .region-page .exact-grid,
+  .region-page .close-grid,
+  .region-page .result-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem;
+  }
+
+  .region-page .result-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .region-page .brand-logo-image {
+    width: 136px !important;
+  }
+
+  .region-page .hero-header-actions {
+    align-items: stretch;
+  }
+
+  .region-page .global-return-copy small {
+    font-size: 0.5rem;
+  }
+
+  .region-page .global-return-copy strong {
+    font-size: 0.8rem;
+  }
+
+  .region-page .retailer-network-item {
+    min-width: 132px;
+    min-height: 56px;
+    padding: 0.7rem 0.9rem;
+  }
+
+  .region-page .retailer-network-track .retailer-network-logo {
+    max-width: 128px;
+    height: 30px;
+  }
+
+  .region-page .retailer-network-name {
+    font-size: 0.68rem;
+  }
+}
+
