@@ -8,6 +8,7 @@
   function authConfig() {
     const configured = window.QUIVRR_AUTH_CONFIG || {};
     return {
+      enabled: configured.enabled === true,
       clientId: configured.clientId || "",
       authority: (configured.authority || "").replace(/\/$/, ""),
       redirectUri: configured.redirectUri || window.location.href.split("#")[0].split("?")[0],
@@ -18,7 +19,11 @@
   }
 
   function isConfigured(config) {
-    return Boolean(config.clientId && config.authority);
+    return Boolean(config.enabled && config.clientId && config.authority);
+  }
+
+  function signInDisabledMessage() {
+    return "My Quivrr sign-in is being enabled for this environment. Search and Bodhi stay open while authentication is configured.";
   }
 
   function getSession() {
@@ -549,7 +554,7 @@
   async function startSignIn() {
     const config = authConfig();
     if (!isConfigured(config)) {
-      setStatus("My Quivrr sign-in is waiting for Entra External ID frontend configuration.");
+      setStatus(signInDisabledMessage());
       return;
     }
 
@@ -844,7 +849,7 @@
       clearSession();
       modal.hidden = false;
       showStep("providers");
-      setStatus("Sign-in could not be completed. Please try again.");
+      setStatus(isConfigured(authConfig()) ? "Sign-in could not be completed. Please try again." : signInDisabledMessage());
     }
   }
 
