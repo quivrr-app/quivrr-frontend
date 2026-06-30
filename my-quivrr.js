@@ -47,6 +47,18 @@
     "More forgiving board",
     "Performance progression",
   ];
+  const PROVIDER_LABELS = {
+    google: "Google",
+    apple: "Apple",
+    email: "Email",
+    microsoft: "Microsoft",
+  };
+  const PROVIDER_HINTS = {
+    google: "Recommended social sign in",
+    apple: "Private relay ready",
+    email: "Passwordless or email account",
+    microsoft: "Microsoft and Hotmail accounts",
+  };
 
   function renderSelectOptions(options) {
     return options.map(function (option) {
@@ -56,6 +68,17 @@
 
   function authConfig() {
     const configured = window.QUIVRR_AUTH_CONFIG || {};
+    const configuredProviders = configured.providers || {};
+
+    function providerConfig(key) {
+      const provider = configuredProviders[key] || {};
+      return {
+        enabled: provider.enabled === true,
+        authorizeUrl: provider.authorizeUrl || "",
+        message: provider.message || "",
+      };
+    }
+
     return {
       enabled: configured.enabled === true,
       clientId: configured.clientId || "",
@@ -64,6 +87,12 @@
       scopes: configured.scopes || ["openid", "profile", "email"],
       apiBaseUrl: (configured.apiBaseUrl || DEFAULT_API_BASE).replace(/\/$/, ""),
       postLogoutRedirectUri: configured.postLogoutRedirectUri || window.location.origin + "/",
+      providers: {
+        google: providerConfig("google"),
+        apple: providerConfig("apple"),
+        email: providerConfig("email"),
+        microsoft: providerConfig("microsoft"),
+      },
     };
   }
 
@@ -72,7 +101,29 @@
   }
 
   function signInDisabledMessage() {
-    return "My Quivrr sign-in is being enabled for this environment. Search and Bodhi stay open while authentication is configured.";
+    return "My Quivrr sign-in is being enabled for this environment. Continue as guest keeps search and Bodhi open in the meantime.";
+  }
+
+  function providerLabel(providerKey) {
+    return PROVIDER_LABELS[providerKey] || "Provider";
+  }
+
+  function providerDisabledMessage(providerKey, config) {
+    const provider = config.providers[providerKey] || {};
+    return provider.message || (providerLabel(providerKey) + " sign-in is being enabled.");
+  }
+
+  function buildAuthorizeUrl(config, providerKey) {
+    const provider = config.providers[providerKey] || {};
+    if (provider.authorizeUrl) {
+      return provider.authorizeUrl;
+    }
+
+    if (providerKey !== "microsoft" || !isConfigured(config)) {
+      return "";
+    }
+
+    return config.authority + "/oauth2/v2.0/authorize?";
   }
 
   function getSession() {
@@ -231,8 +282,8 @@
       '  <button type="button" class="my-quivrr-modal-close" aria-label="Close My Quivrr dialog">×</button>',
       '  <div class="my-quivrr-modal-header">',
       '    <div class="my-quivrr-modal-kicker">My Quivrr</div>',
-      '    <h2 id="myQuivrrTitle">Sign in to My Quivrr.</h2>',
-      '    <p>Search stays open without login. Signing in creates your Quivrr identity, gives you a real quiver, and keeps your saved boards synced through the backend.</p>',
+      '    <h2 id="myQuivrrTitle">Welcome to My Quivrr</h2>',
+      '    <p>Save your quiver. Track stock. Get smarter Bodhi recommendations. Search stays open if you would rather keep browsing as a guest.</p>',
       '  </div>',
       '  <ul class="my-quivrr-benefits">',
       '    <li>Profile summary</li>',
@@ -243,9 +294,15 @@
       '  <section class="my-quivrr-step" data-my-quivrr-step="providers">',
       '    <div class="my-quivrr-step-label">Secure sign in</div>',
       '    <div class="my-quivrr-provider-grid">',
-      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-sign-in><span>Continue with My Quivrr</span><span>Microsoft Entra External ID</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button primary full" data-my-quivrr-provider="google" aria-disabled="true"><span>Continue with Google</span><span>' + PROVIDER_HINTS.google + '</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="apple" aria-disabled="true"><span>Continue with Apple</span><span>' + PROVIDER_HINTS.apple + '</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="email" aria-disabled="true"><span>Continue with Email</span><span>' + PROVIDER_HINTS.email + '</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="microsoft" aria-disabled="true"><span>Continue with Microsoft</span><span>' + PROVIDER_HINTS.microsoft + '</span></button>',
       '    </div>',
-      '    <p class="my-quivrr-modal-note">Your provider choice is handled inside the secure Microsoft sign-in flow.</p>',
+      '    <div class="my-quivrr-form-actions my-quivrr-provider-actions">',
+      '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-guest>Continue as guest</button>',
+      '    </div>',
+      '    <p class="my-quivrr-modal-note">Provider buttons only become live when that provider is fully configured and validated in Entra External ID.</p>',
       '  </section>',
       '  <section class="my-quivrr-step" data-my-quivrr-step="profile" hidden>',
       '    <div class="my-quivrr-step-label">Complete your My Quivrr profile</div>',
@@ -403,6 +460,16 @@
       quiver: [],
       savedBoards: [],
     };
+  }
+
+  function syncProviderButtons() {
+    const config = authConfig();
+    Array.from(modal.querySelectorAll("[data-my-quivrr-provider]")).forEach(function (button) {
+      const providerKey = button.getAttribute("data-my-quivrr-provider");
+      const provider = config.providers[providerKey] || {};
+      const ready = Boolean(config.enabled && provider.enabled && buildAuthorizeUrl(config, providerKey));
+      button.setAttribute("aria-disabled", ready ? "false" : "true");
+    });
   }
 
   function setDashboardState(state) {
@@ -663,6 +730,7 @@
     body.style.overflow = "hidden";
     hideQuiverEditor();
     onboardingShownThisOpen = false;
+    syncProviderButtons();
     setStatus("");
 
     if (session && session.profile && session.expiresAt > Date.now()) {
@@ -676,7 +744,7 @@
     }
 
     showStep("providers");
-    const firstButton = modal.querySelector("[data-my-quivrr-sign-in]");
+    const firstButton = modal.querySelector('[data-my-quivrr-provider="google"]');
     if (firstButton) {
       firstButton.focus();
     }
@@ -687,10 +755,13 @@
     body.style.overflow = "";
   }
 
-  async function startSignIn() {
+  async function startSignIn(providerKey) {
     const config = authConfig();
-    if (!isConfigured(config)) {
-      setStatus(signInDisabledMessage());
+    const provider = config.providers[providerKey] || {};
+    const authorizeUrl = buildAuthorizeUrl(config, providerKey);
+
+    if (!config.enabled || !provider.enabled || !authorizeUrl) {
+      setStatus(providerDisabledMessage(providerKey, config));
       return;
     }
 
@@ -713,7 +784,15 @@
       code_challenge: challenge,
       code_challenge_method: "S256",
     });
-    window.location.assign(config.authority + "/oauth2/v2.0/authorize?" + params.toString());
+    if (provider.authorizeUrl) {
+      const targetUrl = provider.authorizeUrl.indexOf("?") === -1
+        ? provider.authorizeUrl + "?" + params.toString()
+        : provider.authorizeUrl;
+      window.location.assign(targetUrl);
+      return;
+    }
+
+    window.location.assign(authorizeUrl + params.toString());
   }
 
   async function exchangeCode(code, state) {
@@ -1021,7 +1100,8 @@
   async function handleClick(event) {
     const openTrigger = event.target.closest("[data-my-quivrr-open]");
     const learnTrigger = event.target.closest("[data-my-quivrr-learn]");
-    const signInTrigger = event.target.closest("[data-my-quivrr-sign-in]");
+    const signInTrigger = event.target.closest("[data-my-quivrr-provider]");
+    const guestTrigger = event.target.closest("[data-my-quivrr-guest]");
     const openProfileButton = event.target.closest("[data-my-quivrr-open-profile]");
     const skipProfileButton = event.target.closest("[data-my-quivrr-skip-profile]");
     const saveProfileButton = event.target.closest("[data-my-quivrr-save-profile]");
@@ -1046,7 +1126,11 @@
       return;
     }
     if (signInTrigger) {
-      startSignIn();
+      startSignIn(signInTrigger.getAttribute("data-my-quivrr-provider"));
+      return;
+    }
+    if (guestTrigger) {
+      closeModal();
       return;
     }
     if (openProfileButton) {
@@ -1125,6 +1209,7 @@
     mountEntryButton();
     mountClearButtons();
     initGlobalApi();
+    syncProviderButtons();
     document.addEventListener("click", function (event) {
       handleClick(event);
     });

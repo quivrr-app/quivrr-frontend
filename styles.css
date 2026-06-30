@@ -2945,6 +2945,19 @@ body {
   text-align: left;
 }
 
+.my-quivrr-provider-button.primary {
+  background: rgba(118, 228, 208, 0.14);
+  border-color: rgba(118, 228, 208, 0.42);
+}
+
+.my-quivrr-provider-button.full {
+  grid-column: 1 / -1;
+}
+
+.my-quivrr-provider-button[aria-disabled="true"] {
+  opacity: 0.78;
+}
+
 .my-quivrr-provider-button span:last-child {
   color: var(--slate);
   font-family: "Courier Prime", monospace;
@@ -2961,6 +2974,10 @@ body {
 .my-quivrr-modal-close:focus-visible {
   border-color: rgba(118, 228, 208, 0.56);
   outline: none;
+}
+
+.my-quivrr-provider-actions {
+  margin-top: 1rem;
 }
 
 .my-quivrr-step[hidden] {
