@@ -2956,6 +2956,15 @@ body {
 
 .my-quivrr-provider-button[aria-disabled="true"] {
   opacity: 0.78;
+  cursor: default;
+}
+
+.my-quivrr-provider-button.coming-soon {
+  background: color-mix(in srgb, var(--theme-input-bg) 88%, transparent);
+}
+
+.my-quivrr-provider-button.ready {
+  cursor: pointer;
 }
 
 .my-quivrr-provider-button span:last-child {

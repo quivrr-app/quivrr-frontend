@@ -294,10 +294,10 @@
       '  <section class="my-quivrr-step" data-my-quivrr-step="providers">',
       '    <div class="my-quivrr-step-label">Secure sign in</div>',
       '    <div class="my-quivrr-provider-grid">',
-      '      <button type="button" class="my-quivrr-provider-button primary full" data-my-quivrr-provider="google" aria-disabled="true"><span>Continue with Google</span><span>' + PROVIDER_HINTS.google + '</span></button>',
-      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="apple" aria-disabled="true"><span>Continue with Apple</span><span>' + PROVIDER_HINTS.apple + '</span></button>',
-      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="email" aria-disabled="true"><span>Continue with Email</span><span>' + PROVIDER_HINTS.email + '</span></button>',
-      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="microsoft" aria-disabled="true"><span>Continue with Microsoft</span><span>' + PROVIDER_HINTS.microsoft + '</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button full" data-my-quivrr-provider="google" aria-disabled="true"><span>Continue with Google</span><span data-my-quivrr-provider-meta="google">Coming soon</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="apple" aria-disabled="true"><span>Continue with Apple</span><span data-my-quivrr-provider-meta="apple">Coming soon</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="email" aria-disabled="true"><span>Continue with Email</span><span data-my-quivrr-provider-meta="email">Coming soon</span></button>',
+      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="microsoft" aria-disabled="true"><span>Continue with Microsoft</span><span data-my-quivrr-provider-meta="microsoft">Coming soon</span></button>',
       '    </div>',
       '    <div class="my-quivrr-form-actions my-quivrr-provider-actions">',
       '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-guest>Continue as guest</button>',
@@ -468,7 +468,14 @@
       const providerKey = button.getAttribute("data-my-quivrr-provider");
       const provider = config.providers[providerKey] || {};
       const ready = Boolean(config.enabled && provider.enabled && buildAuthorizeUrl(config, providerKey));
+      const meta = button.querySelector("[data-my-quivrr-provider-meta]");
       button.setAttribute("aria-disabled", ready ? "false" : "true");
+      button.classList.toggle("primary", ready && providerKey === "google");
+      button.classList.toggle("ready", ready);
+      button.classList.toggle("coming-soon", !ready);
+      if (meta) {
+        meta.textContent = ready ? (PROVIDER_HINTS[providerKey] || "Ready") : "Coming soon";
+      }
     });
   }
 
