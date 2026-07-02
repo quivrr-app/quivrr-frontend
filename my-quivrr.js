@@ -165,6 +165,14 @@
     localStorage.setItem(STORAGE_PERSIST_KEY, serialized);
   }
 
+  function emitAuthStage(stage) {
+    window.dispatchEvent(
+      new CustomEvent("quivrr:auth-stage", {
+        detail: { stage: stage },
+      })
+    );
+  }
+
   function getPkceState() {
     const raw = sessionStorage.getItem(PKCE_KEY) || localStorage.getItem(PKCE_PERSIST_KEY) || "{}";
     try {
@@ -1104,6 +1112,7 @@
       profile: profile,
     });
     renderDashboardState(state);
+    emitAuthStage("dashboard-ready");
     return state;
   }
 
@@ -1553,6 +1562,7 @@
     try {
       modal.hidden = false;
       body.style.overflow = "hidden";
+      emitAuthStage("callback-start");
       renderAuthProcessingState(
         null,
         "Signing you in to My Quivrr...",

@@ -16,6 +16,7 @@
   />
 
   <link rel="stylesheet" href="/styles.css" />
+  <script defer src="/page-loader.js"></script>
   <script defer src="/theme-toggle.js"></script>
   <script defer src="/auth-config.js"></script>
   <script defer src="/my-quivrr.js"></script>
@@ -26,6 +27,15 @@
 </head>
 
 <body class="region-page region-indonesia-page">
+  <div class="quivrr-page-loader" id="quivrrPageLoader" aria-hidden="false">
+    <div class="quivrr-loader-shell">
+      <div class="quivrr-loader-logo" aria-hidden="true">QUIVRR</div>
+      <div class="quivrr-loader-spinner" aria-hidden="true"></div>
+      <p class="quivrr-loader-title">Loading Quivrr...</p>
+      <p class="quivrr-loader-copy">Connecting to surfboard intelligence</p>
+      <p class="quivrr-loader-status" data-quivrr-loader-status>Preparing search</p>
+    </div>
+  </div>
   <header class="site-header">
     <a class="brand" href="/">
       <img class="brand-logo-image" src="/Media/Quivrr_Logos/Quivrr%20-%20World%20Green%20Logo.PNG" alt="Quivrr" />
@@ -972,6 +982,9 @@
     }
 
     async function loadBrands() {
+      if (window.setPageLoaderStatus) {
+        window.setPageLoaderStatus("Connecting to inventory");
+      }
       brandSelect.innerHTML = '<option>Loading brands...</option>';
 
       let allBrands = [];
@@ -988,6 +1001,9 @@
         modelSelect.innerHTML = '<option value="">Select model</option>';
         constructionSelect.innerHTML = '<option value="">Select construction</option>';
         sizeSelect.innerHTML = '<option value="">Select dimensions</option>';
+        if (window.hidePageLoader) {
+          window.hidePageLoader();
+        }
 
         return;
       }
@@ -996,6 +1012,9 @@
         return !EXCLUDED_BRANDS.has(brand.brandName);
       });
 
+      if (window.setPageLoaderStatus) {
+        window.setPageLoaderStatus("Loading brands");
+      }
       brandSelect.innerHTML = "";
       if (!brandTrack.dataset.staticNetwork) {
         brandTrack.innerHTML = "";
@@ -1026,6 +1045,9 @@
 
       if (brands.length > 0 && !(await applyBodhiSearchParams(brands))) {
         await loadModels(brands[0].brandId);
+      }
+      if (window.markAppReadyWhenDropdownsLoaded) {
+        window.markAppReadyWhenDropdownsLoaded(brandSelect);
       }
     }
 
