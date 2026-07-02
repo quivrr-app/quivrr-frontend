@@ -3217,6 +3217,45 @@ body {
   color: var(--theme-text-primary);
 }
 
+.my-quivrr-stat.is-loading,
+.my-quivrr-summary-item.is-loading,
+.my-quivrr-empty-state.is-loading {
+  border-color: color-mix(in srgb, var(--theme-brand, #2f7f75) 24%, transparent);
+  background:
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--theme-surface-elevated) 88%, transparent),
+      color-mix(in srgb, var(--theme-brand, #2f7f75) 16%, transparent),
+      color-mix(in srgb, var(--theme-surface-elevated) 88%, transparent)
+    );
+  background-size: 220% 220%;
+  animation: my-quivrr-loading-sheen 2.4s ease-in-out infinite;
+}
+
+.my-quivrr-stat.is-loading strong,
+.my-quivrr-summary-item.is-loading strong,
+.my-quivrr-empty-state.is-loading strong {
+  color: var(--theme-text-primary);
+}
+
+.my-quivrr-empty-state.is-loading p {
+  color: var(--theme-text-secondary);
+}
+
+@keyframes my-quivrr-loading-sheen {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 .my-quivrr-editor {
   margin-top: 1rem;
 }

@@ -1,7 +1,9 @@
 (function () {
   const body = document.body;
   const STORAGE_KEY = "quivrrAuthSession";
+  const STORAGE_PERSIST_KEY = "quivrrAuthSessionPersist";
   const PKCE_KEY = "quivrrAuthPkce";
+  const PKCE_PERSIST_KEY = "quivrrAuthPkcePersist";
   const ANON_SESSION_KEY = "quivrrAnonymousSessionId";
   const DEFAULT_API_BASE = "https://quivrr-backend-api.azurewebsites.net";
   const SKILL_LEVEL_OPTIONS = [
@@ -49,14 +51,12 @@
   ];
   const PROVIDER_LABELS = {
     google: "Google",
-    apple: "Apple",
     email: "Email",
     microsoft: "Microsoft",
   };
   const PROVIDER_HINTS = {
-    google: "Recommended social sign in",
-    apple: "Private relay ready",
-    email: "Passwordless or email account",
+    google: "Continue with your Google account",
+    email: "Use a one-time code sent to your email",
     microsoft: "Microsoft and Hotmail accounts",
   };
 
@@ -75,6 +75,7 @@
       return {
         enabled: provider.enabled === true,
         authorizeUrl: provider.authorizeUrl || "",
+        queryParameters: provider.queryParameters || {},
         message: provider.message || "",
       };
     }
@@ -83,6 +84,10 @@
       enabled: configured.enabled === true,
       clientId: configured.clientId || "",
       authority: (configured.authority || "").replace(/\/$/, ""),
+      openIdConfigurationUrl: configured.openIdConfigurationUrl || "",
+      authorizationEndpoint: configured.authorizationEndpoint || "",
+      tokenEndpoint: configured.tokenEndpoint || "",
+      logoutEndpoint: configured.logoutEndpoint || "",
       redirectUri: configured.redirectUri || window.location.href.split("#")[0].split("?")[0],
       scopes: configured.scopes || ["openid", "profile", "email"],
       apiBaseUrl: (configured.apiBaseUrl || DEFAULT_API_BASE).replace(/\/$/, ""),
@@ -119,28 +124,71 @@
       return provider.authorizeUrl;
     }
 
-    if (providerKey !== "microsoft" || !isConfigured(config)) {
+    if (!isConfigured(config)) {
       return "";
+    }
+
+    if (config.authorizationEndpoint) {
+      return config.authorizationEndpoint + "?";
     }
 
     return config.authority + "/oauth2/v2.0/authorize?";
   }
 
-  function getSession() {
+  function parseSession(raw) {
+    if (!raw) {
+      return null;
+    }
     try {
-      return JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "null");
+      return JSON.parse(raw);
     } catch (error) {
       return null;
     }
   }
 
+  function isSessionValid(session) {
+    return Boolean(session && session.accessToken && session.expiresAt && session.expiresAt > Date.now());
+  }
+
+  function getSession() {
+    var session = parseSession(sessionStorage.getItem(STORAGE_KEY));
+    if (isSessionValid(session)) {
+      return session;
+    }
+    session = parseSession(localStorage.getItem(STORAGE_PERSIST_KEY));
+    return isSessionValid(session) ? session : null;
+  }
+
   function setSession(session) {
-    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+    var serialized = JSON.stringify(session);
+    sessionStorage.setItem(STORAGE_KEY, serialized);
+    localStorage.setItem(STORAGE_PERSIST_KEY, serialized);
+  }
+
+  function getPkceState() {
+    const raw = sessionStorage.getItem(PKCE_KEY) || localStorage.getItem(PKCE_PERSIST_KEY) || "{}";
+    try {
+      return JSON.parse(raw);
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function setPkceState(value) {
+    const serialized = JSON.stringify(value);
+    sessionStorage.setItem(PKCE_KEY, serialized);
+    localStorage.setItem(PKCE_PERSIST_KEY, serialized);
+  }
+
+  function clearPkceState() {
+    sessionStorage.removeItem(PKCE_KEY);
+    localStorage.removeItem(PKCE_PERSIST_KEY);
   }
 
   function clearSession() {
     sessionStorage.removeItem(STORAGE_KEY);
-    sessionStorage.removeItem(PKCE_KEY);
+    localStorage.removeItem(STORAGE_PERSIST_KEY);
+    clearPkceState();
   }
 
   function randomString(length) {
@@ -177,6 +225,43 @@
     return crypto.subtle.digest("SHA-256", data);
   }
 
+  function sleep(milliseconds) {
+    return new Promise(function (resolve) {
+      window.setTimeout(resolve, milliseconds);
+    });
+  }
+
+  function shouldRetryAuthError(error) {
+    if (!error) {
+      return true;
+    }
+    if (!error.status) {
+      return true;
+    }
+    if (error.status === 401 || error.status === 403) {
+      return false;
+    }
+    return error.status === 429 || error.status >= 500;
+  }
+
+  async function retryAuthRequest(request, options) {
+    var attempts = options && options.attempts ? options.attempts : 3;
+    var baseDelayMs = options && options.baseDelayMs ? options.baseDelayMs : 600;
+    var lastError = null;
+    for (var attempt = 1; attempt <= attempts; attempt += 1) {
+      try {
+        return await request();
+      } catch (error) {
+        lastError = error;
+        if (attempt >= attempts || !shouldRetryAuthError(error)) {
+          throw error;
+        }
+        await sleep(baseDelayMs * attempt);
+      }
+    }
+    throw lastError || new Error("My Quivrr request failed after retries.");
+  }
+
   function requestHeaders(accessToken) {
     const headers = { "Content-Type": "application/json" };
     if (accessToken) {
@@ -205,10 +290,98 @@
     });
 
     if (!response.ok) {
-      throw new Error("My Quivrr API request failed.");
+      const errorText = await response.text().catch(function () { return ""; });
+      const error = new Error("My Quivrr API request failed (" + response.status + ").");
+      error.status = response.status;
+      error.body = errorText;
+      throw error;
     }
 
-    return response.json();
+    if (response.status === 204) {
+      return null;
+    }
+
+    const responseText = await response.text();
+    if (!responseText) {
+      return null;
+    }
+
+    return JSON.parse(responseText);
+  }
+
+  function authErrorMessage(prefix, error) {
+    if (!error) {
+      return prefix;
+    }
+
+    const parts = [prefix];
+    if (error.message) {
+      parts.push(error.message);
+    }
+    if (error.status) {
+      parts.push("HTTP " + error.status);
+    }
+    if (error.body) {
+      parts.push(String(error.body).slice(0, 300));
+    }
+    return parts.join(" ");
+  }
+
+  function decodeJwtPayload(token) {
+    if (!token || token.split(".").length < 2) {
+      return null;
+    }
+
+    try {
+      var payload = token.split(".")[1]
+        .replace(/-/g, "+")
+        .replace(/_/g, "/");
+      var normalized = payload + "=".repeat((4 - (payload.length % 4)) % 4);
+      return JSON.parse(atob(normalized));
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function provisionalProfileFromClaims(tokenCandidates) {
+    if (!Array.isArray(tokenCandidates) || !tokenCandidates.length) {
+      return null;
+    }
+
+    var claims = null;
+    tokenCandidates.some(function (candidate) {
+      var decoded = decodeJwtPayload(candidate.value);
+      if (decoded && (decoded.name || decoded.preferred_username || decoded.email || decoded.emails || decoded.unique_name)) {
+        claims = decoded;
+        return true;
+      }
+      return false;
+    });
+
+    if (!claims) {
+      return null;
+    }
+
+    var email = claims.preferred_username
+      || claims.email
+      || (Array.isArray(claims.emails) && claims.emails.length ? claims.emails[0] : "")
+      || claims.unique_name
+      || "";
+    var displayName = claims.name || email || "My Quivrr";
+
+    return {
+      user: {
+        email: email,
+        displayName: displayName,
+        photoUrl: "",
+        homeRegion: claims.zoneinfo || claims.locale || null,
+      },
+      profile: null,
+      profileComplete: false,
+      profileStrength: "none",
+      profileUsefulFieldCount: 0,
+      recentActivity: [],
+    };
   }
 
   async function postEvent(payload) {
@@ -295,14 +468,13 @@
       '    <div class="my-quivrr-step-label">Secure sign in</div>',
       '    <div class="my-quivrr-provider-grid">',
       '      <button type="button" class="my-quivrr-provider-button full" data-my-quivrr-provider="google" aria-disabled="true"><span>Continue with Google</span><span data-my-quivrr-provider-meta="google">Coming soon</span></button>',
-      '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="apple" aria-disabled="true"><span>Continue with Apple</span><span data-my-quivrr-provider-meta="apple">Coming soon</span></button>',
       '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="email" aria-disabled="true"><span>Continue with Email</span><span data-my-quivrr-provider-meta="email">Coming soon</span></button>',
       '      <button type="button" class="my-quivrr-provider-button" data-my-quivrr-provider="microsoft" aria-disabled="true"><span>Continue with Microsoft</span><span data-my-quivrr-provider-meta="microsoft">Coming soon</span></button>',
       '    </div>',
       '    <div class="my-quivrr-form-actions my-quivrr-provider-actions">',
       '      <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-guest>Continue as guest</button>',
       '    </div>',
-      '    <p class="my-quivrr-modal-note">Provider buttons only become live when that provider is fully configured and validated in Entra External ID.</p>',
+      '    <p class="my-quivrr-modal-note">Use the account you want to keep for My Quivrr. Your quiver, saved boards and profile stay with that sign-in.</p>',
       '  </section>',
       '  <section class="my-quivrr-step" data-my-quivrr-step="profile" hidden>',
       '    <div class="my-quivrr-step-label">Complete your My Quivrr profile</div>',
@@ -438,13 +610,61 @@
     status.textContent = message || "";
   }
 
+  function identityFromProfile(profile) {
+    const user = profile && profile.user ? profile.user : {};
+    const name = (user.displayName || "").trim();
+    const email = (user.email || "").trim();
+    const initialsSource = name || email || "MQ";
+    const initials = initialsSource
+      .split(/[\s@._-]+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map(function (part) { return part.charAt(0).toUpperCase(); })
+      .join("") || "MQ";
+
+    return {
+      displayName: name,
+      email: email,
+      photoUrl: user.photoUrl || user.avatarUrl || "",
+      initials: initials,
+    };
+  }
+
   function updateEntryState(profile) {
     const triggers = document.querySelectorAll("[data-my-quivrr-open]");
+    const identity = identityFromProfile(profile);
     triggers.forEach(function (trigger) {
       const strong = trigger.querySelector("strong");
+      const small = trigger.querySelector("small");
+      const avatar = trigger.querySelector(".my-quivrr-entry-avatar, .header-account-icon");
+      const displayName = identity.displayName || identity.email || "My Quivrr";
+      const shortName = displayName.split(/\s+/).filter(Boolean)[0] || displayName;
       if (strong) {
-        strong.textContent = profile && profile.user ? "My Quivrr" : "Sign in";
+        strong.textContent = profile && profile.user ? shortName : "Sign in";
       }
+      if (small) {
+        small.textContent = profile && profile.user
+          ? "Signed in"
+          : "My Quivrr";
+      }
+      if (avatar) {
+        avatar.textContent = profile && profile.user ? identity.initials : "MQ";
+        avatar.title = profile && profile.user
+          ? (identity.displayName || identity.email || "My Quivrr")
+          : "My Quivrr";
+        if (profile && profile.user && identity.photoUrl) {
+          avatar.style.backgroundImage = 'url("' + identity.photoUrl.replace(/"/g, '\\"') + '")';
+          avatar.style.backgroundSize = "cover";
+          avatar.style.backgroundPosition = "center";
+          avatar.style.color = "transparent";
+        } else {
+          avatar.style.backgroundImage = "";
+          avatar.style.backgroundSize = "";
+          avatar.style.backgroundPosition = "";
+          avatar.style.color = "";
+        }
+      }
+      trigger.setAttribute("data-my-quivrr-state", profile && profile.user ? "authenticated" : "guest");
     });
   }
 
@@ -481,6 +701,137 @@
 
   function setDashboardState(state) {
     window.__quivrrMyQuivrrState = state;
+  }
+
+  function renderDashboardState(state) {
+    const profile = state && state.profile ? state.profile : { user: null, profile: null };
+    const quiver = state && Array.isArray(state.quiver) ? state.quiver : [];
+    const savedBoards = state && Array.isArray(state.savedBoards) ? state.savedBoards : [];
+    setDashboardState({
+      profile: profile,
+      quiver: quiver,
+      savedBoards: savedBoards,
+    });
+    fillProfileForm(profile);
+    renderStats(profile, quiver, savedBoards);
+    renderProfileSummary(profile);
+    renderQuiverList(quiver);
+    renderSavedBoards(savedBoards);
+    renderRecentActivity(profile);
+    renderOnboardingCard(profile);
+    accountSummary.textContent = profile.user && profile.user.email
+      ? "Signed in as " + profile.user.email + "."
+      : "Your My Quivrr identity is active.";
+    updateEntryState(profile);
+    showStep("account");
+  }
+
+  function renderLoadingPanels() {
+    statsMount.innerHTML = [
+      '<div class="my-quivrr-stat is-loading"><span>Quiver</span><strong>...</strong></div>',
+      '<div class="my-quivrr-stat is-loading"><span>Saved</span><strong>...</strong></div>',
+      '<div class="my-quivrr-stat is-loading"><span>Activity</span><strong>...</strong></div>',
+      '<div class="my-quivrr-stat is-loading"><span>Current</span><strong>...</strong></div>',
+    ].join("");
+
+    profileSummaryMount.innerHTML = [
+      '<div class="my-quivrr-summary-item is-loading"><span>Display name</span><strong>Loading your profile...</strong></div>',
+      '<div class="my-quivrr-summary-item is-loading"><span>Home region</span><strong>Working on it</strong></div>',
+      '<div class="my-quivrr-summary-item is-loading"><span>Ability</span><strong>Fetching details</strong></div>',
+      '<div class="my-quivrr-summary-item is-loading"><span>Volume</span><strong>Fetching details</strong></div>',
+    ].join("");
+
+    quiverListMount.innerHTML = [
+      '<div class="my-quivrr-empty-state is-loading">',
+      '<strong>Loading your quiver...</strong>',
+      '<p>We are waking up your My Quivrr boards now.</p>',
+      '</div>',
+    ].join("");
+
+    savedListMount.innerHTML = [
+      '<div class="my-quivrr-empty-state is-loading">',
+      '<strong>Loading saved boards...</strong>',
+      '<p>Your saved shortlist is on the way.</p>',
+      '</div>',
+    ].join("");
+
+    activityListMount.innerHTML = [
+      '<div class="my-quivrr-empty-state is-loading">',
+      '<strong>Loading recent activity...</strong>',
+      '<p>We are pulling in your latest Quivrr activity.</p>',
+      '</div>',
+    ].join("");
+  }
+
+  function renderAuthProcessingState(profileBundle, message, detail) {
+    const identity = identityFromProfile(profileBundle);
+    const signedInAs = identity.displayName || identity.email;
+
+    accountSummary.textContent = signedInAs
+      ? "Signing in as " + signedInAs + "."
+      : "Signing you in to My Quivrr.";
+
+    onboardingCard.hidden = false;
+    onboardingCard.innerHTML = [
+      '<div class="my-quivrr-auth-progress">',
+      '  <div class="my-quivrr-auth-progress-badge">' + (identity.initials || "MQ") + '</div>',
+      '  <div class="my-quivrr-auth-progress-copy">',
+      '    <div class="my-quivrr-step-label">My Quivrr</div>',
+      '    <h3>Signing you in to My Quivrr...</h3>',
+      '    <p>' + (detail || "We are confirming your account and loading your dashboard.") + '</p>',
+      '  </div>',
+      '</div>',
+    ].join("");
+
+    renderLoadingPanels();
+    updateEntryState(profileBundle);
+    hideQuiverEditor();
+    showStep("account");
+    setStatus(message || "Signing you in to My Quivrr...");
+  }
+
+  function clearAuthParamsFromUrl(returnTo) {
+    if (returnTo) {
+      window.history.replaceState({}, document.title, returnTo);
+      return;
+    }
+
+    const nextUrl = new URL(window.location.href);
+    [
+      "code",
+      "state",
+      "session_state",
+      "error",
+      "error_description",
+      "error_uri",
+    ].forEach(function (key) {
+      nextUrl.searchParams.delete(key);
+    });
+    const replacement = nextUrl.pathname + (nextUrl.search ? nextUrl.search : "") + nextUrl.hash;
+    window.history.replaceState({}, document.title, replacement);
+  }
+
+  function persistValidatedSession(accessToken, expiresInSeconds, profile) {
+    const session = {
+      accessToken: accessToken,
+      expiresAt: Date.now() + ((expiresInSeconds || 3600) * 1000),
+      profile: profile,
+    };
+    setSession(session);
+    updateEntryState(profile);
+    return session;
+  }
+
+  function renderCachedAuthenticatedState(session, fallbackMessage) {
+    if (!session) {
+      return false;
+    }
+    renderAuthProcessingState(
+      session.profile,
+      fallbackMessage || "Signed in. Loading your My Quivrr profile.",
+      "We have your account. Your quiver, saved boards and profile are loading now."
+    );
+    return true;
   }
 
   function resetProfileClears() {
@@ -646,12 +997,13 @@
       : "Optional, but useful. The more we know about how and where you surf, the better Bodhi can guide board recommendations, volume ranges and future stock alerts.";
     onboardingCard.hidden = false;
     onboardingCard.innerHTML = [
+      '<div class="my-quivrr-onboarding-progress"><span>Step 1</span><strong>Set up your surfing profile</strong></div>',
       '<div class="my-quivrr-step-label">Complete your My Quivrr profile</div>',
       '<h3>Optional, but useful.</h3>',
       '<p>' + progressLine + '</p>',
       '<p class="my-quivrr-modal-note">You control this. Everything is optional and can be changed later.</p>',
       '<div class="my-quivrr-form-actions">',
-      '  <button type="button" class="my-quivrr-modal-action" data-my-quivrr-open-profile>Complete profile</button>',
+      '  <button type="button" class="my-quivrr-modal-action" data-my-quivrr-open-profile>Start profile</button>',
       '  <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="skip">Skip for now</button>',
       '  <button type="button" class="my-quivrr-modal-action secondary" data-my-quivrr-skip-profile="later">Remind me later</button>',
       '</div>'
@@ -708,26 +1060,50 @@
   }
 
   async function loadDashboard() {
-    const profile = await callApi("/api/my-quivrr/profile");
-    const quiverResponse = await callApi("/api/my-quivrr/quiver");
-    const savedBoardsResponse = await callApi("/api/my-quivrr/saved-boards");
+    const session = getSession();
+    if (!isSessionValid(session)) {
+      const authError = new Error("My Quivrr session is missing or expired.");
+      authError.status = 401;
+      throw authError;
+    }
+
+    const results = await Promise.allSettled([
+      retryAuthRequest(function () {
+        return callApi("/api/my-quivrr/profile");
+      }, { attempts: 4, baseDelayMs: 800 }),
+      retryAuthRequest(function () {
+        return callApi("/api/my-quivrr/quiver");
+      }, { attempts: 3, baseDelayMs: 700 }),
+      retryAuthRequest(function () {
+        return callApi("/api/my-quivrr/saved-boards");
+      }, { attempts: 3, baseDelayMs: 700 }),
+    ]);
+
+    const profileResult = results[0];
+    const quiverResult = results[1];
+    const savedBoardsResult = results[2];
+
+    if (profileResult.status !== "fulfilled") {
+      throw profileResult.reason;
+    }
+
+    const profile = profileResult.value || session.profile || { user: null, profile: null };
     const state = {
       profile: profile,
-      quiver: quiverResponse.quiver || [],
-      savedBoards: savedBoardsResponse.savedBoards || [],
+      quiver: quiverResult.status === "fulfilled" && quiverResult.value && Array.isArray(quiverResult.value.quiver)
+        ? quiverResult.value.quiver
+        : [],
+      savedBoards: savedBoardsResult.status === "fulfilled" && savedBoardsResult.value && Array.isArray(savedBoardsResult.value.savedBoards)
+        ? savedBoardsResult.value.savedBoards
+        : [],
     };
-    setDashboardState(state);
-    fillProfileForm(profile);
-    renderStats(profile, state.quiver, state.savedBoards);
-    renderProfileSummary(profile);
-    renderQuiverList(state.quiver);
-    renderSavedBoards(state.savedBoards);
-    renderRecentActivity(profile);
-    renderOnboardingCard(profile);
-    accountSummary.textContent = profile.user && profile.user.email
-      ? "Signed in as " + profile.user.email + "."
-      : "Your My Quivrr identity is active.";
-    updateEntryState(profile);
+
+    setSession({
+      accessToken: session.accessToken,
+      expiresAt: session.expiresAt,
+      profile: profile,
+    });
+    renderDashboardState(state);
     return state;
   }
 
@@ -741,11 +1117,15 @@
     setStatus("");
 
     if (session && session.profile && session.expiresAt > Date.now()) {
-      showStep("account");
+      renderAuthProcessingState(
+        session.profile,
+        "Signed in. Loading your My Quivrr profile.",
+        "We found your session and are pulling your dashboard back in."
+      );
       try {
         await loadDashboard();
       } catch (error) {
-        setStatus("My Quivrr could not load right now. Please try again.");
+        renderCachedAuthenticatedState(session, "Signed in. Some My Quivrr details are still loading.");
       }
       return;
     }
@@ -775,11 +1155,11 @@
     const verifier = randomString(48);
     const state = randomString(24);
     const challenge = base64Url(await sha256(verifier));
-    sessionStorage.setItem(PKCE_KEY, JSON.stringify({
+    setPkceState({
       verifier: verifier,
       state: state,
       returnTo: window.location.href.split("#")[0],
-    }));
+    });
 
     const params = new URLSearchParams({
       client_id: config.clientId,
@@ -790,6 +1170,14 @@
       state: state,
       code_challenge: challenge,
       code_challenge_method: "S256",
+    });
+    Object.entries(provider.queryParameters || {}).forEach(function (entry) {
+      const key = entry[0];
+      const value = entry[1];
+      if (value === undefined || value === null || value === "") {
+        return;
+      }
+      params.set(key, value);
     });
     if (provider.authorizeUrl) {
       const targetUrl = provider.authorizeUrl.indexOf("?") === -1
@@ -804,12 +1192,13 @@
 
   async function exchangeCode(code, state) {
     const config = authConfig();
-    const pkce = JSON.parse(sessionStorage.getItem(PKCE_KEY) || "{}");
+    const pkce = getPkceState();
     if (!pkce.verifier || pkce.state !== state) {
       throw new Error("Sign-in state could not be verified.");
     }
 
-    const response = await fetch(config.authority + "/oauth2/v2.0/token", {
+    const tokenEndpoint = config.tokenEndpoint || (config.authority + "/oauth2/v2.0/token");
+    const response = await fetch(tokenEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
@@ -823,28 +1212,94 @@
     });
 
     if (!response.ok) {
-      throw new Error("Token exchange failed.");
+      const errorText = await response.text().catch(function () { return ""; });
+      const error = new Error("Token exchange failed.");
+      error.status = response.status;
+      error.body = errorText;
+      throw error;
     }
 
     const token = await response.json();
-    const accessToken = token.access_token;
-    if (!accessToken) {
-      throw new Error("No access token returned by Entra External ID.");
+    const tokenCandidates = [];
+    if (token.access_token) {
+      tokenCandidates.push({
+        kind: "access_token",
+        value: token.access_token,
+      });
+    }
+    if (token.id_token && token.id_token !== token.access_token) {
+      tokenCandidates.push({
+        kind: "id_token",
+        value: token.id_token,
+      });
+    }
+    if (!tokenCandidates.length) {
+      throw new Error("No usable token returned by Entra External ID.");
     }
 
-    const me = await callApi("/api/me", { accessToken: accessToken });
-    setSession({
-      accessToken: accessToken,
-      expiresAt: Date.now() + ((token.expires_in || 3600) * 1000),
-      profile: me,
-    });
-    sessionStorage.removeItem(PKCE_KEY);
-    updateEntryState(me);
-    window.history.replaceState({}, document.title, pkce.returnTo || window.location.pathname);
-    modal.hidden = false;
+    var provisionalProfile = provisionalProfileFromClaims(tokenCandidates);
+    var provisionalToken = token.access_token || tokenCandidates[0].value;
+    var provisionalSession = null;
+    if (provisionalProfile && provisionalToken) {
+      provisionalSession = persistValidatedSession(provisionalToken, token.expires_in || 3600, provisionalProfile);
+      clearPkceState();
+      clearAuthParamsFromUrl(pkce.returnTo || window.location.pathname);
+      modal.hidden = false;
+      body.style.overflow = "hidden";
+      renderAuthProcessingState(
+        provisionalSession.profile,
+        "Finishing sign-in. Your My Quivrr profile is loading.",
+        "Your account is confirmed. We are validating the session and loading the dashboard now."
+      );
+    }
 
-    showStep("account");
-    await loadDashboard();
+    var me = null;
+    var validatedToken = null;
+    var apiError = null;
+    window.__quivrrLastTokenPreview = tokenCandidates.map(function (candidate) {
+      return {
+        kind: candidate.kind,
+        claims: decodeJwtPayload(candidate.value),
+      };
+    });
+
+    for (const candidate of tokenCandidates) {
+      try {
+        me = await retryAuthRequest(function () {
+          return callApi("/api/me", { accessToken: candidate.value });
+        }, { attempts: 4, baseDelayMs: 900 });
+        validatedToken = candidate.value;
+        window.__quivrrLastValidatedTokenKind = candidate.kind;
+        break;
+      } catch (error) {
+        apiError = error;
+        window.__quivrrLastRejectedTokenKind = candidate.kind;
+      }
+    }
+
+    if (!me || !validatedToken) {
+      throw apiError || new Error("My Quivrr API request failed after token exchange.");
+    }
+
+    const session = persistValidatedSession(validatedToken, token.expires_in || 3600, me);
+    clearPkceState();
+    clearAuthParamsFromUrl(pkce.returnTo || window.location.pathname);
+    modal.hidden = false;
+    body.style.overflow = "hidden";
+
+    renderAuthProcessingState(
+      session.profile,
+      "Signed in. Loading your My Quivrr profile.",
+      "Your account is active. We are loading your profile, quiver and saved boards."
+    );
+    try {
+      await loadDashboard();
+    } catch (error) {
+      if (error && error.status === 401) {
+        throw error;
+      }
+      renderCachedAuthenticatedState(session, "Signed in. Your My Quivrr panels are still waking up.");
+    }
     if (!me.profileComplete) {
       setStatus("Optional, but useful. Add a few surfing details whenever you are ready.");
     }
@@ -1049,6 +1504,11 @@
       }
     }
     clearSession();
+    setDashboardState({
+      profile: null,
+      quiver: [],
+      savedBoards: [],
+    });
     updateEntryState(null);
     hideQuiverEditor();
     closeModal();
@@ -1073,19 +1533,51 @@
     const state = params.get("state");
     if (!code || !state) {
       const session = getSession();
-      if (session && session.expiresAt > Date.now()) {
+      if (isSessionValid(session)) {
         updateEntryState(session.profile);
+        try {
+          await loadDashboard();
+          clearAuthParamsFromUrl();
+        } catch (error) {
+          if (error && error.status === 401) {
+            clearSession();
+            updateEntryState(null);
+          } else {
+            renderCachedAuthenticatedState(session);
+          }
+        }
       }
       return;
     }
 
     try {
+      modal.hidden = false;
+      body.style.overflow = "hidden";
+      renderAuthProcessingState(
+        null,
+        "Signing you in to My Quivrr...",
+        "We are confirming your sign-in and loading your dashboard."
+      );
       await exchangeCode(code, state);
     } catch (error) {
+      console.error("My Quivrr auth callback failed", error);
+      window.__quivrrLastAuthError = {
+        message: error && error.message ? error.message : "Unknown callback error",
+        status: error && error.status ? error.status : null,
+        body: error && error.body ? error.body : "",
+        when: new Date().toISOString(),
+        url: window.location.href,
+      };
+      const session = getSession();
+      if (session && session.profile && error && error.status !== 401) {
+        renderCachedAuthenticatedState(session, "Signed in. Some My Quivrr requests are still retrying.");
+        clearAuthParamsFromUrl();
+        return;
+      }
       clearSession();
       modal.hidden = false;
       showStep("providers");
-      setStatus(isConfigured(authConfig()) ? "Sign-in could not be completed. Please try again." : signInDisabledMessage());
+      setStatus(isConfigured(authConfig()) ? authErrorMessage("Sign-in could not be completed.", error) : signInDisabledMessage());
     }
   }
 
