@@ -4181,3 +4181,50 @@ html[data-theme="dark"] .retailer-enquiry-form textarea {
   }
 }
 
+
+.my-quivrr-provider-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem;
+  min-width: 0;
+}
+
+.my-quivrr-provider-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.92);
+}
+
+.my-quivrr-provider-icon svg {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.my-quivrr-provider-meta {
+  color: var(--slate);
+  font-family: "Courier Prime", monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.my-quivrr-provider-google {
+  background: rgba(255,255,255,0.12);
+}
+
+.my-quivrr-provider-email {
+  background: rgba(118,228,208,0.12);
+  color: rgba(118,228,208,0.96);
+}
+
+.my-quivrr-provider-microsoft {
+  background: rgba(118,228,208,0.16);
+}
